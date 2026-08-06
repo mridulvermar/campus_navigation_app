@@ -1,0 +1,382 @@
+{
+  "campusInfo": {
+    "name": "Main University Campus",
+    "bounds": [[0, 0], [1000, 1000]],
+    "scaleFactorMetersPerPixel": 0.8
+  },
+  "nodes": [
+    {
+      "id": "gate_main",
+      "name": "North Main Entrance Gate",
+      "code": "GATE-01",
+      "category": "Bus Stop",
+      "coords": [940, 510],
+      "polygon": [[925, 480], [955, 480], [955, 540], [925, 540]],
+      "description": "Primary vehicle and pedestrian entrance to the university campus with security checkpost and central bus stop.",
+      "workingHours": "24/7 Active",
+      "departments": ["Campus Security", "Transport Hub"],
+      "floors": ["Ground Level: Security Control & Information Desk"],
+      "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "admin_block",
+      "name": "Vice Chancellor Administration Block",
+      "code": "ADM-01",
+      "category": "Administration Block",
+      "coords": [240, 480],
+      "polygon": [[210, 430], [270, 430], [270, 530], [210, 530]],
+      "description": "Central administrative building housing executive office, registrar, admissions office, and finance division.",
+      "workingHours": "09:00 AM - 05:30 PM",
+      "departments": ["Registrar Office", "Admissions & Aid", "Finance & Accounts", "HR Division"],
+      "floors": [
+        "Ground Floor: Visitor Reception & Help Desk",
+        "1st Floor: Admissions & Student Accounts",
+        "2nd Floor: Vice Chancellor & Executive Suites"
+      ],
+      "image": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "academic_block_a",
+      "name": "Sir M. Visvesvaraya Engineering Academic Block",
+      "code": "AB-01",
+      "category": "Academic Buildings",
+      "coords": [470, 340],
+      "polygon": [[420, 290], [520, 290], [520, 390], [420, 390]],
+      "description": "Primary academic building containing state-of-the-art lecture halls, Computer Science labs, and AI research wings.",
+      "workingHours": "08:00 AM - 08:00 PM",
+      "departments": ["Computer Science & Engineering", "Artificial Intelligence & Data Science", "Software Engineering"],
+      "floors": [
+        "Ground Floor: High Performance Computing Lab 1-4",
+        "1st Floor: AI & Robotics Innovation Center",
+        "2nd Floor: CS Department Faculty & Research Labs",
+        "3rd Floor: Advanced Cyber Security Wing"
+      ],
+      "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "academic_block_b",
+      "name": "Aryabhata Science & Innovation Complex",
+      "code": "AB-02",
+      "category": "Academic Buildings",
+      "coords": [470, 460],
+      "polygon": [[420, 410], [520, 410], [520, 510], [420, 510]],
+      "description": "Interdisciplinary research facility dedicated to Nanotechnology, Applied Physics, and Biotechnology studies.",
+      "workingHours": "08:00 AM - 09:00 PM",
+      "departments": ["Physics & Nanotech", "Biotechnology", "Chemistry & Material Science"],
+      "floors": [
+        "Ground Floor: Material Characterization Lab",
+        "1st Floor: Biotechnology & Genomics Facility",
+        "2nd Floor: Advanced Optics & Laser Physics Suite"
+      ],
+      "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "central_library",
+      "name": "Dr. APJ Abdul Kalam Central Library",
+      "code": "LIB-01",
+      "category": "Library",
+      "coords": [360, 400],
+      "polygon": [[330, 370], [390, 370], [390, 430], [330, 430]],
+      "description": "5-story digital library with over 150,000 volumes, 24/7 quiet study zones, VR learning pods, and research archives.",
+      "workingHours": "07:00 AM - 11:00 PM (24/7 during Exams)",
+      "departments": ["Central Archival Division", "Digital Repository", "Research Journal Subscriptions"],
+      "floors": [
+        "Ground Floor: Periodicals & Discussion Pods",
+        "1st Floor: Engineering & Science Stack",
+        "2nd Floor: Humanities & Social Sciences",
+        "3rd Floor: Digital Library & VR Media Lab",
+        "4th Floor: Silent Research Carrels"
+      ],
+      "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "sports_complex",
+      "name": "Olympia Athletics & Indoor Sports Center",
+      "code": "SPC-01",
+      "category": "Sports Complex",
+      "coords": [420, 160],
+      "polygon": [[320, 120], [520, 120], [520, 200], [320, 200]],
+      "description": "Comprehensive sports arena including a 400m synthetic running track, indoor badminton courts, Olympic pool, and gym.",
+      "workingHours": "06:00 AM - 09:30 PM",
+      "departments": ["Department of Physical Education", "Athletic Training Center"],
+      "floors": [
+        "Ground Level: 400m Running Track, Football Pitch & Tennis Courts",
+        "Indoor Facility: Swimming Pool, Badminton Courts & Fitness Gym"
+      ],
+      "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "cafeteria_main",
+      "name": "Central Campus Food Court & Dining Pavilion",
+      "code": "CAF-01",
+      "category": "Cafeteria",
+      "coords": [360, 480],
+      "polygon": [[335, 455], [385, 455], [385, 505], [335, 505]],
+      "description": "Multi-cuisine food court offering organic meals, coffee kiosks, fresh bakery items, and student lounge area.",
+      "workingHours": "07:30 AM - 10:00 PM",
+      "departments": ["Student Dining Services", "Campus Catering"],
+      "floors": [
+        "Ground Floor: Multi-Cuisine Food Stalls & Espresso Bar",
+        "1st Floor: Terrace Lounge & Faculty Dining Room"
+      ],
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "auditorium_main",
+      "name": "Grand University Convention Center & Auditorium",
+      "code": "AUD-01",
+      "category": "Auditorium",
+      "coords": [120, 290],
+      "polygon": [[80, 240], [160, 240], [160, 340], [80, 340]],
+      "description": "State-of-the-art 2,500 seat auditorium equipped with Dolby Atmos acoustics for convocations, summits, and cultural galas.",
+      "workingHours": "Event Specific (08:00 AM - 10:00 PM)",
+      "departments": ["Cultural Events Committee", "University Events Management"],
+      "floors": [
+        "Ground Floor: Main Auditorium Hall & Stage",
+        "1st Floor: Balcony Seating & VIP Lounge"
+      ],
+      "image": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "hostel_north_block",
+      "name": "Bhabha Student Residential Hostel Block A & B",
+      "code": "HST-A",
+      "category": "Hostel",
+      "coords": [840, 180],
+      "polygon": [[780, 110], [900, 110], [900, 250], [780, 250]],
+      "description": "Modern student residential complex featuring high-speed Wi-Fi, study lounges, laundry facilities, and indoor game rooms.",
+      "workingHours": "24/7 Resident Access",
+      "departments": ["Hostel Warden Office", "Student Housing Division"],
+      "floors": [
+        "Ground Floor: Warden Office, Recreation Room & Laundry",
+        "Floors 1-5: Student Residence Rooms"
+      ],
+      "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "hostel_south_block",
+      "name": "Sarojini Naidu Women's Hostel Complex",
+      "code": "HST-B",
+      "category": "Hostel",
+      "coords": [140, 680],
+      "polygon": [[90, 600], [190, 600], [190, 760], [90, 760]],
+      "description": "Secure residential complex for undergraduate and postgraduate women students with dedicated dining mess and courtyard.",
+      "workingHours": "24/7 Resident Access",
+      "departments": ["Hostel Warden Office", "Women's Housing Administration"],
+      "floors": [
+        "Ground Floor: Dining Hall, Visitor Lounge & Warden Desk",
+        "Floors 1-4: Student Dormitories"
+      ],
+      "image": "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "medical_center",
+      "name": "Campus Wellness & Emergency Medical Center",
+      "code": "MED-01",
+      "category": "Medical Centre",
+      "coords": [160, 480],
+      "polygon": [[135, 450], [185, 450], [185, 510], [135, 510]],
+      "description": "Full-service health clinic providing 24/7 emergency response, doctor consultations, pharmacy, and ambulance service.",
+      "workingHours": "24/7 Emergency Care",
+      "departments": ["Emergency Medicine", "General Medicine & Outpatient", "Pharmacy"],
+      "floors": [
+        "Ground Floor: Emergency Triage, OPD Clinics & Pharmacy"
+      ],
+      "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "parking_north",
+      "name": "North Gate Visitor & Student Parking P1",
+      "code": "PRK-01",
+      "category": "Parking",
+      "coords": [880, 580],
+      "polygon": [[840, 540], [920, 540], [920, 630], [840, 630]],
+      "description": "Shaded multi-level parking facility for cars, two-wheelers, and electric vehicle EV charging stations.",
+      "workingHours": "24/7 Open",
+      "departments": ["Campus Parking Management"],
+      "floors": [
+        "Ground Level: EV Charging Stations & Two-Wheelers",
+        "Level 1: Four-Wheeler Car Parking"
+      ],
+      "image": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "parking_south",
+      "name": "South Academic Staff Parking P2",
+      "code": "PRK-02",
+      "category": "Parking",
+      "coords": [180, 200],
+      "polygon": [[140, 160], [220, 160], [220, 240], [140, 240]],
+      "description": "Reserved parking lot for faculty members, administrative staff, and university fleet buses.",
+      "workingHours": "06:00 AM - 10:00 PM",
+      "departments": ["Staff Vehicle Control"],
+      "floors": ["Ground Level: Reserved Staff Bays"],
+      "image": "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "bus_stop_main",
+      "name": "Central Campus Shuttle Bus Station",
+      "code": "BUS-01",
+      "category": "Bus Stop",
+      "coords": [660, 520],
+      "polygon": [[640, 490], [680, 490], [680, 550], [640, 550]],
+      "description": "Primary transit node for electric campus shuttles connecting residential hostels, academic blocks, and main gate.",
+      "workingHours": "07:00 AM - 09:30 PM",
+      "departments": ["Electric Transit Services"],
+      "floors": ["Ground Level: Covered Passenger Shelters"],
+      "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "int_north_main",
+      "name": "North Gate Junction",
+      "code": "INT-01",
+      "category": "Intersection",
+      "coords": [880, 520],
+      "polygon": [],
+      "description": "Major road intersection near North Gate.",
+      "workingHours": "24/7",
+      "departments": [],
+      "floors": []
+    },
+    {
+      "id": "int_central_cross",
+      "name": "Central Campus Boulevard Crossroad",
+      "code": "INT-02",
+      "category": "Intersection",
+      "coords": [470, 520],
+      "polygon": [],
+      "description": "Central nexus connecting Academic Blocks, Library, and Bus Station.",
+      "workingHours": "24/7",
+      "departments": [],
+      "floors": []
+    },
+    {
+      "id": "int_south_cross",
+      "name": "South Quad Avenue Junction",
+      "code": "INT-03",
+      "category": "Intersection",
+      "coords": [240, 520],
+      "polygon": [],
+      "description": "Intersection connecting Administration Block, Medical Center, and Women's Hostel.",
+      "workingHours": "24/7",
+      "departments": [],
+      "floors": []
+    },
+    {
+      "id": "int_west_sports",
+      "name": "Sports Quad Road Junction",
+      "code": "INT-04",
+      "category": "Intersection",
+      "coords": [470, 240],
+      "polygon": [],
+      "description": "Access road junction for Sports Complex and West Academic Quad.",
+      "workingHours": "24/7",
+      "departments": [],
+      "floors": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "gate_main",
+      "target": "int_north_main",
+      "weight": 80,
+      "instruction": "Head South from North Gate toward North Gate Junction."
+    },
+    {
+      "source": "int_north_main",
+      "target": "parking_north",
+      "weight": 70,
+      "instruction": "Turn East into North Visitor Parking P1."
+    },
+    {
+      "source": "int_north_main",
+      "target": "hostel_north_block",
+      "weight": 280,
+      "instruction": "Walk West along Residential Drive toward Bhabha Hostel Block."
+    },
+    {
+      "source": "int_north_main",
+      "target": "bus_stop_main",
+      "weight": 220,
+      "instruction": "Continue South along Main Campus Boulevard toward Central Bus Station."
+    },
+    {
+      "source": "bus_stop_main",
+      "target": "int_central_cross",
+      "weight": 190,
+      "instruction": "Proceed South along Main Boulevard to Central Campus Crossroad."
+    },
+    {
+      "source": "int_central_cross",
+      "target": "academic_block_b",
+      "weight": 90,
+      "instruction": "Turn West onto Science Plaza toward Aryabhata Science Block."
+    },
+    {
+      "source": "academic_block_b",
+      "target": "academic_block_a",
+      "weight": 120,
+      "instruction": "Walk West across the Academic Courtyard to Visvesvaraya Engineering Block."
+    },
+    {
+      "source": "academic_block_a",
+      "target": "int_west_sports",
+      "weight": 110,
+      "instruction": "Walk West toward Sports Quad Junction."
+    },
+    {
+      "source": "int_west_sports",
+      "target": "sports_complex",
+      "weight": 100,
+      "instruction": "Proceed North along Stadium Drive to Olympia Athletics Center."
+    },
+    {
+      "source": "academic_block_a",
+      "target": "central_library",
+      "weight": 130,
+      "instruction": "Walk South along Knowledge Way to Kalam Central Library."
+    },
+    {
+      "source": "academic_block_b",
+      "target": "cafeteria_main",
+      "weight": 110,
+      "instruction": "Walk South along Dining Promenade to Central Food Court."
+    },
+    {
+      "source": "int_central_cross",
+      "target": "int_south_cross",
+      "weight": 230,
+      "instruction": "Continue South along Main Boulevard to South Quad Avenue Junction."
+    },
+    {
+      "source": "int_south_cross",
+      "target": "admin_block",
+      "weight": 60,
+      "instruction": "Turn West into Vice Chancellor Administration Block."
+    },
+    {
+      "source": "int_south_cross",
+      "target": "medical_center",
+      "weight": 50,
+      "instruction": "Turn East into Emergency Medical Center."
+    },
+    {
+      "source": "admin_block",
+      "target": "auditorium_main",
+      "weight": 210,
+      "instruction": "Walk West along Convention Drive to Grand University Auditorium."
+    },
+    {
+      "source": "auditorium_main",
+      "target": "parking_south",
+      "weight": 110,
+      "instruction": "Walk North to Staff Parking P2."
+    },
+    {
+      "source": "int_south_cross",
+      "target": "hostel_south_block",
+      "weight": 200,
+      "instruction": "Walk South-East along Hostel Road to Sarojini Naidu Women's Hostel."
+    }
+  ]
+}

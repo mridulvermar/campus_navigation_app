@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+/* Glassmorphism Design System */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(11, 15, 25, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+.glass-card {
+  @apply rounded-2xl transition-all duration-300 border relative overflow-hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(6, 182, 212, 0.2);
+}
+
+.glass-input {
+  @apply bg-slate-100/80 dark:bg-slate-900/70 border border-slate-300/80 dark:border-slate-700/60 rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/60 transition-all duration-200;
+}
+
+.btn-gradient {
+  @apply bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:from-cyan-400 hover:via-indigo-400 hover:to-purple-500 text-white font-semibold shadow-lg shadow-cyan-500/25 active:scale-95 transition-all duration-200 rounded-xl px-5 py-2.5 cursor-pointer flex items-center justify-center gap-2;
+}
+
+.btn-secondary {
+  @apply bg-slate-200/80 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold border border-slate-300/50 dark:border-slate-700/50 active:scale-95 transition-all duration-200 rounded-xl px-4 py-2.5 cursor-pointer flex items-center justify-center gap-2;
+}
+
+/* Animations */
+.animate-spin-slow {
+  animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Leaflet Custom Styling & Animations */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background: #0b0f19 !important;
+  z-index: 10;
+}
+
+.user-pulse-marker {
+  width: 22px;
+  height: 22px;
+  background: #06b6d4;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #06b6d4;
+  position: relative;
+}
+
+.user-pulse-marker::after {
+  content: '';
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  top: -14px;
+  left: -14px;
+  border-radius: 50%;
+  background: rgba(6, 182, 212, 0.45);
+  animation: pulse 2s infinite ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.6);
+}
+
+/* Animated SVG Route Path */
+.animate-dash-route {
+  stroke-dasharray: 12;
+  animation: dashRoute 20s linear infinite;
+}
+
+@keyframes dashRoute {
+  from {
+    stroke-dashoffset: 500;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
