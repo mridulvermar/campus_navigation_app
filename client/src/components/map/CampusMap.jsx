@@ -4,8 +4,9 @@ import L from 'leaflet';
 import { useSocket } from '../../context/SocketContext';
 import { useNavigation } from '../../context/NavigationContext';
 import { MOCK_BUILDINGS } from '../../data/mockData';
+import { apiService } from '../../services/api';
 import { Badge } from '../common/Badge';
-import { Navigation, Clock, Shield, Flame, Compass, Users } from 'lucide-react';
+import { Navigation, Clock, Shield, Flame, Compass, Users, CalendarCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // Custom SVG Building Icon Generator
@@ -61,12 +62,28 @@ const MapController = ({ center }) => {
 export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) => {
   const { spatialLocation } = useSocket();
   const { activeRoute, calculateRoute, setSourceBuilding, setDestBuilding } = useNavigation();
+  const [buildings, setBuildings] = useState(MOCK_BUILDINGS);
   const [selectedBuilding, setSelectedBuilding] = useState(MOCK_BUILDINGS[0]);
   const navigate = useNavigate();
 
-  const filteredBuildings = MOCK_BUILDINGS.filter((b) => {
+  useEffect(() => {
+    const loadMapBuildings = async () => {
+      try {
+        const res = await apiService.getBuildings();
+        if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
+          setBuildings(res.data);
+          setSelectedBuilding(res.data[0]);
+        }
+      } catch (err) {
+        console.error('[CampusMap] Load buildings error:', err);
+      }
+    };
+    loadMapBuildings();
+  }, []);
+
+  const filteredBuildings = buildings.filter((b) => {
     const matchesCat = !selectedCategory || selectedCategory === 'All' || b.category === selectedCategory;
-    const matchesSearch = !searchQuery || b.name.toLowerCase().includes(searchQuery.toLowerCase()) || b.code.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = !searchQuery || (b.name || '').toLowerCase().includes(searchQuery.toLowerCase()) || (b.code || '').toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
 
@@ -76,10 +93,14 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
   };
 
   const handleStartNavigation = (dest) => {
-    setSourceBuilding(MOCK_BUILDINGS[2]); // Eng quad
+    setSourceBuilding(buildings[0]);
     setDestBuilding(dest);
-    calculateRoute(MOCK_BUILDINGS[2], dest);
+    calculateRoute(buildings[0], dest);
     navigate('/navigation');
+  };
+
+  const handleGoToBookings = (buildingCode) => {
+    navigate(`/bookings?building=${encodeURIComponent(buildingCode)}`);
   };
 
   return (
@@ -127,13 +148,21 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 mb-1 font-display">{b.name}</h4>
                 <p className="text-xs text-slate-600 line-clamp-2 mb-3">{b.description}</p>
-                <div className="flex items-center justify-between text-xs border-t pt-2 text-slate-600">
-                  <span>Hours: {b.openingHours}</span>
+                <div className="flex flex-col gap-1.5 border-t pt-2 text-slate-600">
+                  <div className="flex items-center justify-between text-xs">
+                    <span>Hours: {b.openingHours}</span>
+                    <button
+                      onClick={() => handleStartNavigation(b)}
+                      className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-700 font-display cursor-pointer"
+                    >
+                      <Navigation className="w-3.5 h-3.5" /> Route Here
+                    </button>
+                  </div>
                   <button
-                    onClick={() => handleStartNavigation(b)}
-                    className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-700 font-display cursor-pointer"
+                    onClick={() => handleGoToBookings(b.code)}
+                    className="w-full mt-1 py-1 px-2 rounded bg-cyan-600 text-white text-[11px] font-bold flex items-center justify-center gap-1"
                   >
-                    <Navigation className="w-3.5 h-3.5" /> Route Here
+                    <CalendarCheck className="w-3 h-3" /> Book Classrooms in {b.code}
                   </button>
                 </div>
               </div>
@@ -178,7 +207,13 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
               onClick={() => handleStartNavigation(selectedBuilding)}
               className="flex-1 btn-gradient py-2 rounded-xl text-xs font-bold font-display flex items-center justify-center gap-1.5 shadow-glow-cyan"
             >
-              <Navigation className="w-4 h-4" /> Start Turn-by-Turn Navigation
+              <Navigation className="w-4 h-4" /> Start Route
+            </button>
+            <button
+              onClick={() => handleGoToBookings(selectedBuilding.code)}
+              className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-xl text-xs font-bold font-display flex items-center justify-center gap-1.5 transition-colors"
+            >
+              <CalendarCheck className="w-4 h-4" /> Book Rooms
             </button>
           </div>
         </div>
@@ -186,3 +221,4 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
     </div>
   );
 };
+

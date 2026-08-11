@@ -136,52 +136,303 @@ const seedDatabase = async () => {
           { floor: 1, locationName: 'Main Lobby Doors' },
           { floor: 1, locationName: 'Backstage Fire Door' }
         ]
+      },
+      {
+        name: 'Biotechnology & Life Sciences Complex',
+        code: 'BIO-LIFE',
+        description: 'Genomics research facility, bio-incubators, molecular biology labs, and greenhouse terrariums.',
+        latitude: 37.775200,
+        longitude: -122.416800,
+        floorCount: 4,
+        category: 'Research',
+        openingHours: '08:00 AM - 09:00 PM',
+        image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800',
+        amenities: ['DNA Sequencer Lab', 'Greenhouse', 'Autoclave Room', 'Cold Storage'],
+        emergencyExits: [
+          { floor: 1, locationName: 'Bio Hazard Safety Exit West' }
+        ]
+      },
+      {
+        name: 'Olympia Athletics & Indoor Sports Center',
+        code: 'SPC-01',
+        description: 'Indoor basketball courts, Olympic swimming pool, synthetic track, and fitness gym.',
+        latitude: 37.772200,
+        longitude: -122.419800,
+        floorCount: 2,
+        category: 'Sports',
+        openingHours: '06:00 AM - 10:00 PM',
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800',
+        amenities: ['Olympic Pool', 'Fitness Gym', 'Badminton Courts', 'Locker Rooms'],
+        emergencyExits: [
+          { floor: 1, locationName: 'Track Stadium Gate' }
+        ]
+      },
+      {
+        name: 'Vice Chancellor Administration Block',
+        code: 'ADM-01',
+        description: 'University administration, registrar offices, admissions counter, and finance division.',
+        latitude: 37.776800,
+        longitude: -122.419000,
+        floorCount: 3,
+        category: 'Academic',
+        openingHours: '09:00 AM - 05:30 PM',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800',
+        amenities: ['Admissions Counter', 'Help Desk', 'Boardroom', 'Visitor Lounge'],
+        emergencyExits: [
+          { floor: 1, locationName: 'East Plaza Gate' }
+        ]
+      },
+      {
+        name: 'Center for Design & Media Arts',
+        code: 'DMA-STUDIO',
+        description: 'Digital art studios, sound engineering booths, green screen VR stages, and animation suites.',
+        latitude: 37.774200,
+        longitude: -122.417800,
+        floorCount: 3,
+        category: 'Academic',
+        openingHours: '08:00 AM - 10:00 PM',
+        image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&q=80&w=800',
+        amenities: ['Audio Recording Studio', 'Green Screen Stage', 'Mac Editing Suites'],
+        emergencyExits: [
+          { floor: 1, locationName: 'Studio Fire Exit' }
+        ]
+      },
+      {
+        name: 'Campus Wellness & Emergency Medical Center',
+        code: 'MED-01',
+        description: '24/7 student health clinic, pharmacy, emergency room, and mental wellness counseling.',
+        latitude: 37.773200,
+        longitude: -122.422200,
+        floorCount: 2,
+        category: 'Academic',
+        openingHours: '24/7 Emergency Care',
+        image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
+        amenities: ['24/7 Pharmacy', 'Ambulance Bay', 'Triage Ward', 'Doctor Consult Rooms'],
+        emergencyExits: [
+          { floor: 1, locationName: 'Ambulance Emergency Ramp' }
+        ]
       }
     ]);
 
     console.log('[Seed] Inserting seed Rooms...');
     const rooms = await Room.insertMany([
+      // Science Block A Classrooms & Labs
       {
-        roomNumber: 'A-301',
+        roomNumber: 'SCI-101 Physics Cleanroom Lab',
         building: buildings[0]._id,
-        floor: 3,
-        capacity: 45,
+        floor: 1,
+        capacity: 25,
         availability: true,
-        currentOccupancy: 12,
-        category: 'Classroom',
-        facilities: ['Smart Board', 'Projector', 'Air Conditioning', 'Power Outlets']
+        currentOccupancy: 10,
+        category: 'Labs',
+        facilities: ['Laser Tables', 'Cleanroom Suits', 'Fume Hoods', 'Power Outlets']
       },
       {
-        roomNumber: 'A-102 (Clean Lab)',
+        roomNumber: 'SCI-102 Nanotechnology Research Unit',
         building: buildings[0]._id,
         floor: 1,
         capacity: 20,
         availability: true,
         currentOccupancy: 18,
         category: 'Labs',
-        facilities: ['Fume Hoods', '3D Printers', 'Microscopes', 'Safety Shower']
+        facilities: ['Microscopes', '3D Printers', 'Fume Hoods', 'Safety Shower']
       },
       {
-        roomNumber: 'Seminar Room 204',
-        building: buildings[1]._id,
+        roomNumber: 'SCI-201 Robotics Interactive Classroom',
+        building: buildings[0]._id,
+        floor: 2,
+        capacity: 50,
+        availability: true,
+        currentOccupancy: 22,
+        category: 'Classroom',
+        facilities: ['Robotics Test Track', 'Smart Board', 'Dual 4K Displays', 'WiFi 6']
+      },
+      {
+        roomNumber: 'SCI-301 Advanced AI Lecture Hall',
+        building: buildings[0]._id,
+        floor: 3,
+        capacity: 75,
+        availability: true,
+        currentOccupancy: 35,
+        category: 'Classroom',
+        facilities: ['Tiered Seating', 'Surround Audio', 'HD Projector', 'AC']
+      },
+
+      // Engineering Quad B Classrooms & Computer Labs
+      {
+        roomNumber: 'ENG-101 High Performance Computing Lab',
+        building: buildings[2]._id,
+        floor: 1,
+        capacity: 40,
+        availability: true,
+        currentOccupancy: 28,
+        category: 'Labs',
+        facilities: ['GPU Workstations', 'Dual Monitors', 'Fiber Internet', 'AC']
+      },
+      {
+        roomNumber: 'ENG-102 Cloud & Cyber Security Lab',
+        building: buildings[2]._id,
+        floor: 1,
+        capacity: 45,
+        availability: true,
+        currentOccupancy: 15,
+        category: 'Labs',
+        facilities: ['Server Racks', 'Cisco Routers', 'Smart Board', 'Power Outlets']
+      },
+      {
+        roomNumber: 'ENG-201 Software Engineering Classroom',
+        building: buildings[2]._id,
         floor: 2,
         capacity: 60,
         availability: true,
-        currentOccupancy: 35,
-        category: 'Seminar Hall',
-        facilities: ['Video Conferencing', 'Dual Displays', 'Mic Array']
+        currentOccupancy: 42,
+        category: 'Classroom',
+        facilities: ['Smart Screen', 'Lectern Mic', 'Whiteboard', 'Air Conditioning']
       },
       {
-        roomNumber: 'Main Stage Hall',
+        roomNumber: 'ENG-301 Electrical Circuit Design Lab',
+        building: buildings[2]._id,
+        floor: 3,
+        capacity: 35,
+        availability: true,
+        currentOccupancy: 19,
+        category: 'Labs',
+        facilities: ['Oscilloscopes', 'Soldering Stations', 'Function Generators']
+      },
+
+      // Main Central Library Seminar Rooms & Study Pods
+      {
+        roomNumber: 'LIB-101 Silent Study Pod Alpha',
+        building: buildings[1]._id,
+        floor: 1,
+        capacity: 10,
+        availability: true,
+        currentOccupancy: 4,
+        category: 'Library Rooms',
+        facilities: ['Soundproof Walls', 'OLED Screen', 'Whiteboard', 'Quiet Zone']
+      },
+      {
+        roomNumber: 'LIB-102 Digital Media & VR Study Pod',
+        building: buildings[1]._id,
+        floor: 1,
+        capacity: 15,
+        availability: true,
+        currentOccupancy: 8,
+        category: 'Library Rooms',
+        facilities: ['VR Headsets', '4K TV', 'Conference Cam', 'Air Conditioning']
+      },
+      {
+        roomNumber: 'LIB-201 Research Scholar Seminar Room',
+        building: buildings[1]._id,
+        floor: 2,
+        capacity: 50,
+        availability: true,
+        currentOccupancy: 30,
+        category: 'Seminar Hall',
+        facilities: ['Video Conferencing', 'Dual Displays', 'Mic Array', 'Podium']
+      },
+      {
+        roomNumber: 'LIB-301 Archival Reading Classroom',
+        building: buildings[1]._id,
+        floor: 3,
+        capacity: 35,
+        availability: true,
+        currentOccupancy: 12,
+        category: 'Classroom',
+        facilities: ['Document Scanner', 'Smart Board', 'Rare Book Vault Access']
+      },
+
+      // Student Activity & Union Center
+      {
+        roomNumber: 'SAU-101 Student Clubs Assembly Hall',
+        building: buildings[3]._id,
+        floor: 1,
+        capacity: 120,
+        availability: true,
+        currentOccupancy: 60,
+        category: 'Seminar Hall',
+        facilities: ['PA System', 'Stage Platform', 'Projector', 'Flexible Seating']
+      },
+      {
+        roomNumber: 'SAU-102 Outdoor Athletics Turf Field 1',
+        building: buildings[3]._id,
+        floor: 1,
+        capacity: 250,
+        availability: true,
+        currentOccupancy: 45,
+        category: 'Sports Ground',
+        facilities: ['Floodlights', 'Seating Stands', 'Scoreboard', 'Equipment Shed']
+      },
+
+      // Grand Campus Auditorium
+      {
+        roomNumber: 'AUD-101 Grand Main Stage Hall',
         building: buildings[4]._id,
         floor: 1,
         capacity: 1200,
         availability: false,
         currentOccupancy: 850,
         category: 'Auditorium',
-        facilities: ['Sound System', 'Stage Lighting', 'Live Stream Rig']
+        facilities: ['Dolby Atmos', 'Laser Projector', 'Stage Lighting', 'Live Stream Rig']
+      },
+      {
+        roomNumber: 'AUD-201 VIP Conference Suite',
+        building: buildings[4]._id,
+        floor: 2,
+        capacity: 35,
+        availability: true,
+        currentOccupancy: 10,
+        category: 'Meeting Rooms',
+        facilities: ['Executive Lounge', 'Video Conference Rig', 'Catering Table']
+      },
+
+      // Biotech & Life Sciences Complex
+      {
+        roomNumber: 'BIO-101 Genomics & Molecular Biology Lab',
+        building: buildings[5]._id,
+        floor: 1,
+        capacity: 30,
+        availability: true,
+        currentOccupancy: 14,
+        category: 'Labs',
+        facilities: ['DNA Sequencers', 'Centrifuges', 'Incubators', 'Safety Hoods']
+      },
+      {
+        roomNumber: 'BIO-201 Botany & Environmental Science Hall',
+        building: buildings[5]._id,
+        floor: 2,
+        capacity: 55,
+        availability: true,
+        currentOccupancy: 20,
+        category: 'Classroom',
+        facilities: ['Smart Board', 'Microscope Screen Feed', 'Greenhouse Access']
+      },
+
+      // Administration Block
+      {
+        roomNumber: 'ADM-101 Executive Syndicate Boardroom',
+        building: buildings[7]._id,
+        floor: 1,
+        capacity: 30,
+        availability: true,
+        currentOccupancy: 8,
+        category: 'Meeting Rooms',
+        facilities: ['Conference Table', 'Executive Microphones', 'Dual 4K TV']
+      },
+
+      // Design & Media Arts Studio
+      {
+        roomNumber: 'DMA-101 Digital Animation & Sound Suite',
+        building: buildings[8]._id,
+        floor: 1,
+        capacity: 35,
+        availability: true,
+        currentOccupancy: 15,
+        category: 'Labs',
+        facilities: ['Soundproof Recording Booth', 'Green Screen', 'Mac Pro Workstations']
       }
     ]);
+
 
     console.log('[Seed] Inserting seed Assets...');
     const assets = await Asset.insertMany([
