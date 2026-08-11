@@ -9,7 +9,7 @@ const buildingSchema = new mongoose.Schema({
   floorCount: { type: Number, default: 4 },
   category: { 
     type: String, 
-    enum: ['Academic', 'Research', 'Library', 'Sports', 'Admin', 'Dining', 'Auditorium'],
+    enum: ['Academic', 'Research', 'Library', 'Sports', 'Admin', 'Dining', 'Auditorium', 'Hostel', 'Medical', 'Parking'],
     default: 'Academic' 
   },
   openingHours: { type: String, default: '07:30 AM - 10:00 PM' },

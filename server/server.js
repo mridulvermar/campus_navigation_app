@@ -71,10 +71,10 @@ io.on('connection', (socket) => {
 
   // Spatial location simulation emission
   const locationInterval = setInterval(() => {
-    // Slight simulated GPS jitter for spatial localization analytics
+    // Slight simulated GPS jitter around BIT campus for spatial localization
     const simulatedLocation = {
-      latitude: 37.7749 + (Math.random() - 0.5) * 0.002,
-      longitude: -122.4194 + (Math.random() - 0.5) * 0.002,
+      latitude: 11.4960 + (Math.random() - 0.5) * 0.002,
+      longitude: 77.2765 + (Math.random() - 0.5) * 0.002,
       accuracyMeters: Math.floor(Math.random() * 5) + 3,
       timestamp: Date.now()
     };

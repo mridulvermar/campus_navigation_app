@@ -106,8 +106,8 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
   return (
     <div className="relative w-full h-[480px] sm:h-[580px] md:h-[650px] rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl">
       <MapContainer
-        center={[37.774929, -122.419416]}
-        zoom={16}
+        center={[11.4960, 77.2765]}
+        zoom={16.5}
         scrollWheelZoom={true}
         className="w-full h-full"
       >

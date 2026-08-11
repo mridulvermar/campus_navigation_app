@@ -6,8 +6,8 @@ const SocketContext = createContext();
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [spatialLocation, setSpatialLocation] = useState({
-    latitude: 37.774929,
-    longitude: -122.419416,
+    latitude: 11.500344,
+    longitude: 77.277933,
     accuracyMeters: 4,
     timestamp: Date.now()
   });
