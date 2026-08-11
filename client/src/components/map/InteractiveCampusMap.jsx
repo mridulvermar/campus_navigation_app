@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { MapContainer, ImageOverlay, Polygon, Polyline, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Polygon, Polyline, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import campusGraphData from '../../data/campus_graph.json';
 import { categoryIconMap } from './BuildingDetailDrawer';
@@ -75,7 +75,7 @@ const MapController = ({ targetCoords, zoomAction, onZoomHandled }) => {
 
   useEffect(() => {
     if (targetCoords) {
-      map.flyTo(targetCoords, map.getZoom(), { duration: 1.2 });
+      map.flyTo(targetCoords, 17, { duration: 1.2 });
     }
   }, [targetCoords, map]);
 
@@ -83,7 +83,7 @@ const MapController = ({ targetCoords, zoomAction, onZoomHandled }) => {
     if (zoomAction) {
       if (zoomAction === 'in') map.zoomIn();
       if (zoomAction === 'out') map.zoomOut();
-      if (zoomAction === 'fit') map.fitBounds(campusGraphData.campusInfo.bounds);
+      if (zoomAction === 'fit') map.setView([11.4960, 77.2765], 16.5);
       onZoomHandled();
     }
   }, [zoomAction, map, onZoomHandled]);
@@ -98,22 +98,13 @@ export const InteractiveCampusMap = ({
   zoomAction,
   onZoomHandled
 }) => {
-  const bounds = campusGraphData.campusInfo.bounds; // [[0, 0], [1000, 1000]]
-  const satelliteImagePath = '/assets/campus_satellite.jpg';
-
   const buildings = campusGraphData.nodes.filter((n) => n.category !== 'Intersection');
 
   return (
     <div className="relative w-full h-[82vh] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-950">
       <MapContainer
-        crs={L.CRS.Simple}
-        bounds={bounds}
-        maxBounds={bounds}
-        maxBoundsViscosity={0.9}
-        minZoom={-1}
-        maxZoom={3}
-        zoom={0}
-        center={[500, 500]}
+        center={[11.4960, 77.2765]}
+        zoom={16.5}
         scrollWheelZoom={true}
         className="w-full h-full cursor-grab active:cursor-grabbing"
       >
@@ -124,11 +115,10 @@ export const InteractiveCampusMap = ({
           onZoomHandled={onZoomHandled}
         />
 
-        {/* 1. Satellite Map Background Image Overlay */}
-        <ImageOverlay
-          url={satelliteImagePath}
-          bounds={bounds}
-          opacity={0.95}
+        {/* Real-World Map Tile Layer */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         />
 
         {/* 2. Interactive SVG Polygon Building Overlays */}
