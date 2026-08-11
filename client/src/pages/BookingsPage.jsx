@@ -1,16 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MOCK_ROOMS, MOCK_BOOKINGS } from '../data/mockData';
 import { GlassCard } from '../components/common/GlassCard';
 import { BookingForm } from '../components/booking/BookingForm';
 import { QRModal } from '../components/common/QRModal';
-import { CalendarCheck, Building2, Users, Clock, QrCode, Plus, CheckCircle2, Shield } from 'lucide-react';
+import { CalendarCheck, Building2, Users, Clock, QrCode, Plus, CheckCircle2, Shield, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
+import { apiService } from '../services/api';
 
 export const BookingsPage = () => {
   const { user } = useAuth();
+  const { socket } = useSocket();
   const [activeTab, setActiveTab] = useState('myBookings'); // 'myBookings' | 'bookFacility'
   const [selectedRoomForBooking, setSelectedRoomForBooking] = useState(null);
   const [activeQR, setActiveQR] = useState(null);
+
+  const [bookings, setBookings] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBookingsAndRooms = async () => {
+    setLoading(true);
+    try {
+      const [resBookings, resRooms] = await Promise.all([
+        apiService.getMyBookings(),
+        apiService.getRooms()
+      ]);
+
+      const loadedBookings = (resBookings && resBookings.data && Array.isArray(resBookings.data))
+        ? resBookings.data
+        : MOCK_BOOKINGS;
+
+      const loadedRooms = (resRooms && resRooms.data && Array.isArray(resRooms.data))
+        ? resRooms.data
+        : MOCK_ROOMS;
+
+      setBookings(loadedBookings);
+      setRooms(loadedRooms);
+    } catch (err) {
+      console.error('[BookingsPage Error]', err);
+      setBookings(MOCK_BOOKINGS);
+      setRooms(MOCK_ROOMS);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBookingsAndRooms();
+  }, []);
+
+  // Listen for Socket.IO real-time booking updates
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleNewBooking = (newBooking) => {
+      setBookings((prev) => {
+        const exists = prev.some((b) => b._id === newBooking._id);
+        if (exists) return prev;
+        return [newBooking, ...prev];
+      });
+    };
+
+    const handleStatusChange = (updatedBooking) => {
+      setBookings((prev) =>
+        prev.map((b) => (b._id === updatedBooking._id ? { ...b, ...updatedBooking } : b))
+      );
+    };
+
+    socket.on('new_booking_request', handleNewBooking);
+    socket.on('booking_status_change', handleStatusChange);
+
+    return () => {
+      socket.off('new_booking_request', handleNewBooking);
+      socket.off('booking_status_change', handleStatusChange);
+    };
+  }, [socket]);
+
+  const handleBookingCreated = (newBookingData) => {
+    setBookings((prev) => {
+      const exists = prev.some((b) => b._id === newBookingData._id);
+      if (exists) return prev;
+      return [newBookingData, ...prev];
+    });
+    setActiveTab('myBookings');
+  };
 
   return (
     <div className="space-y-6">
@@ -32,7 +106,7 @@ export const BookingsPage = () => {
               activeTab === 'myBookings' ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
             }`}
           >
-            My Reservations
+            My Reservations ({bookings.length})
           </button>
           <button
             onClick={() => setActiveTab('bookFacility')}
@@ -45,50 +119,64 @@ export const BookingsPage = () => {
         </div>
       </div>
 
-      {activeTab === 'myBookings' ? (
+      {loading ? (
+        <GlassCard className="p-8 text-center text-slate-400 flex items-center justify-center gap-2">
+          <Loader2 className="w-5 h-5 animate-spin text-cyan-400" /> Loading reservations & facilities...
+        </GlassCard>
+      ) : activeTab === 'myBookings' ? (
         <div className="space-y-4">
-          {MOCK_BOOKINGS.map((bk) => (
-            <GlassCard key={bk._id} className="p-5">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400">{bk.bookingType}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        bk.status === 'Approved' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                      }`}>
-                        {bk.status}
-                      </span>
-                    </div>
-                    <h3 className="text-base font-bold text-white mt-1">
-                      {bk.asset?.assetName || bk.room?.roomNumber}
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1">{bk.purpose}</p>
-                    <div className="flex items-center gap-4 text-xs text-slate-400 mt-2">
-                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-cyan-400" /> {bk.date} • {bk.startTime} - {bk.endTime}</span>
-                      <span>Duration: {bk.durationHours} hrs</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 w-full md:w-auto border-t md:border-t-0 pt-3 md:pt-0">
-                  <button
-                    onClick={() => setActiveQR(bk.qrCodeData)}
-                    className="flex-1 md:flex-none btn-gradient px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5"
-                  >
-                    <QrCode className="w-4 h-4" /> Show Access QR Code
-                  </button>
-                </div>
-              </div>
+          {bookings.length === 0 ? (
+            <GlassCard className="p-8 text-center text-slate-400">
+              No reservations found. Click "Reserve Campus Room" to place a request.
             </GlassCard>
-          ))}
+          ) : (
+            bookings.map((bk) => (
+              <GlassCard key={bk._id} className="p-5">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                      <Building2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400">{bk.bookingType || 'Facility'}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          bk.status === 'Approved' 
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                            : bk.status === 'Rejected'
+                            ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                        }`}>
+                          {bk.status}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-bold text-white mt-1">
+                        {bk.asset?.assetName || bk.room?.roomNumber || 'Room / Facility Reservation'}
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-1">{bk.purpose}</p>
+                      <div className="flex items-center gap-4 text-xs text-slate-400 mt-2">
+                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-cyan-400" /> {bk.date} • {bk.startTime} - {bk.endTime}</span>
+                        <span>Duration: {bk.durationHours} hrs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 w-full md:w-auto border-t md:border-t-0 pt-3 md:pt-0">
+                    <button
+                      onClick={() => setActiveQR(bk.qrCodeData || `CAMPUS-BOOKING-${bk._id}`)}
+                      className="flex-1 md:flex-none btn-gradient px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5"
+                    >
+                      <QrCode className="w-4 h-4" /> Show Access QR Code
+                    </button>
+                  </div>
+                </div>
+              </GlassCard>
+            ))
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MOCK_ROOMS.map((room) => (
+          {rooms.map((room) => (
             <GlassCard key={room._id} className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -98,7 +186,7 @@ export const BookingsPage = () => {
                   </span>
                 </div>
                 <h4 className="text-base font-bold text-white mb-1">{room.roomNumber}</h4>
-                <p className="text-xs text-slate-400 mb-3">{room.building?.name}</p>
+                <p className="text-xs text-slate-400 mb-3">{room.building?.name || 'Main Campus Building'}</p>
 
                 <div className="space-y-1.5 text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800 mb-4">
                   <div className="flex items-center justify-between">
@@ -107,12 +195,12 @@ export const BookingsPage = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Current Occupancy:</span>
-                    <span className="font-bold text-cyan-400">{room.currentOccupancy} inside</span>
+                    <span className="font-bold text-cyan-400">{room.currentOccupancy || 0} inside</span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-1 mb-4">
-                  {room.facilities.map((fac, idx) => (
+                  {room.facilities?.map((fac, idx) => (
                     <span key={idx} className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
                       {fac}
                     </span>
@@ -138,6 +226,7 @@ export const BookingsPage = () => {
             targetItem={selectedRoomForBooking}
             bookingType="Facility"
             onClose={() => setSelectedRoomForBooking(null)}
+            onSuccess={handleBookingCreated}
           />
         </div>
       )}
@@ -152,3 +241,4 @@ export const BookingsPage = () => {
     </div>
   );
 };
+

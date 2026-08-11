@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import { StatCard } from '../components/common/StatCard';
 import { GlassCard } from '../components/common/GlassCard';
 import { WeatherWidget } from '../components/common/WeatherWidget';
 import { EmergencyWidget } from '../components/common/EmergencyWidget';
 import { OccupancyChart } from '../components/analytics/OccupancyChart';
 import { MOCK_BOOKINGS } from '../data/mockData';
+import { apiService } from '../services/api';
 import { 
   Users, 
   CalendarCheck, 
@@ -14,12 +16,63 @@ import {
   Navigation, 
   ArrowUpRight, 
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Loader2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const DashboardPage = () => {
   const { user } = useAuth();
+  const { socket } = useSocket();
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBookings = async () => {
+    setLoading(true);
+    try {
+      const res = await apiService.getMyBookings();
+      if (res && res.data && Array.isArray(res.data)) {
+        setBookings(res.data);
+      } else {
+        setBookings(MOCK_BOOKINGS);
+      }
+    } catch (err) {
+      console.error('[DashboardPage fetch error]', err);
+      setBookings(MOCK_BOOKINGS);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
+  // Listen to Socket.IO real-time status updates
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleNewBooking = (newBooking) => {
+      setBookings((prev) => [newBooking, ...prev]);
+    };
+
+    const handleStatusChange = (updatedBooking) => {
+      setBookings((prev) =>
+        prev.map((b) => (b._id === updatedBooking._id ? { ...b, ...updatedBooking } : b))
+      );
+    };
+
+    socket.on('new_booking_request', handleNewBooking);
+    socket.on('booking_status_change', handleStatusChange);
+
+    return () => {
+      socket.off('new_booking_request', handleNewBooking);
+      socket.off('booking_status_change', handleStatusChange);
+    };
+  }, [socket]);
+
+  const approvedCount = bookings.filter(b => b.status === 'Approved').length;
+  const pendingCount = bookings.filter(b => b.status === 'Pending').length;
 
   return (
     <div className="space-y-6">
@@ -37,7 +90,7 @@ export const DashboardPage = () => {
               Welcome back, <span className="bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-300 bg-clip-text text-transparent">{user?.name || 'Researcher'}</span>!
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl leading-relaxed">
-              Real-time GIS spatial localization active. 5 facility rooms and 8 high-value equipment assets available for reservation today.
+              Real-time GIS spatial localization active. Connected to MongoDB Atlas & Socket.IO real-time ecosystem.
             </p>
           </div>
 
@@ -56,10 +109,10 @@ export const DashboardPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Today's Active Bookings"
-          value="3 Reservations"
-          subtitle="2 Approved • 1 Pending"
+          value={`${bookings.length} Reservations`}
+          subtitle={`${approvedCount} Approved • ${pendingCount} Pending`}
           icon={CalendarCheck}
-          trend="↑ 12% vs last week"
+          trend="Real-time sync"
           color="cyan"
         />
         <StatCard
@@ -98,47 +151,57 @@ export const DashboardPage = () => {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-sm md:text-base font-bold font-display text-white">Your Reserved Facilities & Assets</h3>
-                <p className="text-xs text-slate-400">Scheduled for today</p>
+                <p className="text-xs text-slate-400">Scheduled in database</p>
               </div>
               <Link to="/bookings" className="text-xs font-bold font-display text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
                 View All <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            <div className="space-y-3">
-              {MOCK_BOOKINGS.map((bk) => (
-                <div
-                  key={bk._id}
-                  className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-cyan-500/30 flex items-center justify-between gap-4 transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                      {bk.bookingType === 'Asset' ? <Package className="w-5 h-5" /> : <Building2 className="w-5 h-5" />}
+            {loading ? (
+              <div className="p-6 text-center text-slate-400 flex items-center justify-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin text-cyan-400" /> Loading your reservations...
+              </div>
+            ) : bookings.length === 0 ? (
+              <p className="text-xs text-slate-400 p-4 text-center">No reservations found.</p>
+            ) : (
+              <div className="space-y-3">
+                {bookings.map((bk) => (
+                  <div
+                    key={bk._id}
+                    className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-cyan-500/30 flex items-center justify-between gap-4 transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                        {bk.bookingType === 'Asset' ? <Package className="w-5 h-5" /> : <Building2 className="w-5 h-5" />}
+                      </div>
+                      <div>
+                        <h4 className="text-xs md:text-sm font-bold font-display text-white">
+                          {bk.asset?.assetName || bk.room?.roomNumber || bk.purpose || 'Campus Reservation'}
+                        </h4>
+                        <p className="text-[11px] text-slate-400 mt-0.5">
+                          {bk.date} • {bk.startTime} - {bk.endTime}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xs md:text-sm font-bold font-display text-white">
-                        {bk.asset?.assetName || bk.room?.roomNumber}
-                      </h4>
-                      <p className="text-[11px] text-slate-400 mt-0.5">
-                        {bk.date} • {bk.startTime} - {bk.endTime}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="flex items-center gap-3 text-xs">
-                    <span
-                      className={`px-3 py-1 rounded-full font-bold font-display text-[10px] ${
-                        bk.status === 'Approved'
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                      }`}
-                    >
-                      {bk.status}
-                    </span>
+                    <div className="flex items-center gap-3 text-xs">
+                      <span
+                        className={`px-3 py-1 rounded-full font-bold font-display text-[10px] ${
+                          bk.status === 'Approved'
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            : bk.status === 'Rejected'
+                            ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                        }`}
+                      >
+                        {bk.status}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </GlassCard>
         </div>
 
@@ -186,4 +249,5 @@ export const DashboardPage = () => {
     </div>
   );
 };
+
 

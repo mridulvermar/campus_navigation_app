@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MOCK_ASSETS } from '../data/mockData';
 import { AssetCard } from '../components/booking/AssetCard';
 import { BookingForm } from '../components/booking/BookingForm';
 import { GlassCard } from '../components/common/GlassCard';
-import { Package, Search, Filter, Plus } from 'lucide-react';
+import { Package, Search, Filter, Plus, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { apiService } from '../services/api';
 
 export const AssetsPage = () => {
   const { user } = useAuth();
-  const [assets, setAssets] = useState(MOCK_ASSETS);
+  const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedAssetForBooking, setSelectedAssetForBooking] = useState(null);
+
+  const fetchAssets = async () => {
+    setLoading(true);
+    try {
+      const res = await apiService.getAssets();
+      if (res && res.data && Array.isArray(res.data)) {
+        setAssets(res.data);
+      } else {
+        setAssets(MOCK_ASSETS);
+      }
+    } catch (err) {
+      console.error('[AssetsPage fetch error]', err);
+      setAssets(MOCK_ASSETS);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAssets();
+  }, []);
 
   const categories = ['All', 'Electronics', 'VR Headset', 'Drone', '3D Printer', 'Projector'];
 
   const filteredAssets = assets.filter((ast) => {
     const matchesCat = selectedCategory === 'All' || ast.category === selectedCategory;
-    const matchesSearch = ast.assetName.toLowerCase().includes(searchQuery.toLowerCase()) || ast.location.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = (ast.assetName || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          (ast.location || '').toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
 
@@ -74,11 +98,17 @@ export const AssetsPage = () => {
       </GlassCard>
 
       {/* Asset Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredAssets.map((ast) => (
-          <AssetCard key={ast._id} asset={ast} onReserve={(item) => setSelectedAssetForBooking(item)} />
-        ))}
-      </div>
+      {loading ? (
+        <GlassCard className="p-8 text-center text-slate-400 flex items-center justify-center gap-2">
+          <Loader2 className="w-5 h-5 animate-spin text-indigo-400" /> Loading asset inventory...
+        </GlassCard>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredAssets.map((ast) => (
+            <AssetCard key={ast._id} asset={ast} onReserve={(item) => setSelectedAssetForBooking(item)} />
+          ))}
+        </div>
+      )}
 
       {/* Booking Form Overlay Modal */}
       {selectedAssetForBooking && (
@@ -93,3 +123,4 @@ export const AssetsPage = () => {
     </div>
   );
 };
+
