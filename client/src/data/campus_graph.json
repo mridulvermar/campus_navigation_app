@@ -12,7 +12,6 @@
       "code": "BIT-GATE-A",
       "category": "Bus Stop",
       "coords": [11.500344, 77.277934],
-      "polygon": [],
       "description": "Primary entrance gate for Bannari Amman Institute of Technology with security checkpost and transport hub.",
       "workingHours": "24/7 Open",
       "departments": ["Security Checkpost", "Campus Transport Hub"],
@@ -25,7 +24,6 @@
       "code": "GST-HOUSE",
       "category": "Hostel",
       "coords": [11.499858, 77.278559],
-      "polygon": [],
       "description": "University VIP Guest House and Faculty Visitor Suites located near Main Gate.",
       "workingHours": "24/7 Service",
       "departments": ["Guest Hospitality", "VIP Suites"],
@@ -38,7 +36,6 @@
       "code": "BIT-PRK",
       "category": "Parking",
       "coords": [11.498394, 77.278229],
-      "polygon": [],
       "description": "Central parking lot for student, faculty, and visitor two-wheelers and four-wheelers.",
       "workingHours": "06:00 AM - 10:00 PM",
       "departments": ["Campus Traffic Control"],
@@ -51,7 +48,6 @@
       "code": "AERO-BLK",
       "category": "Academic Buildings",
       "coords": [11.497688, 77.278240],
-      "polygon": [],
       "description": "Department of Aeronautical Engineering featuring wind tunnel labs, flight simulators, and propulsion centers.",
       "workingHours": "08:00 AM - 08:00 PM",
       "departments": ["Aeronautical Engineering", "Avionics Division"],
@@ -68,7 +64,6 @@
       "code": "SF-BLK",
       "category": "Academic Buildings",
       "coords": [11.496400, 77.278644],
-      "polygon": [],
       "description": "Self-Financing Academic Block housing Computer Science, IT, and AI innovation labs.",
       "workingHours": "08:00 AM - 08:00 PM",
       "departments": ["Computer Science & Engineering", "Information Technology", "AI & Data Science"],
@@ -85,7 +80,6 @@
       "code": "MECH-BLK",
       "category": "Academic Buildings",
       "coords": [11.495788, 77.278523],
-      "polygon": [],
       "description": "Department of Mechanical Engineering, CNC workshops, thermal engineering labs, and robotics centers.",
       "workingHours": "08:00 AM - 08:00 PM",
       "departments": ["Mechanical Engineering", "Mechatronics & Robotics"],
@@ -102,7 +96,6 @@
       "code": "CIV-STORE",
       "category": "Administration Block",
       "coords": [11.494825, 77.278529],
-      "polygon": [],
       "description": "Civil engineering structural testing labs, concrete testing facilities, and surveying stores.",
       "workingHours": "08:30 AM - 06:00 PM",
       "departments": ["Civil Engineering", "Structural Testing Division"],
@@ -115,7 +108,6 @@
       "code": "BOYS-HST",
       "category": "Hostel",
       "coords": [11.494169, 77.278633],
-      "polygon": [],
       "description": "Multi-story boys hostel complex with dining mess, study rooms, and indoor recreation.",
       "workingHours": "24/7 Resident Access",
       "departments": ["Boys Hostel Warden Office"],
@@ -128,7 +120,6 @@
       "code": "PWR-HOUSE",
       "category": "Administration Block",
       "coords": [11.493982, 77.278471],
-      "polygon": [],
       "description": "Central electrical power station, high-voltage transformers, and generator backup systems.",
       "workingHours": "24/7 Grid Operation",
       "departments": ["Electrical Maintenance Division"],
@@ -141,7 +132,6 @@
       "code": "SPORTS-ARNA",
       "category": "Sports Complex",
       "coords": [11.493305, 77.278248],
-      "polygon": [],
       "description": "Multi-sport outdoor arena containing synthetic tennis courts, basketball court, and volleyball court.",
       "workingHours": "06:00 AM - 09:30 PM",
       "departments": ["Physical Education Department"],
@@ -154,7 +144,6 @@
       "code": "BIT-CAF",
       "category": "Cafeteria",
       "coords": [11.493778, 77.277569],
-      "polygon": [],
       "description": "Multi-cuisine campus dining hall, fresh juice bars, bakery, and student lounge.",
       "workingHours": "07:00 AM - 09:30 PM",
       "departments": ["Campus Dining Services"],
@@ -163,11 +152,10 @@
     },
     {
       "id": "as_block",
-      "name": "AS Academic Block (Classes 101, 201...)",
+      "name": "AS Academic Block (Classes 101, 201)",
       "code": "AS-BLK",
       "category": "Academic Buildings",
       "coords": [11.494401, 77.277540],
-      "polygon": [],
       "description": "Applied Science Academic Block with smart classrooms starting from 101, 201.",
       "workingHours": "08:00 AM - 07:30 PM",
       "departments": ["Applied Science & Physics", "Chemistry", "Mathematics"],
@@ -183,7 +171,6 @@
       "code": "LRN-CTR",
       "category": "Library",
       "coords": [11.494200, 77.277162],
-      "polygon": [],
       "description": "Central library, digital archival repository, quiet study carrels, and e-learning pods.",
       "workingHours": "07:00 AM - 11:00 PM",
       "departments": ["Central Archival Division", "Digital Learning Hub"],
@@ -195,11 +182,10 @@
     },
     {
       "id": "ib_block_main",
-      "name": "IB Academic Block (Main Wing - Classes 101, 201...)",
+      "name": "IB Academic Block (Main Wing - Classes 101, 201)",
       "code": "IB-BLK-MAIN",
       "category": "Academic Buildings",
       "coords": [11.494307, 77.276529],
-      "polygon": [],
       "description": "Institution Building Main Academic Block featuring lecture halls (Classes 101-117, 201-217).",
       "workingHours": "08:00 AM - 08:00 PM",
       "departments": ["Electrical & Electronics Eng", "Electronics & Comm Eng"],
@@ -215,7 +201,6 @@
       "code": "IB-BLK-EAST",
       "category": "Academic Buildings",
       "coords": [11.496902, 77.276419],
-      "polygon": [],
       "description": "Institution Building East Wing (Closest entrance for Classes 118-125 and 218-225).",
       "workingHours": "08:00 AM - 08:00 PM",
       "departments": ["Computer Science Extension", "AI & Robotics Wing"],
@@ -231,7 +216,6 @@
       "code": "BIT-AUD",
       "category": "Auditorium",
       "coords": [11.494976, 77.277006],
-      "polygon": [],
       "description": "Grand University Auditorium and Convention Hall for conferences, symposia, and cultural events.",
       "workingHours": "08:00 AM - 09:30 PM",
       "departments": ["University Events Committee"],
@@ -244,7 +228,6 @@
       "code": "GIRLS-HST",
       "category": "Hostel",
       "coords": [11.493970, 77.275827],
-      "polygon": [],
       "description": "Secure women residential hostel complex with dining hall, courtyard, and study rooms.",
       "workingHours": "24/7 Resident Access",
       "departments": ["Girls Hostel Warden Desk"],
@@ -257,7 +240,6 @@
       "code": "MED-CTR",
       "category": "Medical Centre",
       "coords": [11.493860, 77.274593],
-      "polygon": [],
       "description": "24/7 campus health clinic, ambulance service, outpatient consultation, and pharmacy.",
       "workingHours": "24/7 Emergency Care",
       "departments": ["Emergency OPD Clinic", "Pharmacy"],
@@ -270,7 +252,6 @@
       "code": "BIT-GATE-C",
       "category": "Bus Stop",
       "coords": [11.493922, 77.273686],
-      "polygon": [],
       "description": "Campus Entrance Gate C for west entrance access.",
       "workingHours": "06:00 AM - 10:00 PM",
       "departments": ["Gate Security"],
@@ -283,7 +264,6 @@
       "code": "CRICKET-GND",
       "category": "Sports Complex",
       "coords": [11.495332, 77.275029],
-      "polygon": [],
       "description": "Full-size cricket stadium with turf pitch, pavilion, and spectator seating.",
       "workingHours": "06:00 AM - 07:00 PM",
       "departments": ["Athletic Sports Committee"],
@@ -296,7 +276,6 @@
       "code": "HANDBALL-CRT",
       "category": "Sports Complex",
       "coords": [11.495695, 77.274255],
-      "polygon": [],
       "description": "Dedicated outdoor handball court facility.",
       "workingHours": "06:00 AM - 08:30 PM",
       "departments": ["Sports Board"],
@@ -309,7 +288,6 @@
       "code": "TENNIS-CRT",
       "category": "Sports Complex",
       "coords": [11.494752, 77.274206],
-      "polygon": [],
       "description": "Synthetic surface tennis courts with evening floodlights.",
       "workingHours": "06:00 AM - 08:30 PM",
       "departments": ["Sports Board"],
@@ -322,7 +300,6 @@
       "code": "ATHLETIC-CRT",
       "category": "Sports Complex",
       "coords": [11.496969, 77.274896],
-      "polygon": [],
       "description": "400m synthetic running track and field sports arena.",
       "workingHours": "05:30 AM - 09:00 PM",
       "departments": ["Athletics Committee"],
@@ -335,7 +312,6 @@
       "code": "BADMINTON-CRT",
       "category": "Sports Complex",
       "coords": [11.497833, 77.275466],
-      "polygon": [],
       "description": "Indoor wooden court facility for badminton matches.",
       "workingHours": "06:00 AM - 09:30 PM",
       "departments": ["Badminton Club"],
@@ -348,158 +324,89 @@
       "code": "STAFF-QTRS",
       "category": "Hostel",
       "coords": [11.498340, 77.275625],
-      "polygon": [],
       "description": "Residential quarters complex for faculty members, staff, and visiting scholars.",
       "workingHours": "24/7 Resident Access",
       "departments": ["Faculty Housing Division"],
       "floors": ["Floors 1-4: Staff Apartments"],
       "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800"
-    }
+    },
+
+    { "id": "road_main_gate", "name": "Main Entrance Road Junction", "category": "Intersection", "coords": [11.500344, 77.277934] },
+    { "id": "road_north_ave", "name": "North Entrance Avenue", "category": "Intersection", "coords": [11.499000, 77.277934] },
+    { "id": "road_parking", "name": "Parking Road Junction", "category": "Intersection", "coords": [11.498394, 77.277934] },
+    { "id": "road_east_ave_1", "name": "East Academic Road (Aero)", "category": "Intersection", "coords": [11.497688, 77.277934] },
+    { "id": "road_east_ave_2", "name": "East Academic Road (SF)", "category": "Intersection", "coords": [11.496400, 77.278244] },
+    { "id": "road_east_ave_3", "name": "East Academic Road (Mech)", "category": "Intersection", "coords": [11.495788, 77.278223] },
+    { "id": "road_east_ave_4", "name": "South-East Road Junction", "category": "Intersection", "coords": [11.494825, 77.278229] },
+    { "id": "road_south_ring_1", "name": "Boys Hostel Road", "category": "Intersection", "coords": [11.494169, 77.278233] },
+    { "id": "road_south_ring_2", "name": "Power & Sports Arena Road", "category": "Intersection", "coords": [11.493778, 77.278248] },
+    { "id": "road_south_ring_3", "name": "Central Cafeteria Junction", "category": "Intersection", "coords": [11.493778, 77.277569] },
+    { "id": "road_central_quad_1", "name": "Central Quad Road (AS/Learning)", "category": "Intersection", "coords": [11.494401, 77.277162] },
+    { "id": "road_central_quad_2", "name": "Auditorium Plaza Road", "category": "Intersection", "coords": [11.494976, 77.276806] },
+    { "id": "road_west_ave_1", "name": "West Academic Road (IB Main)", "category": "Intersection", "coords": [11.494307, 77.276429] },
+    { "id": "road_west_ave_2", "name": "West Academic Road (IB East)", "category": "Intersection", "coords": [11.496902, 77.276219] },
+    { "id": "road_west_ring_1", "name": "Girls Hostel Access Road", "category": "Intersection", "coords": [11.493970, 77.275827] },
+    { "id": "road_west_ring_2", "name": "Medical Center Access Road", "category": "Intersection", "coords": [11.493860, 77.274593] },
+    { "id": "road_gate_c", "name": "Gate C Road Junction", "category": "Intersection", "coords": [11.493922, 77.273686] },
+    { "id": "road_sports_west_1", "name": "Tennis & Handball Court Road", "category": "Intersection", "coords": [11.494752, 77.274206] },
+    { "id": "road_sports_west_2", "name": "Cricket Stadium Road", "category": "Intersection", "coords": [11.495332, 77.274829] },
+    { "id": "road_north_west_1", "name": "Athletic Track Access Road", "category": "Intersection", "coords": [11.496969, 77.274896] },
+    { "id": "road_north_west_2", "name": "Badminton & Staff Road", "category": "Intersection", "coords": [11.497833, 77.275466] }
   ],
   "edges": [
-    {
-      "source": "gate_main",
-      "target": "guest_house",
-      "weight": 80,
-      "instruction": "Head East from Main Gate toward Guest House."
-    },
-    {
-      "source": "gate_main",
-      "target": "parking_main",
-      "weight": 150,
-      "instruction": "Head South from Main Gate toward Vehicle Parking."
-    },
-    {
-      "source": "parking_main",
-      "target": "aero_block",
-      "weight": 100,
-      "instruction": "Walk South-West toward Aeronautical Block."
-    },
-    {
-      "source": "aero_block",
-      "target": "sf_block",
-      "weight": 140,
-      "instruction": "Proceed South along Academic Avenue to SF Block."
-    },
-    {
-      "source": "sf_block",
-      "target": "mech_block",
-      "weight": 90,
-      "instruction": "Walk South to Mechanical Block."
-    },
-    {
-      "source": "mech_block",
-      "target": "civil_store",
-      "weight": 110,
-      "instruction": "Walk South to Civil Store & Testing Lab."
-    },
-    {
-      "source": "civil_store",
-      "target": "boys_hostel",
-      "weight": 80,
-      "instruction": "Walk South toward Boys Hostel."
-    },
-    {
-      "source": "boys_hostel",
-      "target": "power_house",
-      "weight": 50,
-      "instruction": "Head West to Power House."
-    },
-    {
-      "source": "power_house",
-      "target": "sports_arena",
-      "weight": 90,
-      "instruction": "Walk South-West to Sports Arena."
-    },
-    {
-      "source": "sports_arena",
-      "target": "cafeteria",
-      "weight": 110,
-      "instruction": "Head West to Central Cafeteria."
-    },
-    {
-      "source": "cafeteria",
-      "target": "as_block",
-      "weight": 80,
-      "instruction": "Walk North to AS Academic Block (Classes 101, 201)."
-    },
-    {
-      "source": "as_block",
-      "target": "learning_center",
-      "weight": 70,
-      "instruction": "Walk West to Learning Center."
-    },
-    {
-      "source": "learning_center",
-      "target": "ib_block_main",
-      "weight": 80,
-      "instruction": "Walk West to IB Block Main Wing (Classes 101-117, 201-217)."
-    },
-    {
-      "source": "ib_block_main",
-      "target": "ib_block_east",
-      "weight": 180,
-      "instruction": "Walk North along IB Corridor to East Wing (Classes 118-125, 218-225)."
-    },
-    {
-      "source": "learning_center",
-      "target": "auditorium",
-      "weight": 90,
-      "instruction": "Walk North to BIT Auditorium."
-    },
-    {
-      "source": "ib_block_main",
-      "target": "girls_hostel",
-      "weight": 120,
-      "instruction": "Walk West to Girls Residential Hostel."
-    },
-    {
-      "source": "girls_hostel",
-      "target": "medical_center",
-      "weight": 140,
-      "instruction": "Walk West to BIT Medical Center."
-    },
-    {
-      "source": "medical_center",
-      "target": "gate_c",
-      "weight": 100,
-      "instruction": "Walk West to Gate C."
-    },
-    {
-      "source": "ib_block_east",
-      "target": "cricket_ground",
-      "weight": 160,
-      "instruction": "Walk West toward Cricket Ground."
-    },
-    {
-      "source": "cricket_ground",
-      "target": "handball_court",
-      "weight": 90,
-      "instruction": "Walk West to Handball Court."
-    },
-    {
-      "source": "handball_court",
-      "target": "tennis_court",
-      "weight": 100,
-      "instruction": "Walk South to Tennis Court."
-    },
-    {
-      "source": "cricket_ground",
-      "target": "athletic_track",
-      "weight": 180,
-      "instruction": "Walk North to Athletic Track & Field."
-    },
-    {
-      "source": "athletic_track",
-      "target": "badminton_court",
-      "weight": 110,
-      "instruction": "Walk North to Indoor Badminton Court."
-    },
-    {
-      "source": "badminton_court",
-      "target": "staff_quarters",
-      "weight": 70,
-      "instruction": "Walk North to Staff & Faculty Quarters."
-    }
+    { "source": "road_main_gate", "target": "road_north_ave", "weight": 140, "instruction": "Head South along Main Campus Entrance Road." },
+    { "source": "road_north_ave", "target": "road_parking", "weight": 70, "instruction": "Continue South on Entrance Avenue past Vehicle Parking." },
+    { "source": "road_parking", "target": "road_east_ave_1", "weight": 80, "instruction": "Proceed South along East Academic Road." },
+    { "source": "road_east_ave_1", "target": "road_east_ave_2", "weight": 140, "instruction": "Walk South on East Academic Road past SF Block." },
+    { "source": "road_east_ave_2", "target": "road_east_ave_3", "weight": 70, "instruction": "Walk South on East Academic Road past Mechanical Block." },
+    { "source": "road_east_ave_3", "target": "road_east_ave_4", "weight": 105, "instruction": "Walk South to South-East Road Junction." },
+
+    { "source": "road_east_ave_4", "target": "road_south_ring_1", "weight": 70, "instruction": "Turn West onto South Ring Road." },
+    { "source": "road_south_ring_1", "target": "road_south_ring_2", "weight": 45, "instruction": "Continue West on South Ring Road past Power Station." },
+    { "source": "road_south_ring_2", "target": "road_south_ring_3", "weight": 80, "instruction": "Walk West on South Ring Road to Cafeteria Junction." },
+
+    { "source": "road_south_ring_3", "target": "road_central_quad_1", "weight": 70, "instruction": "Turn North onto Central Quad Walkway." },
+    { "source": "road_central_quad_1", "target": "road_central_quad_2", "weight": 80, "instruction": "Walk North along Central Quad Walkway past Auditorium." },
+    { "source": "road_central_quad_2", "target": "road_west_ave_2", "weight": 210, "instruction": "Walk North-West along Central Quad Road to IB East Wing Junction." },
+
+    { "source": "road_central_quad_1", "target": "road_west_ave_1", "weight": 80, "instruction": "Walk West along Main Walkway to IB Main Junction." },
+    { "source": "road_west_ave_1", "target": "road_west_ave_2", "weight": 280, "instruction": "Walk North along West Academic Road to IB East Wing Junction." },
+
+    { "source": "road_west_ave_1", "target": "road_west_ring_1", "weight": 70, "instruction": "Turn South-West onto West Ring Road." },
+    { "source": "road_west_ring_1", "target": "road_west_ring_2", "weight": 135, "instruction": "Continue West along West Ring Road to Medical Center Junction." },
+    { "source": "road_west_ring_2", "target": "road_gate_c", "weight": 100, "instruction": "Walk West along Gate C Entrance Road." },
+
+    { "source": "road_west_ring_2", "target": "road_sports_west_1", "weight": 100, "instruction": "Turn North onto Western Sports Road." },
+    { "source": "road_sports_west_1", "target": "road_sports_west_2", "weight": 95, "instruction": "Walk North along Western Sports Road past Cricket Stadium." },
+    { "source": "road_sports_west_2", "target": "road_north_west_1", "weight": 180, "instruction": "Continue North past Athletic Track Access Road." },
+    { "source": "road_north_west_1", "target": "road_north_west_2", "weight": 110, "instruction": "Walk North to Badminton & Staff Quarters Junction." },
+    { "source": "road_north_west_2", "target": "road_parking", "weight": 280, "instruction": "Turn East along Northern Ring Road to Parking Junction." },
+    { "source": "road_north_west_2", "target": "road_west_ave_2", "weight": 140, "instruction": "Walk South-East along Paved Road to IB East Junction." },
+
+    { "source": "gate_main", "target": "road_main_gate", "weight": 5, "instruction": "Exit Main Gate onto Entrance Road." },
+    { "source": "guest_house", "target": "road_main_gate", "weight": 80, "instruction": "Walk West from Guest House to Entrance Road." },
+    { "source": "parking_main", "target": "road_parking", "weight": 15, "instruction": "Exit Parking Lot onto Campus Main Road." },
+    { "source": "aero_block", "target": "road_east_ave_1", "weight": 15, "instruction": "Walk out of Aeronautical Block onto East Academic Road." },
+    { "source": "sf_block", "target": "road_east_ave_2", "weight": 15, "instruction": "Walk out of SF Block onto East Academic Road." },
+    { "source": "mech_block", "target": "road_east_ave_3", "weight": 15, "instruction": "Walk out of Mechanical Block onto East Academic Road." },
+    { "source": "civil_store", "target": "road_east_ave_4", "weight": 15, "instruction": "Walk out of Civil Store onto South-East Road." },
+    { "source": "boys_hostel", "target": "road_south_ring_1", "weight": 20, "instruction": "Walk out of Boys Hostel onto South Ring Road." },
+    { "source": "power_house", "target": "road_south_ring_2", "weight": 15, "instruction": "Walk out of Power Station onto South Ring Road." },
+    { "source": "sports_arena", "target": "road_south_ring_2", "weight": 50, "instruction": "Walk North out of Sports Arena to South Ring Road." },
+    { "source": "cafeteria", "target": "road_south_ring_3", "weight": 10, "instruction": "Step out of Cafeteria onto Cafeteria Junction Road." },
+    { "source": "as_block", "target": "road_central_quad_1", "weight": 25, "instruction": "Walk West out of AS Academic Block onto Central Quad Walkway." },
+    { "source": "learning_center", "target": "road_central_quad_1", "weight": 20, "instruction": "Step out of Learning Center onto Central Quad Walkway." },
+    { "source": "auditorium", "target": "road_central_quad_2", "weight": 20, "instruction": "Exit Auditorium onto Auditorium Plaza Road." },
+    { "source": "ib_block_main", "target": "road_west_ave_1", "weight": 15, "instruction": "Step out of IB Block Main Wing onto West Academic Road." },
+    { "source": "ib_block_east", "target": "road_west_ave_2", "weight": 15, "instruction": "Step out of IB Block East Wing onto West Academic Road." },
+    { "source": "girls_hostel", "target": "road_west_ring_1", "weight": 15, "instruction": "Walk out of Girls Hostel onto West Ring Road." },
+    { "source": "medical_center", "target": "road_west_ring_2", "weight": 10, "instruction": "Step out of Medical Center onto Access Road." },
+    { "source": "gate_c", "target": "road_gate_c", "weight": 5, "instruction": "Exit Gate C onto Gate C Access Road." },
+    { "source": "tennis_court", "target": "road_sports_west_1", "weight": 15, "instruction": "Step off Tennis Court onto Western Sports Road." },
+    { "source": "handball_court", "target": "road_sports_west_1", "weight": 15, "instruction": "Step off Handball Court onto Western Sports Road." },
+    { "source": "cricket_ground", "target": "road_sports_west_2", "weight": 20, "instruction": "Walk out of Cricket Stadium Pavilion onto Road." },
+    { "source": "athletic_track", "target": "road_north_west_1", "weight": 15, "instruction": "Exit Athletic Track onto Access Road." },
+    { "source": "badminton_court", "target": "road_north_west_2", "weight": 15, "instruction": "Exit Badminton Hall onto Road Junction." },
+    { "source": "staff_quarters", "target": "road_north_west_2", "weight": 20, "instruction": "Exit Staff Quarters onto Road Junction." }
   ]
 }

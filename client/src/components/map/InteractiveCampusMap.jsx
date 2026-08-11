@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, Polygon, Polyline, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, ImageOverlay, Polygon, Polyline, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import campusGraphData from '../../data/campus_graph.json';
 import { categoryIconMap } from './BuildingDetailDrawer';
@@ -98,10 +98,27 @@ export const InteractiveCampusMap = ({
   zoomAction,
   onZoomHandled
 }) => {
+  const [mapMode, setMapMode] = useState('satellite');
   const buildings = campusGraphData.nodes.filter((n) => n.category !== 'Intersection');
 
   return (
     <div className="relative w-full h-[82vh] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-950">
+      {/* Floating View Mode Toggle Control */}
+      <div className="absolute top-4 right-4 z-[1000] flex bg-slate-900/90 backdrop-blur-md p-1 rounded-xl border border-slate-700/60 shadow-xl gap-1">
+        <button
+          onClick={() => setMapMode('satellite')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-display transition-all ${mapMode === 'satellite' ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-white'}`}
+        >
+          🛰️ Satellite
+        </button>
+        <button
+          onClick={() => setMapMode('streets')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-display transition-all ${mapMode === 'streets' ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-white'}`}
+        >
+          🗺️ Streets
+        </button>
+      </div>
+
       <MapContainer
         center={[11.4960, 77.2765]}
         zoom={16.5}
@@ -115,11 +132,20 @@ export const InteractiveCampusMap = ({
           onZoomHandled={onZoomHandled}
         />
 
-        {/* Real-World Map Tile Layer */}
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        />
+        {/* 1. Satellite Mode (Pure 100% Cloud-Free Google Hybrid Satellite) */}
+        {mapMode === 'satellite' ? (
+          <TileLayer
+            attribution="&copy; Google Satellite Imagery"
+            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+            maxZoom={20}
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            maxZoom={20}
+          />
+        )}
 
         {/* 2. Interactive SVG Polygon Building Overlays */}
         {buildings.map((b) => {

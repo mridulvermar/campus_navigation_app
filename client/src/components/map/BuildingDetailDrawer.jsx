@@ -92,7 +92,7 @@ export const BuildingDetailDrawer = ({
         <div className="flex items-center gap-4 mt-4 text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
           <div className="flex items-center gap-1.5">
             <Clock className="w-4 h-4 text-cyan-400" />
-            <span className="font-semibold">{building.workingHours}</span>
+            <span className="font-semibold">{building.workingHours || building.openingHours || '08:00 AM - 08:00 PM'}</span>
           </div>
         </div>
 

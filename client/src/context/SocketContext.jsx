@@ -14,9 +14,14 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const newSocket = io('http://localhost:5000', {
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
       autoConnect: true,
-      reconnectionAttempts: 3
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
+
+    newSocket.on('connect_error', () => {
+      // Graceful fallback handling
     });
 
     newSocket.on('spatial_location_pulse', (data) => {

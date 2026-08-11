@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, ImageOverlay, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useSocket } from '../../context/SocketContext';
 import { useNavigation } from '../../context/NavigationContext';
@@ -96,25 +96,53 @@ export const CampusMap = ({ selectedCategory, searchQuery, onSelectBuilding }) =
     setSourceBuilding(buildings[0]);
     setDestBuilding(dest);
     calculateRoute(buildings[0], dest);
-    navigate('/navigation');
+    navigate(`/navigation?start=gate_main&dest=${encodeURIComponent(dest.code || dest._id)}`);
   };
 
   const handleGoToBookings = (buildingCode) => {
     navigate(`/bookings?building=${encodeURIComponent(buildingCode)}`);
   };
 
+  const [mapMode, setMapMode] = useState('satellite');
+
   return (
     <div className="relative w-full h-[480px] sm:h-[580px] md:h-[650px] rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl">
+      {/* Floating View Mode Toggle Control */}
+      <div className="absolute top-4 right-4 z-[1000] flex bg-slate-900/90 backdrop-blur-md p-1 rounded-xl border border-slate-700/60 shadow-xl gap-1">
+        <button
+          onClick={() => setMapMode('satellite')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-display transition-all ${mapMode === 'satellite' ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-white'}`}
+        >
+          🛰️ Satellite
+        </button>
+        <button
+          onClick={() => setMapMode('streets')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold font-display transition-all ${mapMode === 'streets' ? 'bg-cyan-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-white'}`}
+        >
+          🗺️ Streets
+        </button>
+      </div>
+
       <MapContainer
         center={[11.4960, 77.2765]}
         zoom={16.5}
         scrollWheelZoom={true}
         className="w-full h-full"
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        />
+        {/* 1. Satellite Mode (Pure 100% Cloud-Free Google Hybrid Satellite) */}
+        {mapMode === 'satellite' ? (
+          <TileLayer
+            attribution="&copy; Google Satellite Imagery"
+            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+            maxZoom={20}
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            maxZoom={20}
+          />
+        )}
 
         <MapController center={selectedBuilding ? [selectedBuilding.latitude, selectedBuilding.longitude] : null} />
 

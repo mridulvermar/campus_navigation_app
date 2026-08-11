@@ -117,5 +117,16 @@ export const apiService = {
   getNotifications: () => safeCall(() => API.get('/notifications'), MOCK_NOTIFICATIONS),
 
   // Analytics API
-  getAnalytics: () => safeCall(() => API.get('/analytics'), MOCK_ANALYTICS)
+  getAnalytics: () => safeCall(() => API.get('/analytics'), MOCK_ANALYTICS),
+
+  // Navigation History API
+  logNavigation: async (navData) => {
+    try {
+      const res = await API.post('/extra/navigation-history', navData);
+      return res.data;
+    } catch (err) {
+      return { success: true, data: { _id: 'nav_' + Date.now(), ...navData } };
+    }
+  },
+  getNavigationHistory: () => safeCall(() => API.get('/extra/navigation-history'), [])
 };

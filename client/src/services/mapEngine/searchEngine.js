@@ -16,10 +16,10 @@ export const searchCampusLocations = (query = '', customNodes = campusGraphData.
   return customNodes.filter((node) => {
     if (node.category === 'Intersection') return false;
 
-    const nameMatch = node.name.toLowerCase().includes(q);
-    const codeMatch = node.code.toLowerCase().includes(q);
-    const categoryMatch = node.category.toLowerCase().includes(q);
-    const deptMatch = node.departments && node.departments.some((d) => d.toLowerCase().includes(q));
+    const nameMatch = node.name && node.name.toLowerCase().includes(q);
+    const codeMatch = node.code && node.code.toLowerCase().includes(q);
+    const categoryMatch = node.category && node.category.toLowerCase().includes(q);
+    const deptMatch = node.departments && node.departments.some((d) => d && d.toLowerCase().includes(q));
     const descMatch = node.description && node.description.toLowerCase().includes(q);
 
     return nameMatch || codeMatch || categoryMatch || deptMatch || descMatch;

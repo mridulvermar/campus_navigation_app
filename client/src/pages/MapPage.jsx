@@ -1,37 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { InteractiveCampusMap } from '../components/map/InteractiveCampusMap';
 import { FloatingNavPanel } from '../components/map/FloatingNavPanel';
 import { BuildingDetailDrawer } from '../components/map/BuildingDetailDrawer';
 import { findShortestPath } from '../services/mapEngine/dijkstraEngine';
 import campusGraphData from '../data/campus_graph.json';
+import { apiService } from '../services/api';
 
 export const MapPage = () => {
   const [searchParams] = useSearchParams();
-  const searchBuildingId = searchParams.get('building');
 
   const [selectedBuilding, setSelectedBuilding] = useState(null);
-  const [startNode, setStartNode] = useState(campusGraphData.nodes[0]); // Default Gate
-  const [destNode, setDestNode] = useState(campusGraphData.nodes[2]); // Default Academic Block A
+  const [startNode, setStartNode] = useState(campusGraphData.nodes[0]); // Default BIT Main Gate
+  const [destNode, setDestNode] = useState(campusGraphData.nodes[11]); // Default AS Block
   const [routeData, setRouteData] = useState(null);
   const [zoomAction, setZoomAction] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  useEffect(() => {
-    if (searchBuildingId) {
-      const found = campusGraphData.nodes.find((n) => n.id === searchBuildingId);
-      if (found) {
-        setSelectedBuilding(found);
-        setDestNode(found);
+  const calculateAndSetRoute = useCallback((src, dest) => {
+    if (!src || !dest) return;
+    const result = findShortestPath(src.id, dest.id);
+    if (result) {
+      setRouteData(result);
+      try {
+        apiService.logNavigation({
+          source: src.name || 'Current Location',
+          destination: dest.name || 'Destination',
+          distance: result.totalDistanceMeters || 0,
+          timeTaken: result.estimatedWalkingTimeSeconds || 0,
+          mode: 'Walking'
+        }).catch(() => {});
+      } catch (err) {
+        // Prevent logging error from interrupting route rendering
       }
     }
-  }, [searchBuildingId]);
+  }, []);
 
-  // Compute Dijkstra Route
+  useEffect(() => {
+    const startParam = searchParams.get('start');
+    const destParam = searchParams.get('dest') || searchParams.get('building');
+
+    let sNode = startNode;
+    let dNode = destNode;
+
+    if (startParam) {
+      const foundStart = campusGraphData.nodes.find(
+        (n) => n.id === startParam || n.code === startParam || (n.name || '').toLowerCase().includes(startParam.toLowerCase())
+      );
+      if (foundStart) sNode = foundStart;
+    }
+
+    if (destParam) {
+      const foundDest = campusGraphData.nodes.find(
+        (n) => n.id === destParam || n.code === destParam || (n.name || '').toLowerCase().includes(destParam.toLowerCase())
+      );
+      if (foundDest) {
+        dNode = foundDest;
+        setSelectedBuilding(foundDest);
+      }
+    }
+
+    setStartNode(sNode);
+    setDestNode(dNode);
+    calculateAndSetRoute(sNode, dNode);
+  }, [searchParams, calculateAndSetRoute]);
+
+  // Compute Dijkstra Route Button Handler
   const handleCalculateRoute = () => {
     if (startNode && destNode) {
-      const result = findShortestPath(startNode.id, destNode.id);
-      setRouteData(result);
+      calculateAndSetRoute(startNode, destNode);
     }
   };
 
