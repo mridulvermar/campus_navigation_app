@@ -44,47 +44,90 @@ export function findNearestJunction(left, top, type = 'pedestrian') {
   return nearestId;
 }
 
+import campusGraphData from '../../data/campus_graph.json';
+
 /**
- * Resolve start or destination location ID/tag to junction ID
+ * Resolve start or destination location ID/tag/object/coords to road junction ID
  */
-export function resolveLocationToJunction(locationId, type = 'pedestrian') {
+export function resolveLocationToJunction(locationParam, type = 'pedestrian') {
   const junctions = type === 'vehicle' ? geolocationsData.vehicleJunctions : geolocationsData.pedestrianJunctions;
-  
-  // 1. Direct match on junction surroundings array
-  const matchedJunction = junctions.find(
-    (j) => j.surroundings && j.surroundings.includes(locationId)
-  );
 
-  if (matchedJunction) {
-    return matchedJunction.id;
-  }
+  if (!locationParam) return junctions[0]?.id || 1;
 
-  // 2. Lookup tag in tags array to get pixel (left, top)
-  const tag = geolocationsData.tags.find((t) => t.id === locationId);
-  if (tag) {
-    const leftPx = parseFloat(tag.left);
-    const topPx = parseFloat(tag.top);
-    return findNearestJunction(leftPx, topPx, type);
-  }
+  let targetLat = null;
+  let targetLng = null;
+  let targetIdStr = typeof locationParam === 'string' ? locationParam : locationParam.id || locationParam._id || locationParam.code || locationParam.name || '';
 
-  // 3. Lookup building in buildings array
-  const building = geolocationsData.buildings.find((b) => b.id === locationId);
-  if (building) {
-    const buildingTag = geolocationsData.tags.find((t) => t.id === building.id);
-    if (buildingTag) {
-      const leftPx = parseFloat(buildingTag.left);
-      const topPx = parseFloat(buildingTag.top);
-      return findNearestJunction(leftPx, topPx, type);
+  if (typeof locationParam === 'object' && locationParam !== null) {
+    if (Array.isArray(locationParam.coords) && locationParam.coords.length >= 2) {
+      targetLat = locationParam.coords[0];
+      targetLng = locationParam.coords[1];
+    } else if (locationParam.latitude && locationParam.longitude) {
+      targetLat = locationParam.latitude;
+      targetLng = locationParam.longitude;
     }
   }
 
-  // If locationId is numeric string or number
-  const numericId = parseInt(locationId, 10);
+  // 1. Direct match on junction surroundings array
+  if (targetIdStr) {
+    const matchedJunction = junctions.find(
+      (j) => j.surroundings && j.surroundings.some(s => String(s).toLowerCase() === String(targetIdStr).toLowerCase())
+    );
+    if (matchedJunction) return matchedJunction.id;
+  }
+
+  // 2. Lookup tag in tags array to get pixel (left, top)
+  if (targetIdStr) {
+    const tag = geolocationsData.tags.find((t) => 
+      String(t.id).toLowerCase() === String(targetIdStr).toLowerCase() ||
+      String(t.name).toLowerCase().includes(String(targetIdStr).toLowerCase())
+    );
+    if (tag) {
+      return findNearestJunction(parseFloat(tag.left), parseFloat(tag.top), type);
+    }
+  }
+
+  // 3. Lookup building in geolocationsData.buildings
+  if (targetIdStr) {
+    const building = geolocationsData.buildings.find((b) => 
+      String(b.id).toLowerCase() === String(targetIdStr).toLowerCase() ||
+      String(b.name).toLowerCase().includes(String(targetIdStr).toLowerCase())
+    );
+    if (building) {
+      const buildingTag = geolocationsData.tags.find((t) => t.id === building.id);
+      if (buildingTag) {
+        return findNearestJunction(parseFloat(buildingTag.left), parseFloat(buildingTag.top), type);
+      }
+    }
+  }
+
+  // 4. Lookup in campusGraphData nodes by ID, code, or name
+  if (targetIdStr && campusGraphData && campusGraphData.nodes) {
+    const cNode = campusGraphData.nodes.find(n => 
+      String(n.id).toLowerCase() === String(targetIdStr).toLowerCase() ||
+      String(n.code).toLowerCase() === String(targetIdStr).toLowerCase() ||
+      String(n.name).toLowerCase().includes(String(targetIdStr).toLowerCase())
+    );
+    if (cNode && Array.isArray(cNode.coords)) {
+      targetLat = cNode.coords[0];
+      targetLng = cNode.coords[1];
+    }
+  }
+
+  // 5. Convert GPS [targetLat, targetLng] to pixel (left, top)
+  if (targetLat !== null && targetLng !== null) {
+    const top = (11.501635 - targetLat) / 0.0000026848;
+    const left = (targetLng - 77.275713) / 0.0000012653;
+    return findNearestJunction(left, top, type);
+  }
+
+  // 6. If locationParam is numeric junction ID
+  const numericId = parseInt(targetIdStr, 10);
   if (!isNaN(numericId) && junctions.some((j) => j.id === numericId)) {
     return numericId;
   }
 
-  return junctions.length > 0 ? junctions[0].id : 1;
+  return junctions[0]?.id || 1;
 }
 
 /**
