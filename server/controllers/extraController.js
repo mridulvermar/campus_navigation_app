@@ -69,3 +69,68 @@ exports.createLostFoundItem = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// Geolocations API Endpoints
+exports.getGeolocationLocations = async (req, res) => {
+  try {
+    const geolocationsData = require('../../client/src/data/geolocations_graph.json');
+    res.json({
+      success: true,
+      count: geolocationsData.buildings.length,
+      data: geolocationsData.buildings,
+      tags: geolocationsData.tags
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getGeoBitsLocations = exports.getGeolocationLocations;
+
+exports.searchGeolocations = async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || !q.trim()) {
+      return res.json({ success: true, data: [] });
+    }
+    const query = q.toLowerCase().replace(/\s+/g, '');
+    const geolocationsData = require('../../client/src/data/geolocations_graph.json');
+    const results = [];
+
+    geolocationsData.buildings.forEach((b) => {
+      if ((b.name || '').toLowerCase().replace(/\s+/g, '').includes(query)) {
+        results.push({ id: b.id, name: b.name, match: b.name, floor: 'tagged', type: 'building' });
+      }
+      if (b.terms) {
+        b.terms.forEach((t) => {
+          if (t.toLowerCase().replace(/\s+/g, '').includes(query)) {
+            results.push({ id: b.id, name: b.name, match: t, floor: 'tagged', type: 'term' });
+          }
+        });
+      }
+      if (b.floors) {
+        b.floors.forEach((flr) => {
+          if (flr.rooms) {
+            flr.rooms.forEach((room) => {
+              if (room.toLowerCase().replace(/\s+/g, '').includes(query)) {
+                results.push({ id: b.id, name: b.name, match: room, floor: flr.name, type: 'room' });
+              }
+            });
+          }
+        });
+      }
+    });
+
+    geolocationsData.tags.forEach((tag) => {
+      if ((tag.name || '').toLowerCase().replace(/\s+/g, '').includes(query)) {
+        results.push({ id: tag.id, name: tag.name, match: tag.name, floor: 'tagged', type: 'tag' });
+      }
+    });
+
+    res.json({ success: true, count: results.length, data: results });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.searchGeoBits = exports.searchGeolocations;

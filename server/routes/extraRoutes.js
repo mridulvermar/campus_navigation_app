@@ -19,4 +19,11 @@ router.post('/events', protect, authorize('Administrator', 'Faculty'), createEve
 router.get('/lost-found', getLostFoundItems);
 router.post('/lost-found', protect, createLostFoundItem);
 
+// Geolocations Routes
+const { getGeolocationLocations, searchGeolocations, getGeoBitsLocations, searchGeoBits } = require('../controllers/extraController');
+router.get('/geolocations/locations', getGeolocationLocations);
+router.get('/geolocations/search', searchGeolocations);
+router.get('/geobits/locations', getGeoBitsLocations);
+router.get('/geobits/search', searchGeoBits);
+
 module.exports = router;

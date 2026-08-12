@@ -16,10 +16,11 @@ export const MapPage = () => {
   const [routeData, setRouteData] = useState(null);
   const [zoomAction, setZoomAction] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [navMode, setNavMode] = useState('pedestrian');
 
-  const calculateAndSetRoute = useCallback((src, dest) => {
+  const calculateAndSetRoute = useCallback((src, dest, mode = navMode) => {
     if (!src || !dest) return;
-    const result = findShortestPath(src.id, dest.id);
+    const result = findShortestPath(src.id, dest.id, mode);
     if (result) {
       setRouteData(result);
       try {
@@ -28,13 +29,13 @@ export const MapPage = () => {
           destination: dest.name || 'Destination',
           distance: result.totalDistanceMeters || 0,
           timeTaken: result.estimatedWalkingTimeSeconds || 0,
-          mode: 'Walking'
+          mode: mode === 'vehicle' ? 'Driving' : 'Walking'
         }).catch(() => {});
       } catch (err) {
         // Prevent logging error from interrupting route rendering
       }
     }
-  }, []);
+  }, [navMode]);
 
   useEffect(() => {
     const startParam = searchParams.get('start');
@@ -62,13 +63,20 @@ export const MapPage = () => {
 
     setStartNode(sNode);
     setDestNode(dNode);
-    calculateAndSetRoute(sNode, dNode);
-  }, [searchParams, calculateAndSetRoute]);
+    calculateAndSetRoute(sNode, dNode, navMode);
+  }, [searchParams, calculateAndSetRoute, navMode]);
 
   // Compute Dijkstra Route Button Handler
   const handleCalculateRoute = () => {
     if (startNode && destNode) {
-      calculateAndSetRoute(startNode, destNode);
+      calculateAndSetRoute(startNode, destNode, navMode);
+    }
+  };
+
+  const handleToggleNavMode = (newMode) => {
+    setNavMode(newMode);
+    if (startNode && destNode) {
+      calculateAndSetRoute(startNode, destNode, newMode);
     }
   };
 
@@ -106,6 +114,8 @@ export const MapPage = () => {
         onFitBounds={() => setZoomAction('fit')}
         isFullScreen={isFullScreen}
         onToggleFullScreen={() => setIsFullScreen(!isFullScreen)}
+        navMode={navMode}
+        onToggleNavMode={handleToggleNavMode}
       />
 
       {/* Building Detail Drawer */}

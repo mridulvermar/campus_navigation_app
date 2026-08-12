@@ -1,20 +1,22 @@
 import campusGraphData from '../../data/campus_graph.json';
+import { findGeolocationsRoute, convertGPSToCRSSimple } from './geolocationsDijkstra';
 
 /**
  * Build Adjacency Graph from campus_graph.json
  */
-const buildAdjacencyList = (nodes, edges) => {
+const buildAdjacencyList = (nodes = [], edges = []) => {
   const nodeMap = new Map();
-  nodes.forEach((n) => nodeMap.set(n.id, n));
+  nodes.forEach((n) => n && n.id && nodeMap.set(n.id, n));
 
   const adj = new Map();
-  nodes.forEach((n) => adj.set(n.id, []));
+  nodes.forEach((n) => n && n.id && adj.set(n.id, []));
 
   edges.forEach((edge) => {
+    if (!edge) return;
     const { source, target, weight, instruction } = edge;
     if (adj.has(source) && adj.has(target)) {
-      adj.get(source).push({ node: target, weight, instruction });
-      adj.get(target).push({ node: source, weight, instruction: instruction ? `Return: ${instruction}` : '' });
+      adj.get(source).push({ node: target, weight: weight || 10, instruction });
+      adj.get(target).push({ node: source, weight: weight || 10, instruction: instruction ? `Return: ${instruction}` : '' });
     }
   });
 
@@ -25,15 +27,38 @@ const buildAdjacencyList = (nodes, edges) => {
  * Dijkstra's Shortest Path Algorithm Implementation
  * @param {string} startId - Source Node ID
  * @param {string} endId - Destination Node ID
+ * @param {string|object} modeOrGraph - Route mode ('pedestrian'|'vehicle') or custom graph object
  * @returns {object|null} Shortest path object with distance, time, and instructions
  */
-export const findShortestPath = (startId, endId, customGraphData = campusGraphData) => {
+export const findShortestPath = (startId, endId, modeOrGraph = 'pedestrian') => {
   if (!startId || !endId) return null;
+
+  const mode = typeof modeOrGraph === 'string' ? modeOrGraph : 'pedestrian';
+
+  let graphData = campusGraphData;
+  if (typeof modeOrGraph === 'object' && modeOrGraph !== null && modeOrGraph.nodes) {
+    graphData = modeOrGraph;
+  }
+
+  const nodes = graphData.nodes || [];
+  const edges = graphData.edges || [];
+
+  const startExists = nodes.some((n) => n && n.id === startId);
+  const endExists = nodes.some((n) => n && n.id === endId);
+
+  // Fallback to Geolocations road-following Dijkstra engine
+  if (!startExists || !endExists) {
+    return findGeolocationsRoute(startId, endId, mode);
+  }
+
   if (startId === endId) {
-    const node = customGraphData.nodes.find((n) => n.id === startId);
+    const node = nodes.find((n) => n.id === startId);
+    if (!node) return null;
+    const coords = node.coords || [11.4960, 77.2765];
     return {
       pathNodes: [node],
-      coordinates: [node.coords],
+      coordinates: [coords],
+      crsSimpleCoordinates: [convertGPSToCRSSimple(coords[0], coords[1])],
       totalDistanceMeters: 0,
       formattedDistance: '0 m',
       estimatedWalkingTimeSeconds: 0,
@@ -42,7 +67,7 @@ export const findShortestPath = (startId, endId, customGraphData = campusGraphDa
     };
   }
 
-  const { nodeMap, adj } = buildAdjacencyList(customGraphData.nodes, customGraphData.edges);
+  const { nodeMap, adj } = buildAdjacencyList(nodes, edges);
 
   if (!nodeMap.has(startId) || !nodeMap.has(endId)) return null;
 
@@ -105,6 +130,7 @@ export const findShortestPath = (startId, endId, customGraphData = campusGraphDa
   // Gather path nodes & coordinates
   const pathNodes = pathIds.map((id) => nodeMap.get(id));
   const coordinates = pathNodes.map((n) => n.coords);
+  const crsSimpleCoordinates = coordinates.map((c) => convertGPSToCRSSimple(c[0], c[1]));
   const totalDistanceMeters = Math.round(distances.get(endId));
 
   // Walking speed constant: 1.2 meters / second (~4.3 km/h)
@@ -131,6 +157,7 @@ export const findShortestPath = (startId, endId, customGraphData = campusGraphDa
   return {
     pathNodes,
     coordinates,
+    crsSimpleCoordinates,
     totalDistanceMeters,
     formattedDistance,
     estimatedWalkingTimeSeconds,

@@ -106,16 +106,24 @@ export const BookingsPage = () => {
     setActiveTab('myBookings');
   };
 
-  // Filter classrooms by building and category
+  const [roomSearchQuery, setRoomSearchQuery] = useState('');
+
+  // Filter classrooms by search, building and category
   const filteredRooms = rooms.filter((r) => {
+    const roomName = (r.roomNumber || '').toLowerCase();
     const buildingCodeOrId = r.building?.code || r.building?._id || '';
-    const buildingName = r.building?.name || '';
+    const buildingName = (r.building?.name || '').toLowerCase();
+
+    const matchesSearch = !roomSearchQuery || 
+      roomName.replace(/\s+/g, '').includes(roomSearchQuery.toLowerCase().replace(/\s+/g, '')) ||
+      buildingName.replace(/\s+/g, '').includes(roomSearchQuery.toLowerCase().replace(/\s+/g, ''));
+
     const matchesBuilding = selectedBuildingFilter === 'All' || 
       buildingCodeOrId.toLowerCase() === selectedBuildingFilter.toLowerCase() ||
-      buildingName.toLowerCase().includes(selectedBuildingFilter.toLowerCase());
+      buildingName.includes(selectedBuildingFilter.toLowerCase());
 
     const matchesCategory = selectedCategoryFilter === 'All' || r.category === selectedCategoryFilter;
-    return matchesBuilding && matchesCategory;
+    return matchesSearch && matchesBuilding && matchesCategory;
   });
 
   return (
@@ -126,7 +134,7 @@ export const BookingsPage = () => {
             <CalendarCheck className="w-6 h-6 text-emerald-400" /> Facility & Classroom Reservation Hub
           </h1>
           <p className="text-xs text-slate-400">
-            Select a campus building to view and reserve its available classrooms, labs, and seminar pods
+            Search and reserve from all 428 campus classrooms, labs, and seminar halls
           </p>
         </div>
 
@@ -146,20 +154,31 @@ export const BookingsPage = () => {
               activeTab === 'bookFacility' ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
             }`}
           >
-            Reserve Campus Room
+            Reserve Campus Room ({rooms.length})
           </button>
         </div>
       </div>
 
       {activeTab === 'bookFacility' && (
-        <GlassCard className="p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-cyan-500/30">
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Filter className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs font-bold text-white">Select Building:</span>
+        <GlassCard className="p-4 flex flex-col lg:flex-row items-center justify-between gap-4 border-cyan-500/30">
+          {/* Room Search Bar */}
+          <div className="relative w-full lg:w-72">
+            <input
+              type="text"
+              placeholder="Search 428 classrooms (e.g. CS 201, AI Lab)..."
+              value={roomSearchQuery}
+              onChange={(e) => setRoomSearchQuery(e.target.value)}
+              className="w-full glass-input text-xs py-2 pl-3 pr-8 rounded-xl border-slate-700 bg-slate-900 text-white focus:border-cyan-500"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 w-full lg:w-auto">
+            <Filter className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+            <span className="text-xs font-bold text-white whitespace-nowrap">Building:</span>
             <select
               value={selectedBuildingFilter}
               onChange={(e) => setSelectedBuildingFilter(e.target.value)}
-              className="glass-input text-xs py-1.5 px-3 bg-slate-900 border-slate-700 text-cyan-300 font-bold rounded-xl"
+              className="glass-input text-xs py-1.5 px-3 bg-slate-900 border-slate-700 text-cyan-300 font-bold rounded-xl w-full sm:w-auto"
             >
               <option value="All">All Buildings ({rooms.length} Rooms)</option>
               {buildings.map((b) => (
@@ -170,12 +189,12 @@ export const BookingsPage = () => {
             </select>
           </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 text-xs">
+          <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-1 text-xs">
             {['All', 'Classroom', 'Labs', 'Seminar Hall', 'Library Rooms', 'Meeting Rooms'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategoryFilter(cat)}
-                className={`px-3 py-1 rounded-xl font-semibold transition-all ${
+                className={`px-3 py-1 rounded-xl font-semibold transition-all whitespace-nowrap ${
                   selectedCategoryFilter === cat
                     ? 'bg-cyan-500 text-white shadow-md'
                     : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'

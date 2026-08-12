@@ -128,5 +128,11 @@ export const apiService = {
       return { success: true, data: { _id: 'nav_' + Date.now(), ...navData } };
     }
   },
-  getNavigationHistory: () => safeCall(() => API.get('/extra/navigation-history'), [])
+  getNavigationHistory: () => safeCall(() => API.get('/extra/navigation-history'), []),
+
+  // Geolocations Integration API
+  getGeolocationLocations: () => safeCall(() => API.get('/extra/geolocations/locations'), []),
+  searchGeolocations: (q) => safeCall(() => API.get(`/extra/geolocations/search?q=${encodeURIComponent(q)}`), []),
+  getGeoBitsLocations: () => safeCall(() => API.get('/extra/geolocations/locations'), []),
+  searchGeoBits: (q) => safeCall(() => API.get(`/extra/geolocations/search?q=${encodeURIComponent(q)}`), [])
 };

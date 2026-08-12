@@ -302,155 +302,8565 @@ export const MOCK_BUILDINGS = [
 ];
 
 export const MOCK_ROOMS = [
-  // AS Block Classes
   {
-    _id: 'r1',
-    roomNumber: 'AS-101 Smart Classroom',
-    building: { _id: 'b12', name: 'AS Academic Block', code: 'AS-BLK' },
-    floor: 1,
-    capacity: 60,
-    availability: true,
-    currentOccupancy: 25,
-    category: 'Classroom',
-    facilities: ['Smart Board', 'Dual 4K Projectors', 'HVAC Control', 'Power Outlets']
+    "_id": "rm_1",
+    "roomNumber": "IT 001 (SF Block - Base Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r2',
-    roomNumber: 'AS-102 Applied Sciences Lab',
-    building: { _id: 'b12', name: 'AS Academic Block', code: 'AS-BLK' },
-    floor: 1,
-    capacity: 50,
-    availability: true,
-    currentOccupancy: 30,
-    category: 'Labs',
-    facilities: ['Physics Kits', 'Fume Hoods', 'Smart Screen', 'Safety Shower']
+    "_id": "rm_2",
+    "roomNumber": "IT 002 (SF Block - Base Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r3',
-    roomNumber: 'AS-201 Interactive Lecture Hall',
-    building: { _id: 'b12', name: 'AS Academic Block', code: 'AS-BLK' },
-    floor: 2,
-    capacity: 65,
-    availability: true,
-    currentOccupancy: 40,
-    category: 'Classroom',
-    facilities: ['Tiered Seating', 'Surround Sound', 'HD Projector', 'AC']
+    "_id": "rm_3",
+    "roomNumber": "IT 003 (SF Block - Base Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r4',
-    roomNumber: 'AS-202 Seminar Room',
-    building: { _id: 'b12', name: 'AS Academic Block', code: 'AS-BLK' },
-    floor: 2,
-    capacity: 60,
-    availability: true,
-    currentOccupancy: 15,
-    category: 'Seminar Hall',
-    facilities: ['Video Conferencing', 'Dual Displays', 'Mic Array']
-  },
-
-  // IB Block Main Wing
-  {
-    _id: 'r5',
-    roomNumber: 'IB-101 Lecture Theatre',
-    building: { _id: 'b14', name: 'IB Academic Block (Main Wing)', code: 'IB-BLK-MAIN' },
-    floor: 1,
-    capacity: 65,
-    availability: true,
-    currentOccupancy: 50,
-    category: 'Classroom',
-    facilities: ['Smart Screen', 'Lectern Mic', 'Whiteboard', 'AC']
+    "_id": "rm_4",
+    "roomNumber": "IT Seminar Hall (SF Block - Base Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r6',
-    roomNumber: 'IB-102 Computing Center',
-    building: { _id: 'b14', name: 'IB Academic Block (Main Wing)', code: 'IB-BLK-MAIN' },
-    floor: 1,
-    capacity: 50,
-    availability: true,
-    currentOccupancy: 45,
-    category: 'Labs',
-    facilities: ['Core i7 PCs', 'High-Speed Fiber Net', 'AC']
+    "_id": "rm_5",
+    "roomNumber": "IT 101 (SF Block - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r7',
-    roomNumber: 'IB-201 Classroom',
-    building: { _id: 'b14', name: 'IB Academic Block (Main Wing)', code: 'IB-BLK-MAIN' },
-    floor: 2,
-    capacity: 65,
-    availability: true,
-    currentOccupancy: 20,
-    category: 'Classroom',
-    facilities: ['Smart Board', 'Projector', 'Power Outlets']
-  },
-
-  // IB Block East Wing
-  {
-    _id: 'r8',
-    roomNumber: 'IB-118 East Wing Classroom',
-    building: { _id: 'b15', name: 'IB Academic Block (East Wing)', code: 'IB-BLK-EAST' },
-    floor: 1,
-    capacity: 60,
-    availability: true,
-    currentOccupancy: 30,
-    category: 'Classroom',
-    facilities: ['Smart Display', 'Whiteboard', 'AC']
+    "_id": "rm_6",
+    "roomNumber": "IT 102 (SF Block - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r9',
-    roomNumber: 'IB-119 East Wing Classroom',
-    building: { _id: 'b15', name: 'IB Academic Block (East Wing)', code: 'IB-BLK-EAST' },
-    floor: 1,
-    capacity: 60,
-    availability: true,
-    currentOccupancy: 25,
-    category: 'Classroom',
-    facilities: ['Smart Board', 'Projector', 'Power Outlets']
+    "_id": "rm_7",
+    "roomNumber": "Department of Information Technology (SF Block - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r10',
-    roomNumber: 'IB-120 Advanced AI & Cloud Lab',
-    building: { _id: 'b15', name: 'IB Academic Block (East Wing)', code: 'IB-BLK-EAST' },
-    floor: 1,
-    capacity: 45,
-    availability: true,
-    currentOccupancy: 40,
-    category: 'Labs',
-    facilities: ['NVIDIA Workstations', 'Dual Monitors', 'Fiber Internet']
+    "_id": "rm_8",
+    "roomNumber": "Artificial Intelligence Lab (AI Lab) (SF Block - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r11',
-    roomNumber: 'IB-218 East Wing Seminar Room',
-    building: { _id: 'b15', name: 'IB Academic Block (East Wing)', code: 'IB-BLK-EAST' },
-    floor: 2,
-    capacity: 60,
-    availability: true,
-    currentOccupancy: 32,
-    category: 'Seminar Hall',
-    facilities: ['Video Conferencing', 'Dual Displays', 'Mic Array']
+    "_id": "rm_9",
+    "roomNumber": "CS 201 (SF Block - First Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
   {
-    _id: 'r12',
-    roomNumber: 'IB-225 Capstone Project Lab',
-    building: { _id: 'b15', name: 'IB Academic Block (East Wing)', code: 'IB-BLK-EAST' },
-    floor: 2,
-    capacity: 50,
-    availability: true,
-    currentOccupancy: 22,
-    category: 'Labs',
-    facilities: ['3D Printers', 'IoT Testing Kits', 'Smart Board']
+    "_id": "rm_10",
+    "roomNumber": "CS 202 💞 (SF Block - First Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   },
-
-  // Auditorium
   {
-    _id: 'r13',
-    roomNumber: 'AUD-101 Grand Main Stage Hall',
-    building: { _id: 'b16', name: 'BIT Auditorium', code: 'BIT-AUD' },
-    floor: 1,
-    capacity: 1500,
-    availability: false,
-    currentOccupancy: 1100,
-    category: 'Auditorium',
-    facilities: ['Dolby Atmos', 'Laser Projector', 'Stage Lighting']
+    "_id": "rm_11",
+    "roomNumber": "CS 203 (SF Block - First Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_12",
+    "roomNumber": "Department of Computer Science and Engineering (SF Block - First Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_13",
+    "roomNumber": "CSE Lab 1 (SF Block - First Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_14",
+    "roomNumber": "AIML 101 (SF Block - Second Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_15",
+    "roomNumber": "CS 302 (SF Block - Second Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_16",
+    "roomNumber": "CS 303 (SF Block - Second Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_17",
+    "roomNumber": "Auditorium (SF Block - Second Floor)",
+    "building": {
+      "_id": "b_sf-block",
+      "name": "SF Block",
+      "code": "SF-BLOCK"
+    },
+    "floor": 4,
+    "capacity": 1500,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Auditorium",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_18",
+    "roomNumber": "Civil Practical Labs (SF Block Labs - Base Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_19",
+    "roomNumber": "Data Mining Lab (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_20",
+    "roomNumber": "Cloud Computing Lab (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_21",
+    "roomNumber": "DBMS Lab (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_22",
+    "roomNumber": "Faculty Hall 5 (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_23",
+    "roomNumber": "Faculty Hall 7 (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_24",
+    "roomNumber": "Programming Lab (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_25",
+    "roomNumber": "sunflower block (SF Block Labs - Ground Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_26",
+    "roomNumber": "CSE Lab 2 (SF Block Labs - First Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_27",
+    "roomNumber": "CSE Lab 3 (Networking Lab) (SF Block Labs - First Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_28",
+    "roomNumber": "Faculty Hall 5 (SF Block Labs - First Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_29",
+    "roomNumber": "CSE Lab 4 (Web Technology Lab) (SF Block Labs - First Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_30",
+    "roomNumber": "CSE Lab 5 (Open Source Lab) (SF Block Labs - First Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_31",
+    "roomNumber": "Department of Artificial Intelligence and Machine Learning (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_32",
+    "roomNumber": "CSE Lab 6 (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_33",
+    "roomNumber": "CSE Lab 7 (Data Structure Lab 7) (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_34",
+    "roomNumber": "CSE Lab 8 (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_35",
+    "roomNumber": "CSE Lab 9 (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_36",
+    "roomNumber": "Faculty Hall 10 (SF Block Labs - Second Floor)",
+    "building": {
+      "_id": "b_sf-block-labs",
+      "name": "SF Block Labs",
+      "code": "SF-BLOCK-LABS"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_37",
+    "roomNumber": "Department of Mechanical Engineering (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_38",
+    "roomNumber": "Department office (Mech) (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_39",
+    "roomNumber": "Department Library (Mech) (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Library Rooms",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_40",
+    "roomNumber": "Smart class room (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_41",
+    "roomNumber": "Reprography Center (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_42",
+    "roomNumber": "Cyber Security Lab (Mech Block Entrance - Ground Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_43",
+    "roomNumber": "Department of Mechanics (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_44",
+    "roomNumber": "Mathematics Experience Centre (ME 101) (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_45",
+    "roomNumber": "ME 102 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_46",
+    "roomNumber": "ME 103 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_47",
+    "roomNumber": "ME 104 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_48",
+    "roomNumber": "ME 105 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_49",
+    "roomNumber": "ME 106 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_50",
+    "roomNumber": "ME 107 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_51",
+    "roomNumber": "ME 108 (Mech Block Entrance - First Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_52",
+    "roomNumber": "Department of Aeronautical (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_53",
+    "roomNumber": "ME 201 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_54",
+    "roomNumber": "ME 202 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_55",
+    "roomNumber": "ME 203 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_56",
+    "roomNumber": "ME 204 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_57",
+    "roomNumber": "ME 205 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_58",
+    "roomNumber": "ME 206 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_59",
+    "roomNumber": "Faculty Hall 1 (Mech Block Entrance - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_60",
+    "roomNumber": "Department of Agriculture (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_61",
+    "roomNumber": "ME 301 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_62",
+    "roomNumber": "ME 302 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_63",
+    "roomNumber": "ME 303 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_64",
+    "roomNumber": "ME 304 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_65",
+    "roomNumber": "ME 305 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_66",
+    "roomNumber": "ME 306 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_67",
+    "roomNumber": "Faculty Hall  2 (Mech Block Entrance - Third Floor)",
+    "building": {
+      "_id": "b_mechanic-front",
+      "name": "Mech Block Entrance",
+      "code": "MECHANIC-FRONT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_68",
+    "roomNumber": "Basic Workshop (Mechanic Block - Base Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_69",
+    "roomNumber": "Inventory Area (Mechanic Block - Base Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_70",
+    "roomNumber": "Special Machinery Shop (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_71",
+    "roomNumber": "Strength of Materials Lab (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_72",
+    "roomNumber": "Lathe Shop (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_73",
+    "roomNumber": "Meteorology Lab (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_74",
+    "roomNumber": "Aqua Sub BIT research center (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_75",
+    "roomNumber": "Fluid Mechanics (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_76",
+    "roomNumber": "Thermal Engineering lab (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_77",
+    "roomNumber": "Non-Destructive Testing Lab (Mechanic Block - Ground floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_78",
+    "roomNumber": "Sensor and Instrumentation lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_79",
+    "roomNumber": "MEMS Laboratory (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_80",
+    "roomNumber": "Mechatronics Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_81",
+    "roomNumber": "BIT - Harita Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_82",
+    "roomNumber": "Sew Eurodrive Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_83",
+    "roomNumber": "Kinematics & Dynamic Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_84",
+    "roomNumber": "Metallurgy Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_85",
+    "roomNumber": "Aircraft Structure Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_86",
+    "roomNumber": "Avionics Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_87",
+    "roomNumber": "Basic Workshop (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_88",
+    "roomNumber": "Industrial and Mobile Robotics Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_89",
+    "roomNumber": "CAM Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_90",
+    "roomNumber": "FANUC centre for FOR CNC Machine (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_91",
+    "roomNumber": "BIT - FESTO Centre (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_92",
+    "roomNumber": "CAD Lab (Mechanic Block - First Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_93",
+    "roomNumber": "Heat Transfer Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_94",
+    "roomNumber": "Industrial Safety Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_95",
+    "roomNumber": "Energy Management Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_96",
+    "roomNumber": "Automative Components Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_97",
+    "roomNumber": "Smart Agriculture Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_98",
+    "roomNumber": "Drawing Hall 1 (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_99",
+    "roomNumber": "Drawing Hall 2 (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_100",
+    "roomNumber": "Fundamentals of Mechanical Engg Lab (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_101",
+    "roomNumber": "Statics Laboratory (Mechanic Block - Second Floor)",
+    "building": {
+      "_id": "b_mechanic-back",
+      "name": "Mechanic Block",
+      "code": "MECHANIC-BACK"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_102",
+    "roomNumber": "CS 109 (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_103",
+    "roomNumber": "New Product Development Lab (CS 110) (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_104",
+    "roomNumber": "Digital Marketing Lab (CS 111) (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_105",
+    "roomNumber": "Research Lab (CS 112) (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_106",
+    "roomNumber": "Test and Repair Centre (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_107",
+    "roomNumber": "Industrial Design Studio (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_108",
+    "roomNumber": "IT Operations (AS Block - Ground Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_109",
+    "roomNumber": "Department of Information Science and Technology (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_110",
+    "roomNumber": "ISE Lab 1 (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_111",
+    "roomNumber": "ISE Lab 2 (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_112",
+    "roomNumber": "Server Room (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_113",
+    "roomNumber": "Faculty Hall 1 (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_114",
+    "roomNumber": "Robotics & Automation Lab (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_115",
+    "roomNumber": "BT Lab (AS Block - First floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_116",
+    "roomNumber": "Discussion Room (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_117",
+    "roomNumber": "Conference Room (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_118",
+    "roomNumber": "Data Science Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_119",
+    "roomNumber": "Open Source Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_120",
+    "roomNumber": "AR/VR Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_121",
+    "roomNumber": "Design & Prototyping Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_122",
+    "roomNumber": "Hackathon Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_123",
+    "roomNumber": "Integrated AI Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_124",
+    "roomNumber": "Sensor Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_125",
+    "roomNumber": "Vision Engineering Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_126",
+    "roomNumber": "Embedded Systems Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_127",
+    "roomNumber": "UAV Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_128",
+    "roomNumber": "UUV Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_129",
+    "roomNumber": "Robotics Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_130",
+    "roomNumber": "Automation Lab (AS Block - Second Floor)",
+    "building": {
+      "_id": "b_as-main-left",
+      "name": "AS Block",
+      "code": "AS-MAIN-LEFT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_131",
+    "roomNumber": "Manufacturing and Fabrication Lab (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_132",
+    "roomNumber": "Hybrid Human Powered Vehicle (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_133",
+    "roomNumber": "Agricultural Vehicle (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_134",
+    "roomNumber": "On Road Off Road Vehicle (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_135",
+    "roomNumber": "MF Lab (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_136",
+    "roomNumber": "Sustainable Civil Engineering Materials Lab (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_137",
+    "roomNumber": "Kart Vehicle (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_138",
+    "roomNumber": "Electrical Vehicle (Special Labs - Base Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_139",
+    "roomNumber": "Reprographic Centre (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_140",
+    "roomNumber": "CB 101 (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_141",
+    "roomNumber": "Electronic System for Wildlife Conservation Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_142",
+    "roomNumber": "Virtual Instrumentation Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_143",
+    "roomNumber": "Block Chain Technology Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_144",
+    "roomNumber": "Product Innovation Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_145",
+    "roomNumber": "Intelligence Innovation Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_146",
+    "roomNumber": "Natural Language Processing (NLP) Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_147",
+    "roomNumber": "Power Conversion and System Integration Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_148",
+    "roomNumber": "Signal Processing for Health Care Lab (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_149",
+    "roomNumber": "World Skill Training Centre (Special Labs - Ground floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_150",
+    "roomNumber": "Department of Computer Science and Business System (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_151",
+    "roomNumber": "CSBS Lab 1 (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_152",
+    "roomNumber": "CSBS Lab 2 (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_153",
+    "roomNumber": "CSBS Lab 3 (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_154",
+    "roomNumber": "Mathematics Experience Centre (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_155",
+    "roomNumber": "Embedded Technology Lab (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_156",
+    "roomNumber": "Energy and Thermal Product Development Lab (Special Labs - First Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_157",
+    "roomNumber": "Internet of Things (IoT) Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_158",
+    "roomNumber": "Cloud Computing Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_159",
+    "roomNumber": "Data Science Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_160",
+    "roomNumber": "Electrical Product Development Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_161",
+    "roomNumber": "Next Generation Networking Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_162",
+    "roomNumber": "Communication & Protocol Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_163",
+    "roomNumber": "Energy Storage & Conversion Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_164",
+    "roomNumber": "Micro Prototyping Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_165",
+    "roomNumber": "Robotics Division (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_166",
+    "roomNumber": "Drone division (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_167",
+    "roomNumber": "3D printing Division (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_168",
+    "roomNumber": "AI Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_169",
+    "roomNumber": "Mobile and Web App Dev Lab (Special Labs - Second Floor)",
+    "building": {
+      "_id": "b_as-main-right",
+      "name": "Special Labs",
+      "code": "AS-MAIN-RIGHT"
+    },
+    "floor": 4,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_170",
+    "roomNumber": "Department of Biomedical Engineering (AS rib 1 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_171",
+    "roomNumber": "Faculty Hall (AS rib 1 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_172",
+    "roomNumber": "EW 113 (AS rib 1 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_173",
+    "roomNumber": "EW 114 (AS rib 1 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_174",
+    "roomNumber": "EW 115 (AS rib 1 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_175",
+    "roomNumber": "EW 213 (AS rib 1 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_176",
+    "roomNumber": "EW 214 (AS rib 1 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_177",
+    "roomNumber": "EW 215 (AS rib 1 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-1",
+      "name": "AS rib 1",
+      "code": "AS-RIB-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_178",
+    "roomNumber": "Department of Chemistry (AS rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_179",
+    "roomNumber": "Faculty Hall (AS rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_180",
+    "roomNumber": "Chemistry Laboratory - 1 (AS rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_181",
+    "roomNumber": "Language Lab (AS rib 2 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_182",
+    "roomNumber": "ELCC Cell (AS rib 2 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_183",
+    "roomNumber": "Faculty Hall (AS rib 2 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_184",
+    "roomNumber": "Physics Laboratory - 1 (AS rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_185",
+    "roomNumber": "Faculty Hall (AS rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-2",
+      "name": "AS rib 2",
+      "code": "AS-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_186",
+    "roomNumber": "Department of Civil Engineering (AS rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_187",
+    "roomNumber": "Faculty Hall (AS rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_188",
+    "roomNumber": "Conference Hall (AS rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_189",
+    "roomNumber": "EW 116 (AS rib 3 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_190",
+    "roomNumber": "EW 117 (AS rib 3 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_191",
+    "roomNumber": "EW 118 (AS rib 3 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_192",
+    "roomNumber": "EW 216 (AS rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_193",
+    "roomNumber": "EW 217 (AS rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_194",
+    "roomNumber": "EW 218 (AS rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-3",
+      "name": "AS rib 3",
+      "code": "AS-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_195",
+    "roomNumber": "Faculty Hall (AS rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_196",
+    "roomNumber": "Signal Processing Lab (AS rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_197",
+    "roomNumber": "PCB Design Lab (AS rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_198",
+    "roomNumber": "PCB Fabrication Lab (AS rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_199",
+    "roomNumber": "Department of Physics (AS rib 4 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_200",
+    "roomNumber": "Physics Laboratory - 2 (AS rib 4 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_201",
+    "roomNumber": "Faculty  Hall (AS rib 4 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_202",
+    "roomNumber": "Chemistry Laboratory - 2 (AS rib 4 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_203",
+    "roomNumber": "Faculty Hall (AS rib 4 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-4",
+      "name": "AS rib 4",
+      "code": "AS-RIB-4"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_204",
+    "roomNumber": "Faculty Hall 2 (AS rib 5 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_205",
+    "roomNumber": "EW 107 (AS rib 5 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_206",
+    "roomNumber": "EW 108 ❤️‍🩹 (AS rib 5 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_207",
+    "roomNumber": "EW 109 (AS rib 5 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_208",
+    "roomNumber": "EW 207 (AS rib 5 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_209",
+    "roomNumber": "EW 208 (AS rib 5 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_210",
+    "roomNumber": "EW 209 (AS rib 5 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-5",
+      "name": "AS rib 5",
+      "code": "AS-RIB-5"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_211",
+    "roomNumber": "Faculty Hall (AS rib 6 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_212",
+    "roomNumber": "Soil Mechanic Lab (AS rib 6 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_213",
+    "roomNumber": "CADD & Survey Lab (AS rib 6 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_214",
+    "roomNumber": "Survey & Environmental Lab (AS rib 6 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_215",
+    "roomNumber": "Biochemistry Lab (AS rib 6 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_216",
+    "roomNumber": "Physiology Lab (AS rib 6 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-6",
+      "name": "AS rib 6",
+      "code": "AS-RIB-6"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_217",
+    "roomNumber": "Department of Electrical and Communication Engineering (AS rib 7 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_218",
+    "roomNumber": "Faculty Hall 1 (AS rib 7 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_219",
+    "roomNumber": "ECE Seminar Hall (AS rib 7 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_220",
+    "roomNumber": "Faculty Hall 3 (AS rib 7 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_221",
+    "roomNumber": "EW 111 (AS rib 7 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_222",
+    "roomNumber": "EW 112 (AS rib 7 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_223",
+    "roomNumber": "EW 210 (AS rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_224",
+    "roomNumber": "EW 211 (AS rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_225",
+    "roomNumber": "EW 212 (AS rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-7",
+      "name": "AS rib 7",
+      "code": "AS-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_226",
+    "roomNumber": "Analog electronic & IC Lab (AS rib 8 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_227",
+    "roomNumber": "Advanced Communication System Lab (AS rib 8 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_228",
+    "roomNumber": "Network Lab (AS rib 8 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_229",
+    "roomNumber": "PG VLSI Lab (AS rib 8 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_230",
+    "roomNumber": "Product Development Lab (AS rib 8 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_231",
+    "roomNumber": "Analog & Digital Lab (AS rib 8 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_232",
+    "roomNumber": "Microwave & Optical Lab (AS rib 8 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-8",
+      "name": "AS rib 8",
+      "code": "AS-RIB-8"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_233",
+    "roomNumber": "Department of Food Technology (AS rib 9 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_234",
+    "roomNumber": "Faculty Hall (AS rib 9 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_235",
+    "roomNumber": "EW 101 (AS rib 9 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_236",
+    "roomNumber": "EW 102 (AS rib 9 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_237",
+    "roomNumber": "EW 103 (AS rib 9 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_238",
+    "roomNumber": "EW 201 (AS rib 9 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_239",
+    "roomNumber": "EW 202 (AS rib 9 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_240",
+    "roomNumber": "EW 203 (AS rib 9 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-9",
+      "name": "AS rib 9",
+      "code": "AS-RIB-9"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_241",
+    "roomNumber": "Chemical Processing Lab (AS rib 10 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_242",
+    "roomNumber": "Apparel Testing Lab (AS rib 10 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_243",
+    "roomNumber": "Textile Testing Lab (AS rib 10 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_244",
+    "roomNumber": "Faculty Hall (AS rib 10 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_245",
+    "roomNumber": "VLSI Design Lab (AS rib 10 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_246",
+    "roomNumber": "Digital Electronic Lab (AS rib 10 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_247",
+    "roomNumber": "Microprocessor & Microcontroller Lab (AS rib 10 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-10",
+      "name": "AS rib 10",
+      "code": "AS-RIB-10"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_248",
+    "roomNumber": "Department of Textile Technology (AS rib 11 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_249",
+    "roomNumber": "Faculty Hall (AS rib 11 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_250",
+    "roomNumber": "Textile Seminar Hall (AS rib 11 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_251",
+    "roomNumber": "EW 104 (AS rib 11 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_252",
+    "roomNumber": "EW 105 (AS rib 11 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_253",
+    "roomNumber": "EW 106 (AS rib 11 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_254",
+    "roomNumber": "EW 204 (AS rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_255",
+    "roomNumber": "EW 205 (AS rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_256",
+    "roomNumber": "EW 206 (AS rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-11",
+      "name": "AS rib 11",
+      "code": "AS-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_257",
+    "roomNumber": "Weaving and Knitting Lab (AS rib 12 - Ground Floor)",
+    "building": {
+      "_id": "b_as-rib-12",
+      "name": "AS rib 12",
+      "code": "AS-RIB-12"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_258",
+    "roomNumber": "Food Technology Lab (AS rib 12 - First Floor)",
+    "building": {
+      "_id": "b_as-rib-12",
+      "name": "AS rib 12",
+      "code": "AS-RIB-12"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_259",
+    "roomNumber": "Food Analysis and Instrumentation Facility (AS rib 12 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-12",
+      "name": "AS rib 12",
+      "code": "AS-RIB-12"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_260",
+    "roomNumber": "Food Technology Lab - 2 (AS rib 12 - Second Floor)",
+    "building": {
+      "_id": "b_as-rib-12",
+      "name": "AS rib 12",
+      "code": "AS-RIB-12"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_261",
+    "roomNumber": "Department of Fashion Technology (Fashion Resource Centre - Ground Floor)",
+    "building": {
+      "_id": "b_fashion-centre",
+      "name": "Fashion Resource Centre",
+      "code": "FASHION-CENTRE"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_262",
+    "roomNumber": "Faculty Hall (Fashion Resource Centre - Ground Floor)",
+    "building": {
+      "_id": "b_fashion-centre",
+      "name": "Fashion Resource Centre",
+      "code": "FASHION-CENTRE"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_263",
+    "roomNumber": "Class rooms (Fashion Resource Centre - First Floor)",
+    "building": {
+      "_id": "b_fashion-centre",
+      "name": "Fashion Resource Centre",
+      "code": "FASHION-CENTRE"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_264",
+    "roomNumber": "Garment Construction Lab 1 (Fashion Resource Centre - First Floor)",
+    "building": {
+      "_id": "b_fashion-centre",
+      "name": "Fashion Resource Centre",
+      "code": "FASHION-CENTRE"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_265",
+    "roomNumber": "Garment Construction Lab 2 (Fashion Resource Centre - First Floor)",
+    "building": {
+      "_id": "b_fashion-centre",
+      "name": "Fashion Resource Centre",
+      "code": "FASHION-CENTRE"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_266",
+    "roomNumber": "Spinning Lab (Spinning Lab - Ground Floor)",
+    "building": {
+      "_id": "b_spinning-lab",
+      "name": "Spinning Lab",
+      "code": "SPINNING-LAB"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_267",
+    "roomNumber": "Spinning Lab (Spinning Lab - First Floor)",
+    "building": {
+      "_id": "b_spinning-lab",
+      "name": "Spinning Lab",
+      "code": "SPINNING-LAB"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_268",
+    "roomNumber": "Department of Mathematics (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_269",
+    "roomNumber": "IB 101 (left as it is in remainder of old names) (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_270",
+    "roomNumber": "WW 002 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_271",
+    "roomNumber": "WW 003 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_272",
+    "roomNumber": "WW 004 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_273",
+    "roomNumber": "Maths Faculty Hall - 1 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_274",
+    "roomNumber": "Maths Faculty Hall - 2 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_275",
+    "roomNumber": "Biotech Seminar Hall (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_276",
+    "roomNumber": "Genetic Engineering Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_277",
+    "roomNumber": "Molecular Biology Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_278",
+    "roomNumber": "Bio-polymer Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_279",
+    "roomNumber": "Bio Material Synthesis and Analysis Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_280",
+    "roomNumber": "Bio-prospecting Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_281",
+    "roomNumber": "Department of Bio-Technology (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_282",
+    "roomNumber": "Plant Issue Culture Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_283",
+    "roomNumber": "Faculty Hall (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_284",
+    "roomNumber": "WW 216 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_285",
+    "roomNumber": "WW 217 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_286",
+    "roomNumber": "WW 218 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_287",
+    "roomNumber": "WW 219 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_288",
+    "roomNumber": "WW 220 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_289",
+    "roomNumber": "WW 221 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_290",
+    "roomNumber": "Maths Faculty Hall - 5 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-1",
+      "name": "IB Block",
+      "code": "IB-BLOCK-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_291",
+    "roomNumber": "WW 005 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_292",
+    "roomNumber": "WW 006 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_293",
+    "roomNumber": "WW 007 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_294",
+    "roomNumber": "WW 008 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_295",
+    "roomNumber": "WW 010 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_296",
+    "roomNumber": "WW 011 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_297",
+    "roomNumber": "WW 012 (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_298",
+    "roomNumber": "Bio-process and Bio-product Lab (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_299",
+    "roomNumber": "BIT Integrated Plant Research Facility (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_300",
+    "roomNumber": "Bio Energy Research Lab (IB Block - Ground Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_301",
+    "roomNumber": "Fungal Bio-diversity and Bio-resources Research Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_302",
+    "roomNumber": "Lecture Hall IB 118 (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_303",
+    "roomNumber": "Nano Biotechnology Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_304",
+    "roomNumber": "Molecular Diagnostic and Bacterial Pathogenemis Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_305",
+    "roomNumber": "Downstream Processing Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_306",
+    "roomNumber": "Cell Biology Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_307",
+    "roomNumber": "Microbiology Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_308",
+    "roomNumber": "Chemical Engineering Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_309",
+    "roomNumber": "Bio Process Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_310",
+    "roomNumber": "Bio Separation Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_311",
+    "roomNumber": "Fume Head Room (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_312",
+    "roomNumber": "Bio-Organic Chemistry Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_313",
+    "roomNumber": "Instrumental method of analysis Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_314",
+    "roomNumber": "Immunology Lab (IB Block - First Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_315",
+    "roomNumber": "WW 222 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_316",
+    "roomNumber": "WW 223 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_317",
+    "roomNumber": "WW 224 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_318",
+    "roomNumber": "WW 225 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_319",
+    "roomNumber": "WW 226 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_320",
+    "roomNumber": "WW 227 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_321",
+    "roomNumber": "Maths Faculty Hall - 6 (IB Block - Second Floor)",
+    "building": {
+      "_id": "b_ib-block-2",
+      "name": "IB Block",
+      "code": "IB-BLOCK-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_322",
+    "roomNumber": "Department of Electronics and Instrumentation Engineering (IB rib 1 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_323",
+    "roomNumber": "Faculty Hall (IB rib 1 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_324",
+    "roomNumber": "Yoga Centre (IB rib 1 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_325",
+    "roomNumber": "WW 113 (IB rib 1 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_326",
+    "roomNumber": "WW 114 (IB rib 1 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_327",
+    "roomNumber": "WW 115 (IB rib 1 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_328",
+    "roomNumber": "WW 212 (IB rib 1 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_329",
+    "roomNumber": "WW 211 (IB rib 1 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-1",
+      "name": "IB rib 1",
+      "code": "IB-RIB-1"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_330",
+    "roomNumber": "Technology Business Incubator - BIT TBI (IB rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_331",
+    "roomNumber": "ß,α cave (IB rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_332",
+    "roomNumber": "Repository (IB rib 2 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_333",
+    "roomNumber": "Idea Pad (IB rib 2 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_334",
+    "roomNumber": "Mission Control (IB rib 2 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_335",
+    "roomNumber": "Pageant Theatre (IB rib 2 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_336",
+    "roomNumber": "Proto Lounge (IB rib 2 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_337",
+    "roomNumber": "Fab Lab (IB rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_338",
+    "roomNumber": "Venture Space (IB rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_339",
+    "roomNumber": "Mentor Studio (IB rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_340",
+    "roomNumber": "Launch Pad (IB rib 2 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-2",
+      "name": "IB rib 2",
+      "code": "IB-RIB-2"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_341",
+    "roomNumber": "Department of Artificial Intelligence and Data Science (IB rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_342",
+    "roomNumber": "CT & AIDS Library (IB rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Library Rooms",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_343",
+    "roomNumber": "MNC (IB rib 3 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_344",
+    "roomNumber": "WW 117 (IB rib 3 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_345",
+    "roomNumber": "WW 118 (IB rib 3 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_346",
+    "roomNumber": "CT Faculty Hall 4 (IB rib 3 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_347",
+    "roomNumber": "WW 213 (IB rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_348",
+    "roomNumber": "WW 214 (IB rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_349",
+    "roomNumber": "WW 215 (IB rib 3 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-3",
+      "name": "IB rib 3",
+      "code": "IB-RIB-3"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_350",
+    "roomNumber": "Centre of Excellence in Industrial Automation (IB rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_351",
+    "roomNumber": "Internet of Things Lab (IB rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_352",
+    "roomNumber": "ZSN Computech (IB rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_353",
+    "roomNumber": "E-yantra Robotics Lab (IB rib 4 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_354",
+    "roomNumber": "Department of Computer Technology (IB rib 4 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_355",
+    "roomNumber": "CT Labs (IB rib 4 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_356",
+    "roomNumber": "Department of Artificial Intelligence and Data Science (IB rib 4 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_357",
+    "roomNumber": "AIDS Labs (IB rib 4 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-4",
+      "name": "IB rib 4",
+      "code": "IB-RIB-4"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_358",
+    "roomNumber": "Department of Electrical and Electronics Engineering (IB rib 5 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_359",
+    "roomNumber": "Faculty Hall (IB rib 5 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 7,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_360",
+    "roomNumber": "EEE Seminar Hall (IB rib 5 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_361",
+    "roomNumber": "WW 107 (IB rib 5 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_362",
+    "roomNumber": "WW 108 (IB rib 5 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_363",
+    "roomNumber": "WW 109 (IB rib 5 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_364",
+    "roomNumber": "WW 207 (IB rib 5 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_365",
+    "roomNumber": "WW 206 (IB rib 5 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_366",
+    "roomNumber": "EIE Computer Centre (IB rib 6 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_367",
+    "roomNumber": "Process Control Lab (IB rib 6 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_368",
+    "roomNumber": "Sensor and Transducer Lab (IB rib 6 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_369",
+    "roomNumber": "Industrial Instrumentation Lab (IB rib 6 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_370",
+    "roomNumber": "Electronics Lab (IB rib 6 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_371",
+    "roomNumber": "Conference Hall - EIE (IB rib 6 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 3,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_372",
+    "roomNumber": "Smart Class Room - EIE (IB rib 6 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-6",
+      "name": "IB rib 6",
+      "code": "IB-RIB-6"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_373",
+    "roomNumber": "Faculty Hall (IB rib 7 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_374",
+    "roomNumber": "WW 110 (IB rib 7 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_375",
+    "roomNumber": "WW 111 (IB rib 7 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_376",
+    "roomNumber": "WW 112 (IB rib 7 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_377",
+    "roomNumber": "WW 208 (IB rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_378",
+    "roomNumber": "WW 209 (IB rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_379",
+    "roomNumber": "WW 210 (IB rib 7 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-7",
+      "name": "IB rib 7",
+      "code": "IB-RIB-7"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 9,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_380",
+    "roomNumber": "BIT - Gurugualam (IB rib 8 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-8",
+      "name": "IB rib 8",
+      "code": "IB-RIB-8"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_381",
+    "roomNumber": "Electronics Lab (IB rib 8 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-8",
+      "name": "IB rib 8",
+      "code": "IB-RIB-8"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_382",
+    "roomNumber": "Electronics Machines Lab (IB rib 8 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-8",
+      "name": "IB rib 8",
+      "code": "IB-RIB-8"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_383",
+    "roomNumber": "Faculty Hall (IB rib 8 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-8",
+      "name": "IB rib 8",
+      "code": "IB-RIB-8"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_384",
+    "roomNumber": "Power Electronics and Drives Lab (IB rib 8 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-8",
+      "name": "IB rib 8",
+      "code": "IB-RIB-8"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_385",
+    "roomNumber": "Xerox printout (IB rib 9 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_386",
+    "roomNumber": "Seminar Hall Mech (IB rib 9 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 1,
+    "capacity": 75,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Seminar Hall",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_387",
+    "roomNumber": "WW 101 (IB rib 9 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_388",
+    "roomNumber": "WW 102 (IB rib 9 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 19,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_389",
+    "roomNumber": "WW 103 (IB rib 9 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 18,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_390",
+    "roomNumber": "WW 201 (IB rib 9 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_391",
+    "roomNumber": "WW 202 (IB rib 9 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-9",
+      "name": "IB rib 9",
+      "code": "IB-RIB-9"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 14,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_392",
+    "roomNumber": "BIT Gurugualam (IB rib 10 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_393",
+    "roomNumber": "Faculty Hall (IB rib 10 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 5,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_394",
+    "roomNumber": "EEE Computer Centre (IB rib 10 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_395",
+    "roomNumber": "Store Room (IB rib 10 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_396",
+    "roomNumber": "EEE Tutorial Hall (IB rib 10 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 11,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_397",
+    "roomNumber": "Department of Humanities (IB rib 11 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_398",
+    "roomNumber": "Chairman Cabin (IB rib 11 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_399",
+    "roomNumber": "WW 104 💝 (IB rib 11 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_400",
+    "roomNumber": "WW 105 (IB rib 11 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_401",
+    "roomNumber": "WW 106 (IB rib 11 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_402",
+    "roomNumber": "WW 203 (IB rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_403",
+    "roomNumber": "WW 204 (IB rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_404",
+    "roomNumber": "WW 205 (IB rib 11 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-11",
+      "name": "IB rib 11",
+      "code": "IB-RIB-11"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_405",
+    "roomNumber": "BIT Gurugualam (IB rib 12 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_406",
+    "roomNumber": "Wielding and pm lab (IB rib 12 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 1,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_407",
+    "roomNumber": "Home Appliances Lab (IB rib 12 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_408",
+    "roomNumber": "Salzar BIT Innovation Centre (IB rib 12 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_409",
+    "roomNumber": "Basic EEE Lab (IB rib 12 - First Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 2,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_410",
+    "roomNumber": "PLC Lab (IB rib 12 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 8,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_411",
+    "roomNumber": "A&D Lab (IB rib 12 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 3,
+    "capacity": 45,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Labs",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_412",
+    "roomNumber": "Thermal Drawing Hall (IB rib 12 - Second Floor)",
+    "building": {
+      "_id": "b_ib-rib-12",
+      "name": "IB rib 12",
+      "code": "IB-RIB-12"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 4,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_413",
+    "roomNumber": "Internet Centre (Internet Centre - Ground Floor)",
+    "building": {
+      "_id": "b_internet-centre",
+      "name": "Internet Centre",
+      "code": "INTERNET-CENTRE"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_414",
+    "roomNumber": "Controller of Examination (COE) (Internet Centre - First Floor)",
+    "building": {
+      "_id": "b_internet-centre",
+      "name": "Internet Centre",
+      "code": "INTERNET-CENTRE"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_415",
+    "roomNumber": "Department of Training and Placement (Placement and Training Cell - Ground Floor)",
+    "building": {
+      "_id": "b_placement-and-training",
+      "name": "Placement and Training Cell",
+      "code": "PLACEMENT-AND-TRAINING"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_416",
+    "roomNumber": "Vedhanayagam Auditorium (Placement and Training Cell - First Floor)",
+    "building": {
+      "_id": "b_placement-and-training",
+      "name": "Placement and Training Cell",
+      "code": "PLACEMENT-AND-TRAINING"
+    },
+    "floor": 2,
+    "capacity": 1500,
+    "availability": true,
+    "currentOccupancy": 10,
+    "category": "Auditorium",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_417",
+    "roomNumber": "Hostel Manager Cabin (Gym - Ground Floor)",
+    "building": {
+      "_id": "b_indoor-gym",
+      "name": "Gym",
+      "code": "INDOOR-GYM"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_418",
+    "roomNumber": "Boys Gym (Gym - First Floor)",
+    "building": {
+      "_id": "b_indoor-gym",
+      "name": "Gym",
+      "code": "INDOOR-GYM"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 12,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_419",
+    "roomNumber": "Yoga Centre (Gym - Second Floor)",
+    "building": {
+      "_id": "b_indoor-gym",
+      "name": "Gym",
+      "code": "INDOOR-GYM"
+    },
+    "floor": 3,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_420",
+    "roomNumber": "Boys Visitor Hall (Visitor hall (Boys) - Ground Floor)",
+    "building": {
+      "_id": "b_boys-visitor-hall",
+      "name": "Visitor hall (Boys)",
+      "code": "BOYS-VISITOR-HALL"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 2,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_421",
+    "roomNumber": "Conventional Store (Recreation Hall - Ground Floor)",
+    "building": {
+      "_id": "b_recreation-hall",
+      "name": "Recreation Hall",
+      "code": "RECREATION-HALL"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 13,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_422",
+    "roomNumber": "Gift Shop (Recreation Hall - Ground Floor)",
+    "building": {
+      "_id": "b_recreation-hall",
+      "name": "Recreation Hall",
+      "code": "RECREATION-HALL"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 17,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_423",
+    "roomNumber": "Mobile Shop (Recreation Hall - Ground Floor)",
+    "building": {
+      "_id": "b_recreation-hall",
+      "name": "Recreation Hall",
+      "code": "RECREATION-HALL"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_424",
+    "roomNumber": "Recreation Hall (Recreation Hall - First Floor)",
+    "building": {
+      "_id": "b_recreation-hall",
+      "name": "Recreation Hall",
+      "code": "RECREATION-HALL"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 6,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_425",
+    "roomNumber": "Mess (Mess - Ground Floor)",
+    "building": {
+      "_id": "b_girls-mess",
+      "name": "Mess",
+      "code": "GIRLS-MESS"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 15,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_426",
+    "roomNumber": "Dance Hall (Mess - First Floor)",
+    "building": {
+      "_id": "b_girls-mess",
+      "name": "Mess",
+      "code": "GIRLS-MESS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 3,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_427",
+    "roomNumber": "Girls Gym (Mess - First Floor)",
+    "building": {
+      "_id": "b_girls-mess",
+      "name": "Mess",
+      "code": "GIRLS-MESS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 1,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
+    "_id": "rm_428",
+    "roomNumber": "Mess (Mess - First Floor)",
+    "building": {
+      "_id": "b_girls-mess",
+      "name": "Mess",
+      "code": "GIRLS-MESS"
+    },
+    "floor": 2,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 16,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
   }
 ];
 
