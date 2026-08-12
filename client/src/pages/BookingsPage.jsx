@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MOCK_ROOMS, MOCK_BOOKINGS } from '../data/mockData';
 import { GlassCard } from '../components/common/GlassCard';
-import { BookingForm } from '../components/booking/BookingForm';
+import { BookingForm, calculateDurationHours } from '../components/booking/BookingForm';
 import { QRModal } from '../components/common/QRModal';
 import { CalendarCheck, Building2, Users, Clock, QrCode, Plus, CheckCircle2, Shield, Loader2, Filter } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -104,6 +104,26 @@ export const BookingsPage = () => {
       return [newBookingData, ...prev];
     });
     setActiveTab('myBookings');
+  };
+
+  const getBookingTitle = (bk) => {
+    if (bk.asset?.assetName) return bk.asset.assetName;
+    if (bk.room?.roomNumber) return bk.room.roomNumber;
+    if (bk.room && typeof bk.room === 'string') {
+      const found = rooms.find((r) => r._id === bk.room || r.roomId === bk.room);
+      if (found) return found.roomNumber || found.name;
+    }
+    return 'Classroom / Facility Reservation';
+  };
+
+  const getBookingBuilding = (bk) => {
+    if (bk.room?.building?.name) return bk.room.building.name;
+    if (bk.asset?.location) return bk.asset.location;
+    if (bk.room && typeof bk.room === 'string') {
+      const found = rooms.find((r) => r._id === bk.room || r.roomId === bk.room);
+      if (found?.building?.name) return found.building.name;
+    }
+    return 'Campus Academic Block';
   };
 
   const [roomSearchQuery, setRoomSearchQuery] = useState('');
@@ -235,16 +255,27 @@ export const BookingsPage = () => {
                             ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
                             : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                         }`}>
-                          {bk.status}
+                          {bk.status || 'Pending'}
                         </span>
                       </div>
                       <h3 className="text-base font-bold text-white mt-1">
-                        {bk.asset?.assetName || bk.room?.roomNumber || 'Room / Facility Reservation'}
+                        {getBookingTitle(bk)}
                       </h3>
-                      <p className="text-xs text-slate-300 mt-1">{bk.purpose}</p>
-                      <div className="flex items-center gap-4 text-xs text-slate-400 mt-2">
-                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-cyan-400" /> {bk.date} • {bk.startTime} - {bk.endTime}</span>
-                        <span>Duration: {bk.durationHours} hrs</span>
+                      <p className="text-xs text-cyan-300/80 font-semibold">{getBookingBuilding(bk)}</p>
+                      <p className="text-xs text-slate-300 mt-1">{bk.purpose || 'Academic Session'}</p>
+
+                      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 mt-2">
+                        <span className="flex items-center gap-1.5 text-slate-200">
+                          <CalendarCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <strong className="text-white">Date:</strong> {bk.date || 'Today'}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-slate-200">
+                          <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                          <strong className="text-white">Time:</strong> {bk.startTime || '10:00 AM'} - {bk.endTime || '12:00 PM'}
+                        </span>
+                        <span className="text-slate-400 font-mono text-[11px]">
+                          ({(bk.durationHours && Number(bk.durationHours) > 0) ? bk.durationHours : calculateDurationHours(bk.startTime || '10:00 AM', bk.endTime || '12:00 PM')} hrs slot)
+                        </span>
                       </div>
                     </div>
                   </div>

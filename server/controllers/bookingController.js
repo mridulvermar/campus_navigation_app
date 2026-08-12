@@ -18,7 +18,7 @@ exports.getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user.id })
       .populate('asset', 'assetName category location image')
-      .populate('room', 'roomNumber category capacity')
+      .populate({ path: 'room', populate: { path: 'building', select: 'name code category' } })
       .sort({ createdAt: -1 });
     res.json({ success: true, count: bookings.length, data: bookings });
   } catch (error) {
@@ -30,7 +30,7 @@ exports.createBooking = async (req, res) => {
   try {
     const { asset, room, bookingType, date, startTime, endTime, durationHours, purpose } = req.body;
     
-    const qrCodeData = `CAMPUS-BOOKING-${Date.now()}-${req.user.id.slice(-4)}`;
+    const qrCodeData = `CAMPUS-BOOKING-${Date.now()}-${req.user.id ? req.user.id.slice(-4) : 'USER'}`;
 
     const booking = await Booking.create({
       user: req.user.id,
@@ -46,6 +46,10 @@ exports.createBooking = async (req, res) => {
       status: 'Pending'
     });
 
+    const populatedBooking = await Booking.findById(booking._id)
+      .populate('asset', 'assetName category location image')
+      .populate({ path: 'room', populate: { path: 'building', select: 'name code category' } });
+
     // Notify User
     await Notification.create({
       user: req.user.id,
@@ -58,7 +62,7 @@ exports.createBooking = async (req, res) => {
       req.io.emit('new_booking_request', { bookingId: booking._id, userId: req.user.id });
     }
 
-    res.status(201).json({ success: true, data: booking });
+    res.status(201).json({ success: true, data: populatedBooking });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }

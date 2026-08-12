@@ -4,9 +4,32 @@ import { Calendar, Clock, FileText, CheckCircle2, ShieldCheck, X } from 'lucide-
 import { apiService } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 
+export function calculateDurationHours(startStr, endStr) {
+  if (!startStr || !endStr) return 1;
+
+  const parseTime = (tStr) => {
+    const match = String(tStr).trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+    if (!match) return null;
+    let hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const ampm = match[3] ? match[3].toUpperCase() : null;
+
+    if (ampm === 'PM' && hours < 12) hours += 12;
+    if (ampm === 'AM' && hours === 12) hours = 0;
+    return hours + minutes / 60;
+  };
+
+  const startVal = parseTime(startStr);
+  const endVal = parseTime(endStr);
+
+  if (startVal === null || endVal === null) return 1;
+  const diff = endVal - startVal;
+  return diff > 0 ? Math.round(diff * 10) / 10 : 1;
+}
+
 export const BookingForm = ({ targetItem, bookingType = 'Facility', onClose, onSuccess }) => {
   const { user } = useAuth();
-  const [date, setDate] = useState('2026-08-06');
+  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [startTime, setStartTime] = useState('10:00 AM');
   const [endTime, setEndTime] = useState('12:00 PM');
   const [durationHours, setDurationHours] = useState(2);
@@ -14,9 +37,31 @@ export const BookingForm = ({ targetItem, bookingType = 'Facility', onClose, onS
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successBooking, setSuccessBooking] = useState(null);
 
+  const timeOptions = [
+    '08:00 AM', '08:30 AM', '09:00 AM', '09:30 AM',
+    '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+    '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
+    '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM',
+    '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM'
+  ];
+
+  const handleStartTimeChange = (newStart) => {
+    setStartTime(newStart);
+    const calculated = calculateDurationHours(newStart, endTime);
+    setDurationHours(calculated);
+  };
+
+  const handleEndTimeChange = (newEnd) => {
+    setEndTime(newEnd);
+    const calculated = calculateDurationHours(startTime, newEnd);
+    setDurationHours(calculated);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const calculatedDuration = calculateDurationHours(startTime, endTime);
 
     const payload = {
       asset: bookingType === 'Asset' ? targetItem?._id : null,
@@ -25,16 +70,22 @@ export const BookingForm = ({ targetItem, bookingType = 'Facility', onClose, onS
       date,
       startTime,
       endTime,
-      durationHours,
-      purpose: purpose || 'Academic Research & Collaboration'
+      durationHours: calculatedDuration,
+      purpose: purpose || 'Academic Class & Research Session'
     };
 
     const res = await apiService.createBooking(payload);
     setIsSubmitting(false);
 
-    if (res.success) {
-      setSuccessBooking(res.data);
-      if (onSuccess) onSuccess(res.data);
+    if (res.success && res.data) {
+      const createdObj = {
+        ...res.data,
+        durationHours: calculatedDuration,
+        room: res.data.room || targetItem,
+        asset: res.data.asset || (bookingType === 'Asset' ? targetItem : null)
+      };
+      setSuccessBooking(createdObj);
+      if (onSuccess) onSuccess(createdObj);
     }
   };
 
@@ -46,7 +97,7 @@ export const BookingForm = ({ targetItem, bookingType = 'Facility', onClose, onS
         </div>
         <h3 className="text-xl font-bold text-white mb-2">Reservation Request Logged!</h3>
         <p className="text-xs text-slate-300 mb-4">
-          Your request for <span className="text-cyan-400 font-bold">{targetItem?.assetName || targetItem?.roomNumber || 'Item'}</span> on {date} has been submitted for admin approval.
+          Your request for <span className="text-cyan-400 font-bold">{targetItem?.assetName || targetItem?.roomNumber || 'Item'}</span> on {date} ({startTime} - {endTime}) has been submitted for admin approval.
         </p>
         <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-xs font-mono text-cyan-400 mb-6">
           QR Verification Code: {successBooking.qrCodeData}
@@ -98,25 +149,33 @@ export const BookingForm = ({ targetItem, bookingType = 'Facility', onClose, onS
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="block text-slate-300 font-semibold mb-1">Start Time</label>
-            <input
-              type="text"
+            <select
               value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              className="w-full glass-input"
-              placeholder="10:00 AM"
+              onChange={(e) => handleStartTimeChange(e.target.value)}
+              className="w-full glass-input bg-slate-900 text-white cursor-pointer"
               required
-            />
+            >
+              {timeOptions.map((t) => (
+                <option key={`start_${t}`} value={t} className="bg-slate-900 text-white">
+                  {t}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-slate-300 font-semibold mb-1">End Time</label>
-            <input
-              type="text"
+            <select
               value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              className="w-full glass-input"
-              placeholder="12:00 PM"
+              onChange={(e) => handleEndTimeChange(e.target.value)}
+              className="w-full glass-input bg-slate-900 text-white cursor-pointer"
               required
-            />
+            >
+              {timeOptions.map((t) => (
+                <option key={`end_${t}`} value={t} className="bg-slate-900 text-white">
+                  {t}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
