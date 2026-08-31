@@ -68,6 +68,30 @@ export function resolveLocationToJunction(locationParam, type = 'pedestrian') {
     }
   }
 
+  // 0. Keyword overrides for specific campus landmarks (e.g., Vedhanayagam Auditorium on left side of AS block)
+  const fullText = (
+    (typeof locationParam === 'string' ? locationParam : '') + ' ' +
+    (locationParam?.name || '') + ' ' +
+    (locationParam?.roomOnlyName || '') + ' ' +
+    (locationParam?.roomId || '') + ' ' +
+    (locationParam?.buildingName || '') + ' ' +
+    (locationParam?.id || '')
+  ).toLowerCase();
+
+  if (fullText.includes('vedhanayagam') || (fullText.includes('auditorium') && !fullText.includes('sf block'))) {
+    // Vedhanayagam Auditorium is on the Left side of AS Block / Central Quad walkway (Junction 117)
+    return findNearestJunction(1375, 2560, type) || 117;
+  }
+
+  if (fullText.includes('placement and training') || fullText.includes('placement-and-training')) {
+    return findNearestJunction(1075, 2605, type) || 117;
+  }
+
+  if (fullText.includes('as block') || fullText.includes('as-block') || fullText.includes('department of civil') || fullText.includes('department of mechanical')) {
+    // Optimize AS Block movement along the main left-side pedestrian spine (rib 5)
+    return findNearestJunction(1500, 2210, type);
+  }
+
   // 1. Direct match on junction surroundings array
   if (targetIdStr) {
     const matchedJunction = junctions.find(
@@ -80,6 +104,7 @@ export function resolveLocationToJunction(locationParam, type = 'pedestrian') {
   if (targetIdStr) {
     const tag = geolocationsData.tags.find((t) => 
       String(t.id).toLowerCase() === String(targetIdStr).toLowerCase() ||
+      String(t.name).toLowerCase() === String(targetIdStr).toLowerCase() ||
       String(t.name).toLowerCase().includes(String(targetIdStr).toLowerCase())
     );
     if (tag) {
@@ -97,6 +122,15 @@ export function resolveLocationToJunction(locationParam, type = 'pedestrian') {
       const buildingTag = geolocationsData.tags.find((t) => t.id === building.id);
       if (buildingTag) {
         return findNearestJunction(parseFloat(buildingTag.left), parseFloat(buildingTag.top), type);
+      }
+      if (building.main) {
+        const mainTag = geolocationsData.tags.find((t) => 
+          t.id.toLowerCase() === building.main.toLowerCase().replace(/\s+/g, '-') ||
+          t.name.toLowerCase().includes(building.main.toLowerCase())
+        );
+        if (mainTag) {
+          return findNearestJunction(parseFloat(mainTag.left), parseFloat(mainTag.top), type);
+        }
       }
     }
   }
@@ -239,7 +273,7 @@ export function findGeolocationsRoute(fromLocationId, toLocationId, type = 'pede
     }
   });
 
-  const estimatedMeters = Math.round(totalPixelDistance * 0.75);
+  const estimatedMeters = Math.round(totalPixelDistance);
   const estimatedWalkingTimeMinutes = Math.max(1, Math.round(estimatedMeters / 75));
 
   return {

@@ -1,103 +1,108 @@
-# Multi-Modal Campus Navigation and Facility Asset Booking Ecosystem Utilizing Real-Time Spatial Localization Analytics
+# Multi-Modal Campus Navigation & Facility Booking Ecosystem
 
-An enterprise-grade, full-stack campus management and spatial analytics platform built using React 19, Vite, Tailwind CSS, Leaflet GIS, Node.js, Express.js, MongoDB, Mongoose, and Socket.IO.
+An enterprise-grade, full-stack campus management and spatial analytics platform built with **React Native (Expo)**, **Node.js**, **Express.js**, **MongoDB**, **Socket.IO**, and **Leaflet GIS Routing Engine**.
 
 ---
 
 ## 🌟 Key Features & Core System Architecture
 
 ### 1. Smart Spatial Navigation & GIS Leaflet Maps
-- **Interactive OpenStreetMap Rendering**: Custom SVG colored building markers for Academic, Research, Library, Sports, Dining, and Auditoriums.
-- **Turn-by-Turn Guidance**: Haversine formula calculation for shortest pedestrian walking distance and ETA.
-- **Emergency Exit Overlays**: Immediate identification of nearest floor exits and security call stations.
-- **Real-Time User Spatial Tracking**: Simulated GPS pulse marker emitting live spatial location updates over WebSockets (Socket.IO).
+- **Google Hybrid Satellite & Street Layer Modes**: 100% cloud-free satellite imagery & OpenStreetMap tile rendering.
+- **320-Junction Road Graph Dijkstra Engine**: True road network Dijkstra routing that strictly avoids shortcuts through building walls.
+- **428 Classrooms & Labs Search**: Indexed campus directory with building, floor, and room name lookup.
+- **Dual Navigation Mode**: Walk (pedestrian) and Drive (vehicle) road routing modes.
+- **Live User Spatial GPS Marker**: Real-time user location pulsing marker with Socket.IO live sync.
 
 ### 2. Facility Booking & High-Value Asset Reservation
-- **Multi-Category Asset Inventory**: Real-time reservation workflow for laptops, VR dev kits, drones, 3D printers, and projectors.
-- **Facility Scheduling**: Book classrooms, auditoriums, seminar halls, sports grounds, and research cleanrooms.
-- **QR Code Verification**: Automated generation of digital access tickets for turnstile and cabinet readers.
-- **Role-Based Workflow**: Granular permission matrix for `Student`, `Faculty`, and `Administrator` roles.
+- **428 Classrooms & Labs**: Reserve lecture halls, computer laboratories, seminar rooms, and project halls.
+- **Instant Digital Access Pass**: Automated generation of digital access passes with verifiable QR codes.
+- **Multi-Category Asset Tracking**: RFID & inventory tracking for high-value laboratory equipment, VR dev kits, and laptops.
+- **Role-Based Workflows**: Tailored views and permissions for `Student`, `Faculty`, and `Administrator`.
 
 ### 3. Spatial Localization Telemetry & Analytics
-- **Recharts Data Visualizations**: Daily visitor trends, peak hourly building density, popular facility breakdowns, and spatial telemetry heatmaps.
+- **Live Footfall & Peak Hours**: Hourly occupancy trajectories, dwell time analysis, and zone congestion heatmaps.
+- **Campus Safety & Emergency SOS**: Instant 24/7 one-touch emergency response broadcasting GPS coordinates.
 
 ---
 
-## 📁 Repository Folder Structure
+## 📁 Architecture Overview
 
 ```
-navigation_app/
-├── server/
+campus_navigation_app/
+├── server/                               # Unchanged Express & Socket.IO backend
 │   ├── config/ (db.js)
-│   ├── controllers/ (authController.js, buildingController.js, roomController.js, assetController.js, bookingController.js, analyticsController.js, notificationController.js, userController.js, extraController.js)
-│   ├── middleware/ (authMiddleware.js, errorHandler.js)
-│   ├── models/ (User.js, Building.js, Room.js, Asset.js, Booking.js, NavigationHistory.js, Notification.js, Event.js, LostFound.js)
-│   ├── routes/ (authRoutes.js, buildingRoutes.js, roomRoutes.js, assetRoutes.js, bookingRoutes.js, analyticsRoutes.js, notificationRoutes.js, userRoutes.js, extraRoutes.js)
-│   ├── utils/ (seedData.js, seedRunner.js)
-│   ├── .env
+│   ├── controllers/ (auth, building, room, asset, booking, analytics, etc.)
+│   ├── middleware/ (authMiddleware, errorHandler)
+│   ├── models/ (User, Building, Room, Asset, Booking, etc.)
+│   ├── routes/ (auth, building, room, asset, booking, analytics, etc.)
 │   ├── package.json
 │   └── server.js
 │
-└── client/
-    ├── src/
-    │   ├── api/ & services/ (api.js)
-    │   ├── components/ (common/, landing/, map/, dashboard/, admin/, analytics/, booking/, navigation/)
-    │   ├── context/ (AuthContext.jsx, ThemeContext.jsx, SocketContext.jsx, NavigationContext.jsx)
-    │   ├── data/ (mockData.js)
-    │   ├── layouts/ (MainLayout.jsx, AuthLayout.jsx)
-    │   ├── pages/ (LandingPage, LoginPage, RegisterPage, DashboardPage, MapPage, NavigationPage, AssetsPage, BookingsPage, AdminPage, AnalyticsPage, NotificationsPage, ProfilePage, SettingsPage, LostFoundPage, EventsPage, HelpCenterPage, NotFoundPage)
-    │   ├── routes/ (AppRoutes.jsx, ProtectedRoute.jsx)
-    │   ├── styles/ (index.css with Glassmorphism & Leaflet overrides)
-    │   ├── utils/ (geoUtils.js, formatters.js)
-    │   ├── App.jsx
-    │   └── main.jsx
-    ├── index.html
-    ├── tailwind.config.js
-    ├── vite.config.js
-    └── package.json
+└── client/                               # React Native (Expo) Cross-Platform App
+    ├── App.js                            # Root App with Providers & Safe Area
+    ├── index.js                          # Expo Root Register
+    ├── app.json                          # Expo Config
+    ├── metro.config.js                   # Metro Bundler Config
+    ├── package.json
+    └── src/
+        ├── components/
+        │   ├── common/ (GlassCard, Badge, StatCard, WeatherWidget, EmergencyWidget, QRModal, HeaderBar)
+        │   └── map/ (CampusMap, InteractiveCampusMap, FloatingNavPanel)
+        ├── context/ (AuthContext, NavigationContext, SocketContext, ThemeContext)
+        ├── data/ (campus_graph.json, geolocations_graph.json, mockData.js)
+        ├── navigation/ (RootNavigator with Bottom Tabs & Stack)
+        ├── screens/
+        │   ├── LandingScreen.js
+        │   ├── LoginScreen.js
+        │   ├── RegisterScreen.js
+        │   ├── DashboardScreen.js
+        │   ├── MapScreen.js
+        │   ├── NavigationScreen.js
+        │   ├── BookingsScreen.js
+        │   ├── AssetsScreen.js
+        │   ├── AnalyticsScreen.js
+        │   ├── NotificationsScreen.js
+        │   ├── LostFoundScreen.js
+        │   ├── EventsScreen.js
+        │   ├── HelpCenterScreen.js
+        │   ├── ProfileScreen.js
+        │   ├── SettingsScreen.js
+        │   └── AdminScreen.js
+        ├── services/ (api.js, mapEngine/)
+        └── theme/ (colors.js)
 ```
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### Prerequisites
-- Node.js (v18+) & npm
-- MongoDB running locally on port 27017 (optional; automatic fallback dataset built-in)
-
-### 1. Launch Backend API Server
+### 1. Launch Backend Server (Port 5000)
 ```bash
 cd server
-npm install
-npm run seed     # (Optional) Seed MongoDB with sample university campus data
-npm run dev      # Runs Express + Socket.IO server on http://localhost:5000
+npm run dev
 ```
 
-### 2. Launch Client Web App
+### 2. Launch React Native Frontend (Mobile & Web)
 ```bash
 cd client
-npm install
-npm run dev      # Runs Vite dev server on http://localhost:5173
+
+# Run on Web (Browser)
+npm run web
+# or: npm run dev
+
+# Run on Android Emulator / Physical Device
+npm run android
+
+# Run on iOS Simulator / Physical Device
+npm run ios
 ```
 
 ---
 
-## 🔐 Demo Credentials (One-Click Login Buttons Available)
+## 🔐 Demo Credentials (One-Click Quick Login)
 
 | Role | Email | Password |
 |---|---|---|
 | **Administrator** | `admin@campus.edu` | `password123` |
 | **Faculty** | `faculty@campus.edu` | `password123` |
 | **Student** | `student@campus.edu` | `password123` |
-
----
-
-## 📊 Database Design & Schemas
-
-- **User**: Name, email, hashed password, role (`Student` | `Faculty` | `Administrator`), department, phone, profilePhoto.
-- **Building**: Name, code, lat/lng coordinates, floor count, category, opening hours, emergency exits.
-- **Room**: Room number, building ref, capacity, availability, current occupancy, category, facilities.
-- **Asset**: Asset name, category, status (`Available` | `Reserved` | `In Use`), location, image, serial number.
-- **Booking**: User ref, asset/room ref, date, start/end time, duration, purpose, status (`Pending` | `Approved` | `Rejected`), QR code string.
-- **NavigationHistory**: User ref, source, destination, distance in meters, travel duration.
-- **Notification**: Title, message, read flag, user ref, notification type.

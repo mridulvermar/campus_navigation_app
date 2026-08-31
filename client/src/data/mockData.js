@@ -181,8 +181,8 @@ export const MOCK_BUILDINGS = [
   },
   {
     _id: 'b16',
-    name: 'BIT Auditorium',
-    code: 'BIT-AUD',
+    name: 'Vedhanayagam Auditorium (BIT Auditorium)',
+    code: 'VEDHA-AUD',
     description: 'Grand University Auditorium and Convention Hall for conferences, symposia, and cultural events.',
     latitude: 11.494975932732403,
     longitude: 77.27700648228333,

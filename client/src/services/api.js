@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   MOCK_BUILDINGS, 
   MOCK_ROOMS, 
@@ -8,18 +10,30 @@ import {
   MOCK_ANALYTICS 
 } from '../data/mockData';
 
+// Determine backend URL across platforms
+export const getBaseURL = () => {
+  if (Platform.OS === 'android') {
+    return 'http://10.0.2.2:5000/api';
+  }
+  return 'http://localhost:5000/api';
+};
+
 const API = axios.create({
-  baseURL: '/api',
-  timeout: 4000,
+  baseURL: getBaseURL(),
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem('campus_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+API.interceptors.request.use(async (config) => {
+  try {
+    const token = await AsyncStorage.getItem('campus_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (e) {
+    // Ignore storage read error
   }
   return config;
 });
@@ -30,7 +44,6 @@ const safeCall = async (apiCall, fallbackData) => {
     const response = await apiCall();
     return response.data;
   } catch (err) {
-    console.warn(`[API Network Fallback] Using local data cache for ${err.config ? err.config.url : 'request'}`);
     return { success: true, data: fallbackData, count: Array.isArray(fallbackData) ? fallbackData.length : undefined };
   }
 };
@@ -40,15 +53,18 @@ export const apiService = {
   login: async (credentials) => {
     try {
       const res = await API.post('/auth/login', credentials);
+      if (res.data?.token) {
+        await AsyncStorage.setItem('campus_token', res.data.token);
+        await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
+      }
       return res.data;
     } catch (err) {
-      // Mock login response
       const roleMap = {
         'admin@campus.edu': 'Administrator',
         'faculty@campus.edu': 'Faculty',
         'student@campus.edu': 'Student'
       };
-      const email = credentials.email.toLowerCase();
+      const email = (credentials.email || 'student@campus.edu').toLowerCase();
       const role = roleMap[email] || 'Student';
       const mockUser = {
         id: 'user_mock_123',
@@ -59,21 +75,35 @@ export const apiService = {
         profilePhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
         phone: '+1 (555) 019-2834'
       };
-      return { success: true, token: 'mock_jwt_token_2026', user: mockUser };
+      const token = 'mock_jwt_token_2026';
+      await AsyncStorage.setItem('campus_token', token);
+      await AsyncStorage.setItem('campus_user', JSON.stringify(mockUser));
+      return { success: true, token, user: mockUser };
     }
   },
 
   register: async (userData) => {
     try {
       const res = await API.post('/auth/register', userData);
+      if (res.data?.token) {
+        await AsyncStorage.setItem('campus_token', res.data.token);
+        await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
+      }
       return res.data;
     } catch (err) {
-      return {
-        success: true,
-        token: 'mock_jwt_token_2026',
-        user: { ...userData, id: 'user_new_' + Date.now() }
-      };
+      const newUser = { ...userData, id: 'user_new_' + Date.now() };
+      const token = 'mock_jwt_token_2026';
+      await AsyncStorage.setItem('campus_token', token);
+      await AsyncStorage.setItem('campus_user', JSON.stringify(newUser));
+      return { success: true, token, user: newUser };
     }
+  },
+
+  logout: async () => {
+    try {
+      await AsyncStorage.removeItem('campus_token');
+      await AsyncStorage.removeItem('campus_user');
+    } catch (e) {}
   },
 
   // Buildings API

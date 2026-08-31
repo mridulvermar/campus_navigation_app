@@ -50,3 +50,5 @@ server/dist/
 *.sw?
 .DS_Store
 Thumbs.db
+.expo/
+client/.expo/
