@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Linking, Alert, Platform } from 'react-native';
-import { HelpCircle, PhoneCall, Mail, MessageSquare, Compass, Shield } from 'lucide-react-native';
+import { HelpCircle, PhoneCall, Mail, MessageSquare, Compass, Shield, Sparkles } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 import { HeaderBar } from '../components/common/HeaderBar';
 import { GlassCard } from '../components/common/GlassCard';
@@ -35,6 +35,28 @@ export const HelpCenterScreen = ({ navigation }) => {
             <Text style={styles.contactValue}>gis@campus.edu</Text>
           </GlassCard>
         </View>
+
+        {/* AI Assistant Instant RAG Resolution Card */}
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => navigation.navigate('Chatbot')}
+          style={styles.aiChatCardWrap}
+        >
+          <GlassCard style={styles.aiChatCard} glow>
+            <View style={styles.aiIconBadge}>
+              <Sparkles size={20} color={colors.primary} />
+            </View>
+            <View style={styles.aiTextCol}>
+              <Text style={styles.aiCardTitle}>Ask Campus AI Assistant</Text>
+              <Text style={styles.aiCardDesc}>
+                Instant answers on 25 campus buildings, 428 rooms, high-value asset checkout, and booking rules.
+              </Text>
+            </View>
+            <View style={styles.chatNowBadge}>
+              <Text style={styles.chatNowText}>Chat Now ↗</Text>
+            </View>
+          </GlassCard>
+        </TouchableOpacity>
 
         {/* FAQs */}
         <Text style={styles.faqHeading}>Frequently Asked Questions</Text>
@@ -106,5 +128,51 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.textSecondary,
     lineHeight: 18
+  },
+  aiChatCardWrap: {
+    marginBottom: 20
+  },
+  aiChatCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    gap: 12
+  },
+  aiIconBadge: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
+    backgroundColor: 'rgba(6, 182, 212, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(6, 182, 212, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  aiTextCol: {
+    flex: 1
+  },
+  aiCardTitle: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 2
+  },
+  aiCardDesc: {
+    fontSize: 10,
+    color: colors.textSecondary,
+    lineHeight: 14
+  },
+  chatNowBadge: {
+    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+    borderWidth: 1,
+    borderColor: colors.primary,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8
+  },
+  chatNowText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.primary
   }
 });

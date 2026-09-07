@@ -28,6 +28,7 @@ import { NotificationsScreen } from '../screens/NotificationsScreen';
 import { LostFoundScreen } from '../screens/LostFoundScreen';
 import { EventsScreen } from '../screens/EventsScreen';
 import { HelpCenterScreen } from '../screens/HelpCenterScreen';
+import { ChatbotScreen } from '../screens/ChatbotScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { AdminScreen } from '../screens/AdminScreen';
@@ -122,6 +123,7 @@ export function RootNavigator() {
         <Stack.Screen name="LostFound" component={LostFoundScreen} />
         <Stack.Screen name="Events" component={EventsScreen} />
         <Stack.Screen name="Help" component={HelpCenterScreen} />
+        <Stack.Screen name="Chatbot" component={ChatbotScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Admin" component={AdminScreen} />
       </Stack.Navigator>

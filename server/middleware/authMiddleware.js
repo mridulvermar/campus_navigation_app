@@ -5,69 +5,49 @@ const protect = async (req, res, next) => {
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
+
+    if (!token || token === 'null' || token === 'undefined' || token === 'mock_jwt_token_2026' || token === 'demo_token_2026') {
+      return res.status(401).json({ success: false, message: 'Not authorized, invalid token' });
+    }
+
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET || 'super_secret_campus_jwt_key_2026_antigravity');
-      req.user = decoded;
-      return next();
-    } catch (error) {
-      // If token verification fails or is a demo token, fall back to seeded user in MongoDB
-      try {
-        const defaultUser = await User.findOne({ role: 'Student' }) || await User.findOne();
-        if (defaultUser) {
-          req.user = {
-            id: defaultUser._id.toString(),
-            email: defaultUser.email,
-            role: defaultUser.role,
-            name: defaultUser.name
-          };
-          return next();
-        }
-      } catch (dbErr) {}
-      return res.status(401).json({ success: false, message: 'Not authorized, token failed' });
-    }
-  }
+      
+      const user = await User.findById(decoded.id).select('-password');
+      if (!user) {
+        return res.status(401).json({ success: false, message: 'Not authorized, user not found' });
+      }
 
-  // Fallback if no token is sent
-  try {
-    const defaultUser = await User.findOne({ role: 'Student' }) || await User.findOne();
-    if (defaultUser) {
       req.user = {
-        id: defaultUser._id.toString(),
-        email: defaultUser.email,
-        role: defaultUser.role,
-        name: defaultUser.name
+        id: user._id.toString(),
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        department: user.department
       };
       return next();
+    } catch (error) {
+      const isExpired = error.name === 'TokenExpiredError';
+      return res.status(401).json({ 
+        success: false, 
+        message: isExpired ? 'Token expired, please sign in again' : 'Not authorized, token verification failed' 
+      });
     }
-  } catch (e) {}
+  }
 
   return res.status(401).json({ success: false, message: 'Not authorized, no token provided' });
 };
 
 const authorize = (...roles) => {
-  return async (req, res, next) => {
-    if (req.user && roles.includes(req.user.role)) {
-      return next();
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: `User role '${req.user ? req.user.role : 'Guest'}' is not authorized to access this route` 
+      });
     }
-
-    // If role matching fails in dev/demo mode, check if requested role user exists in DB
-    try {
-      const targetRoleUser = await User.findOne({ role: roles[0] });
-      if (targetRoleUser) {
-        req.user = {
-          id: targetRoleUser._id.toString(),
-          email: targetRoleUser.email,
-          role: targetRoleUser.role,
-          name: targetRoleUser.name
-        };
-        return next();
-      }
-    } catch (e) {}
-
-    return res.status(403).json({ 
-      success: false, 
-      message: `User role '${req.user ? req.user.role : 'Guest'}' is not authorized to access this route` 
-    });
+    next();
   };
 };
 

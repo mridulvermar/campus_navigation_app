@@ -42,7 +42,7 @@ export const NavigationScreen = ({ route, navigation }) => {
     setNavMode
   } = useNavigation();
 
-  const [mapLayer, setMapLayer] = useState('streets'); // 'streets' (SVG) | 'satellite'
+  const [mapLayer, setMapLayer] = useState('satellite'); // 'satellite' (WebP) | 'streets' (SVG)
   const [zoomAction, setZoomAction] = useState(null);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -60,34 +60,68 @@ export const NavigationScreen = ({ route, navigation }) => {
 
   // Auto calculate on route parameter
   useEffect(() => {
-    const destCode = route?.params?.destCode;
+    const destCode = route?.params?.destCode || route?.params?.destination;
     if (destCode) {
       const allLocs = getAllSelectableLocations();
+      const codeStr = String(destCode).toLowerCase().replace(/[-_]/g, ' ');
       const matched = allLocs.find(
         (l) => (l.id && String(l.id).toLowerCase() === String(destCode).toLowerCase()) ||
                (l.roomId && String(l.roomId).toLowerCase() === String(destCode).toLowerCase()) ||
-               (l.code && String(l.code).toLowerCase() === String(destCode).toLowerCase())
+               (l.code && String(l.code).toLowerCase() === String(destCode).toLowerCase()) ||
+               (l.name && l.name.toLowerCase().includes(String(destCode).toLowerCase())) ||
+               (l.name && l.name.toLowerCase().replace(/[-_]/g, ' ').includes(codeStr)) ||
+               (l.roomOnlyName && l.roomOnlyName.toLowerCase().includes(String(destCode).toLowerCase())) ||
+               (String(destCode).toLowerCase().includes('sf') && l.id === 'sf-block-labs') ||
+               (String(destCode).toLowerCase().includes('ib') && l.id === 'ib-block') ||
+               (String(destCode).toLowerCase().includes('mech') && l.id === 'mechanical-block') ||
+               (String(destCode).toLowerCase().includes('aero') && l.id === 'aero-block') ||
+               (String(destCode).toLowerCase().includes('lib') && (l.id === 'library' || l.name?.toLowerCase().includes('learning'))) ||
+               (String(destCode).toLowerCase().includes('audi') && (l.id === 'auditorium' || l.name?.toLowerCase().includes('auditorium'))) ||
+               (String(destCode).toLowerCase().includes('medic') && (l.id === 'medical-centre' || l.name?.toLowerCase().includes('medical'))) ||
+               (String(destCode).toLowerCase().includes('caf') && (l.id === 'canteen' || l.name?.toLowerCase().includes('cafeteria'))) ||
+               (String(destCode).toLowerCase().includes('hostel') && (l.id?.includes('hostel') || l.name?.toLowerCase().includes('hostel')))
       );
       if (matched) {
         setDestBuilding(matched);
-        const start = sourceBuilding || allLocs[0];
+        const start = sourceBuilding || allLocs.find(l => l.id === 'main-gate') || allLocs[0];
         calculateRoute(start, matched, navMode);
       }
     }
   }, [route?.params]);
 
   const handleSelectStart = (node) => {
-    setSourceBuilding(node);
+    const allLocs = getAllSelectableLocations();
+    let resolved = node;
+    if (typeof node === 'string' || (node && typeof node === 'object' && !node.category)) {
+      const targetId = typeof node === 'string' ? node : (node.id || node.code);
+      const targetStr = String(targetId || '').toLowerCase();
+      resolved = allLocs.find(
+        (l) => (l.id && String(l.id).toLowerCase() === targetStr) ||
+               (l.code && String(l.code).toLowerCase() === targetStr) ||
+               (l.name && l.name.toLowerCase().includes(targetStr))
+      ) || node;
+    }
+    setSourceBuilding(resolved);
     if (destBuilding) {
-      calculateRoute(node, destBuilding, navMode);
+      calculateRoute(resolved, destBuilding, navMode);
     }
   };
 
   const handleSelectDest = (node) => {
-    setDestBuilding(node);
-    if (sourceBuilding) {
-      calculateRoute(sourceBuilding, node, navMode);
+    const allLocs = getAllSelectableLocations();
+    let resolved = node;
+    if (typeof node === 'string' || (node && typeof node === 'object' && !node.category)) {
+      const targetId = typeof node === 'string' ? node : (node.id || node.code);
+      const targetStr = String(targetId || '').toLowerCase();
+      resolved = allLocs.find(
+        (l) => (l.id && String(l.id).toLowerCase() === targetStr) ||
+               (l.code && String(l.code).toLowerCase() === targetStr) ||
+               (l.name && l.name.toLowerCase().includes(targetStr))
+      ) || node;
     }
+    setDestBuilding(resolved);
+    const start = sourceBuilding || allLocs.find(l => l.id === 'main-gate') || allLocs[0];
+    calculateRoute(start, resolved, navMode);
   };
 
   const handleCalculateRoute = () => {
@@ -122,17 +156,6 @@ export const NavigationScreen = ({ route, navigation }) => {
         <View style={styles.topRightActions}>
           <View style={styles.layerSwitchContainer}>
             <TouchableOpacity
-              style={[styles.layerOptionBtn, (mapLayer === 'streets' || mapLayer === 'svg') && styles.layerOptionBtnActive]}
-              onPress={() => setMapLayer('streets')}
-              activeOpacity={0.8}
-            >
-              <MapIcon size={12} color={(mapLayer === 'streets' || mapLayer === 'svg') ? '#070B14' : '#00a8ff'} />
-              <Text style={[styles.layerOptionText, (mapLayer === 'streets' || mapLayer === 'svg') && styles.layerOptionTextActive]}>
-                🗺️ Streets
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
               style={[styles.layerOptionBtn, mapLayer === 'satellite' && styles.layerOptionBtnActive]}
               onPress={() => setMapLayer('satellite')}
               activeOpacity={0.8}
@@ -140,6 +163,17 @@ export const NavigationScreen = ({ route, navigation }) => {
               <Sun size={12} color={mapLayer === 'satellite' ? '#070B14' : '#00a8ff'} />
               <Text style={[styles.layerOptionText, mapLayer === 'satellite' && styles.layerOptionTextActive]}>
                 🛰️ Satellite
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.layerOptionBtn, (mapLayer === 'streets' || mapLayer === 'svg') && styles.layerOptionBtnActive]}
+              onPress={() => setMapLayer('streets')}
+              activeOpacity={0.8}
+            >
+              <MapIcon size={12} color={(mapLayer === 'streets' || mapLayer === 'svg') ? '#070B14' : '#00a8ff'} />
+              <Text style={[styles.layerOptionText, (mapLayer === 'streets' || mapLayer === 'svg') && styles.layerOptionTextActive]}>
+                🗺️ Streets
               </Text>
             </TouchableOpacity>
           </View>

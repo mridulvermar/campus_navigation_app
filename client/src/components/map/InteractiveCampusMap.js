@@ -11,7 +11,7 @@ export const InteractiveCampusMap = ({
   selectedBuilding,
   onSelectBuilding,
   routeData,
-  mapLayer = 'streets', // 'streets' | 'satellite'
+  mapLayer = 'satellite', // 'satellite' | 'streets'
   onToggleLayer,
   onSelectStart,
   onSelectDest,
@@ -63,46 +63,47 @@ export const InteractiveCampusMap = ({
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
           }
 
-          /* Place Tags */
-          .campus-place-tag {
-            background: rgba(15, 23, 42, 0.94);
-            border: 1.5px solid #00a8ff;
-            color: #F8FAFC;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+          /* Modern Sleek Campus Pin Styling */
+          .campus-smart-pin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            letter-spacing: 0.2px;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
           }
-          .campus-place-tag:hover {
-            background: #00a8ff;
-            color: #070B14;
-            transform: scale(1.12);
-            box-shadow: 0 0 16px #00a8ff;
+          .campus-smart-pin:hover {
+            transform: scale(1.18) translateY(-4px);
+            z-index: 9999 !important;
           }
-
-          /* Legend Icons */
-          .legend-icon-wrapper {
+          .campus-pin-bubble {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(11, 17, 30, 0.94);
+            border: 2px solid #00a8ff;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.94);
-            border: 1.5px solid #00a8ff;
-            box-shadow: 0 0 14px rgba(0, 168, 255, 0.6);
-            cursor: pointer;
-            transition: transform 0.2s ease;
+            font-size: 15px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+            transition: all 0.2s ease;
           }
-          .legend-icon-wrapper:hover {
-            transform: scale(1.25);
-            box-shadow: 0 0 20px #00a8ff;
+          .campus-pin-text {
+            margin-top: 3px;
+            background: rgba(7, 11, 20, 0.92);
+            backdrop-filter: blur(6px);
+            color: #F8FAFC;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            letter-spacing: 0.2px;
+            pointer-events: none;
           }
 
           /* Interactive Popup Styling */
@@ -113,22 +114,37 @@ export const InteractiveCampusMap = ({
             border: 1.5px solid #00a8ff;
             backdrop-filter: blur(14px);
             box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85);
-            padding: 2px;
+            padding: 4px;
           }
           .custom-campus-popup .leaflet-popup-tip {
             background: rgba(15, 23, 42, 0.98);
           }
+          .popup-dest-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+          }
           .popup-badge {
             display: inline-block;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 800;
-            padding: 2px 7px;
+            padding: 2px 6px;
             border-radius: 5px;
             background: rgba(0, 168, 255, 0.18);
             color: #00a8ff;
             border: 1px solid rgba(0, 168, 255, 0.4);
-            margin-bottom: 4px;
             text-transform: uppercase;
+          }
+          .popup-status-pill {
+            font-size: 8.5px;
+            font-weight: 800;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            letter-spacing: 0.4px;
           }
           .popup-title {
             font-size: 14px;
@@ -168,7 +184,7 @@ export const InteractiveCampusMap = ({
           }
           .popup-btn {
             flex: 1;
-            padding: 6px 10px;
+            padding: 7px 10px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
@@ -223,11 +239,10 @@ export const InteractiveCampusMap = ({
           const embeddedSvgUri = ${mapSvgUriJson};
           const embeddedWebpUri = ${mapWebpUriJson};
 
-          // Selected Overlay Image Layer (Streets Vector SVG or Satellite WebP)
           const mapImageURL = isSatellite ? embeddedWebpUri : embeddedSvgUri;
           const overlayClass = isSatellite ? 'campus-satellite-overlay' : 'campus-svg-overlay';
 
-          const campusOverlay = L.imageOverlay(mapImageURL, bounds, {
+          L.imageOverlay(mapImageURL, bounds, {
             opacity: 1.0,
             interactive: true,
             className: overlayClass
@@ -240,68 +255,86 @@ export const InteractiveCampusMap = ({
           const legends = ${legendsJson};
           const buildings = ${buildingsJson};
 
-          // Render Place Tags
-          const tagsLayerGroup = L.layerGroup().addTo(map);
-          tags.forEach(t => {
+          // 1. Curate Clean POIs (Filter out all repetitive micro-ribs like "IB rib 1-12", "AS rib 1-12")
+          const cleanTags = tags.filter(t => {
+            if (!t || !t.id || !t.name) return false;
+            const s = (t.id + ' ' + t.name).toLowerCase();
+            if (s.includes('rib')) return false; // Filter out 24 internal architectural ribs!
+            if (s.includes('empty playg')) return false;
+            return true;
+          });
+
+          // Category icon and color mapping
+          function getPoiInfo(id, name) {
+            const s = (id + ' ' + name).toLowerCase();
+            if (s.includes('lib') || s.includes('learning')) return { emoji: '📚', color: '#00a8ff', cat: 'Library' };
+            if (s.includes('ai') || s.includes('sf-block') || s.includes('computer')) return { emoji: '💻', color: '#06b6d4', cat: 'Computing & AI' };
+            if (s.includes('medic') || s.includes('hospital') || s.includes('clinic')) return { emoji: '🏥', color: '#ef4444', cat: 'Health Centre' };
+            if (s.includes('canteen') || s.includes('cafeteria') || s.includes('mess') || s.includes('food')) return { emoji: '🍽️', color: '#f59e0b', cat: 'Dining' };
+            if (s.includes('hostel')) return { emoji: s.includes('girl') ? '🏡' : '🏠', color: '#8b5cf6', cat: 'Hostel' };
+            if (s.includes('sports') || s.includes('gym') || s.includes('court') || s.includes('cricket') || s.includes('football')) return { emoji: '⚽', color: '#10b981', cat: 'Sports' };
+            if (s.includes('audi') || s.includes('vedha')) return { emoji: '🎭', color: '#ec4899', cat: 'Auditorium' };
+            if (s.includes('park')) return { emoji: '🅿️', color: '#6366f1', cat: 'Parking' };
+            if (s.includes('gate')) return { emoji: '🚪', color: '#14b8a6', cat: 'Campus Gate' };
+            if (s.includes('mech')) return { emoji: '⚙️', color: '#f97316', cat: 'Mechanical' };
+            if (s.includes('aero')) return { emoji: '✈️', color: '#0ea5e9', cat: 'Aeronautical' };
+            if (s.includes('ib-block') || s.includes('institution')) return { emoji: '🏢', color: '#3b82f6', cat: 'Academic Block' };
+            if (s.includes('as-') || s.includes('special labs')) return { emoji: '🔬', color: '#a855f7', cat: 'Science & Labs' };
+            if (s.includes('placement') || s.includes('training')) return { emoji: '💼', color: '#10b981', cat: 'Placement' };
+            if (s.includes('atm')) return { emoji: '🏧', color: '#eab308', cat: 'ATM' };
+            if (s.includes('guest')) return { emoji: '🏨', color: '#06b6d4', cat: 'Guest House' };
+            return { emoji: '📍', color: '#00a8ff', cat: 'Campus Landmark' };
+          }
+
+          // Proximity deduplication so icons close to each other don't stack up
+          const displayedPois = [];
+          cleanTags.forEach(t => {
             const topPx = parseFloat(t.top);
             const leftPx = parseFloat(t.left);
             const y = MAP_HEIGHT - topPx;
             const x = leftPx;
 
-            const tagIcon = L.divIcon({
-              html: '<div class="campus-place-tag" onclick="selectPlace(\\'' + t.id + '\\')">' + t.name + '</div>',
-              className: '',
-              iconAnchor: [35, 12]
+            const tooClose = displayedPois.some(p => {
+              const dx = p.x - x;
+              const dy = p.y - y;
+              return Math.sqrt(dx*dx + dy*dy) < 42;
             });
 
-            L.marker([y, x], { icon: tagIcon }).addTo(tagsLayerGroup);
+            if (!tooClose) {
+              displayedPois.push({ ...t, x, y });
+            }
           });
 
-          // Render POI Legend Icons
-          const legendsLayerGroup = L.layerGroup().addTo(map);
-          const iconEmojiMap = {
-            'library.svg': '📚',
-            'football.svg': '⚽',
-            'gym.svg': '🏋️',
-            'atm.svg': '🏧',
-            'office.svg': '🏢',
-            'food.svg': '🍽️',
-            'snacks.svg': '🥪',
-            'juice.svg': '🧃',
-            'medical.svg': '🏥',
-            'parking.svg': '🅿️',
-            'xerox.svg': '🖨️',
-            'laundry.svg': '🧺',
-            'cricket.svg': '🏏',
-            'chess.svg': '♟️',
-            'wifi.svg': '📶',
-            'hostel.svg': '🏠',
-            'parlour.svg': '✂️',
-            'meat-and-eat.svg': '🍗'
-          };
+          // Render Clean Unified Campus POI Pins
+          const poisLayerGroup = L.layerGroup().addTo(map);
 
-          legends.forEach(leg => {
-            const topPx = parseFloat(leg.top);
-            const leftPx = parseFloat(leg.left);
-            const y = MAP_HEIGHT - topPx;
-            const x = leftPx;
+          displayedPois.forEach(poi => {
+            const info = getPoiInfo(poi.id, poi.name);
+            const b = buildings.find(item => item.id === poi.id);
+            const safeName = (b?.name || poi.name).replace(/'/g, "\\'");
 
-            const iconFile = leg.link || 'tag.svg';
-            const emoji = iconEmojiMap[iconFile] || '📍';
+            const pinHtml = 
+              '<div class="campus-smart-pin">' +
+                '<div class="campus-pin-bubble" style="border-color:' + info.color + '; box-shadow:0 3px 12px ' + info.color + '66;">' +
+                  '<span>' + info.emoji + '</span>' +
+                '</div>' +
+                '<span class="campus-pin-text">' + (poi.name.length > 20 ? poi.name.slice(0, 18) + '..' : poi.name) + '</span>' +
+              '</div>';
 
-            const legIcon = L.divIcon({
-              html: '<div class="legend-icon-wrapper" onclick="selectPlace(\\'' + leg.id + '\\')">' +
-                      '<span style="font-size:15px;">' + emoji + '</span>' +
-                    '</div>',
+            const pinIcon = L.divIcon({
+              html: pinHtml,
               className: '',
-              iconSize: [32, 32],
-              iconAnchor: [16, 16]
+              iconAnchor: [24, 38],
+              popupAnchor: [0, -36]
             });
 
-            const marker = L.marker([y, x], { icon: legIcon }).addTo(legendsLayerGroup);
+            const marker = L.marker([poi.y, poi.x], { icon: pinIcon }).addTo(poisLayerGroup);
 
-            // Find matching building info
-            const b = buildings.find(item => item.id === leg.id);
+            // Directly attach click handler to marker for 100% reliable destination setting without quote syntax issues
+            marker.on('click', function() {
+              handlePinClick(poi.id, safeName);
+            });
+
             let floorsHtml = '';
             if (b && b.floors) {
               floorsHtml = '<ul class="popup-floors">' + b.floors.map(f => 
@@ -313,13 +346,16 @@ export const InteractiveCampusMap = ({
 
             const popupContent = 
               '<div style="min-width: 220px; max-width: 260px;">' +
-                '<span class="popup-badge">' + (b ? b.main || 'Campus Facility' : 'Landmark') + '</span>' +
-                '<h4 class="popup-title">' + (b ? b.name : leg.id.replace(/-/g, ' ').toUpperCase()) + '</h4>' +
-                '<p class="popup-desc">' + (b && b.about ? b.about : 'Campus location on the spatial blueprint.') + '</p>' +
+                '<div class="popup-dest-header">' +
+                  '<span class="popup-badge" style="border-color:' + info.color + '; color:' + info.color + ';">' + info.cat + '</span>' +
+                  '<span class="popup-status-pill">🎯 SET AS DESTINATION</span>' +
+                '</div>' +
+                '<h4 class="popup-title">' + (b ? b.name : poi.name) + '</h4>' +
+                '<p class="popup-desc">' + (b && b.about ? b.about : 'Campus location on spatial navigation grid.') + '</p>' +
                 floorsHtml +
                 '<div class="popup-actions">' +
-                  '<button class="popup-btn popup-btn-dest" onclick="sendAction(\\'SELECT_DEST\\', \\'' + leg.id + '\\')">🚀 Go Here</button>' +
-                  '<button class="popup-btn popup-btn-start" onclick="sendAction(\\'SELECT_START\\', \\'' + leg.id + '\\')">🟢 Set Start</button>' +
+                  '<button class="popup-btn popup-btn-dest" onclick="sendAction(&quot;SELECT_DEST&quot;, {id:&quot;' + poi.id + '&quot;, name:&quot;' + safeName + '&quot;})">🚀 Route Here</button>' +
+                  '<button class="popup-btn popup-btn-start" onclick="sendAction(&quot;SELECT_START&quot;, {id:&quot;' + poi.id + '&quot;, name:&quot;' + safeName + '&quot;})">🟢 Set Start</button>' +
                 '</div>' +
               '</div>';
 
@@ -369,18 +405,23 @@ export const InteractiveCampusMap = ({
             map.fitBounds(polyline.getBounds(), { padding: [80, 80], maxZoom: 0.5 });
           }
 
-          // Message Dispatcher to React Native
-          window.sendAction = function(type, id) {
-            const payload = { type, id };
+          // Message Dispatcher to React Native & Web
+          window.sendAction = function(type, payload) {
+            const data = { type, id: payload?.id || payload, name: payload?.name };
             if (window.ReactNativeWebView) {
-              window.ReactNativeWebView.postMessage(JSON.stringify(payload));
+              window.ReactNativeWebView.postMessage(JSON.stringify(data));
             } else if (window.parent) {
-              window.parent.postMessage(JSON.stringify(payload), '*');
+              window.parent.postMessage(JSON.stringify(data), '*');
             }
           };
 
+          // Tapping ANY pin on the map immediately sets it as destination!
+          window.handlePinClick = function(id, name) {
+            sendAction('SELECT_DEST', { id: id, name: name });
+          };
+
           window.selectPlace = function(id) {
-            sendAction('SELECT_BUILDING', id);
+            sendAction('SELECT_DEST', id);
           };
 
           // External Map Controller Functions
@@ -409,6 +450,28 @@ export const InteractiveCampusMap = ({
       onZoomHandled && onZoomHandled();
     }
   }, [zoomAction]);
+
+  // Listen to messages from Leaflet iframe on Web
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      const handleWebMessage = (event) => {
+        try {
+          const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+          if (data && data.type === 'SELECT_DEST' && onSelectDest) {
+            onSelectDest(data.id);
+          } else if (data && data.type === 'SELECT_START' && onSelectStart) {
+            onSelectStart(data.id);
+          } else if (data && data.type === 'SELECT_BUILDING' && onSelectBuilding) {
+            onSelectBuilding(data.id);
+          }
+        } catch (e) {
+          // ignore non-JSON or other window messages
+        }
+      };
+      window.addEventListener('message', handleWebMessage);
+      return () => window.removeEventListener('message', handleWebMessage);
+    }
+  }, [onSelectDest, onSelectStart, onSelectBuilding]);
 
   return (
     <View style={[styles.container, { backgroundColor: mapLayer === 'satellite' ? '#0B111E' : '#1A2333' }]}>

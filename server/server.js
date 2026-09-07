@@ -16,6 +16,7 @@ const analyticsRoutes = require('./routes/analyticsRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const userRoutes = require('./routes/userRoutes');
 const extraRoutes = require('./routes/extraRoutes');
+const ragRoutes = require('./routes/ragRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -61,6 +62,8 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/extra', extraRoutes);
+app.use('/api/rag', ragRoutes);
+app.use('/api/chat', ragRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
@@ -91,3 +94,4 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`🚀 [Server] Campus Platform running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
+

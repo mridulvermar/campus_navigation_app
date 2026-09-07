@@ -5,19 +5,25 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('campus_user');
-    return savedUser ? JSON.parse(savedUser) : {
-      id: 'demo_user_1',
-      name: 'Alex Johnson',
-      email: 'student@campus.edu',
-      role: 'Student',
-      department: 'Computer Science & Engineering',
-      profilePhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
-      phone: '+1 (555) 019-2834'
-    };
+    try {
+      const savedUser = localStorage.getItem('campus_user');
+      const savedToken = localStorage.getItem('campus_token');
+      if (savedToken && savedToken !== 'demo_token_2026' && savedToken !== 'mock_jwt_token_2026') {
+        return savedUser ? JSON.parse(savedUser) : null;
+      }
+      localStorage.removeItem('campus_user');
+      localStorage.removeItem('campus_token');
+    } catch (e) {}
+    return null;
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem('campus_token') || 'demo_token_2026');
+  const [token, setToken] = useState(() => {
+    const savedToken = localStorage.getItem('campus_token');
+    if (savedToken && savedToken !== 'demo_token_2026' && savedToken !== 'mock_jwt_token_2026') {
+      return savedToken;
+    }
+    return null;
+  });
   const [loading, setLoading] = useState(false);
 
   const login = async (email, password) => {

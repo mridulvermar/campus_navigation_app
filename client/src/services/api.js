@@ -9,18 +9,23 @@ import {
   MOCK_NOTIFICATIONS, 
   MOCK_ANALYTICS 
 } from '../data/mockData';
+import { clientRagEngine } from './ragEngine';
 
 // Determine backend URL across platforms
 export const getBaseURL = () => {
   if (Platform.OS === 'android') {
     return 'http://10.0.2.2:5000/api';
   }
+  if (typeof window !== 'undefined' && window.location && window.location.hostname) {
+    const host = window.location.hostname;
+    return `http://${host}:5000/api`;
+  }
   return 'http://localhost:5000/api';
 };
 
 const API = axios.create({
   baseURL: getBaseURL(),
-  timeout: 5000,
+  timeout: 8000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -29,7 +34,7 @@ const API = axios.create({
 API.interceptors.request.use(async (config) => {
   try {
     const token = await AsyncStorage.getItem('campus_token');
-    if (token) {
+    if (token && token !== 'mock_jwt_token_2026' && token !== 'demo_token_2026') {
       config.headers.Authorization = `Bearer ${token}`;
     }
   } catch (e) {
@@ -53,49 +58,42 @@ export const apiService = {
   login: async (credentials) => {
     try {
       const res = await API.post('/auth/login', credentials);
-      if (res.data?.token) {
+      if (res.data?.token && res.data?.user) {
         await AsyncStorage.setItem('campus_token', res.data.token);
         await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
+        return { success: true, token: res.data.token, user: res.data.user };
       }
-      return res.data;
+      return { success: false, message: res.data?.message || 'Login failed' };
     } catch (err) {
-      const roleMap = {
-        'admin@campus.edu': 'Administrator',
-        'faculty@campus.edu': 'Faculty',
-        'student@campus.edu': 'Student'
-      };
-      const email = (credentials.email || 'student@campus.edu').toLowerCase();
-      const role = roleMap[email] || 'Student';
-      const mockUser = {
-        id: 'user_mock_123',
-        name: email.split('@')[0].toUpperCase(),
-        email: credentials.email,
-        role: role,
-        department: 'Computer Science & Engineering',
-        profilePhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
-        phone: '+1 (555) 019-2834'
-      };
-      const token = 'mock_jwt_token_2026';
-      await AsyncStorage.setItem('campus_token', token);
-      await AsyncStorage.setItem('campus_user', JSON.stringify(mockUser));
-      return { success: true, token, user: mockUser };
+      const errorMsg = err.response?.data?.message || (err.message === 'Network Error' ? `Cannot reach server at ${getBaseURL()}` : err.message);
+      return { success: false, message: errorMsg };
     }
   },
 
   register: async (userData) => {
     try {
       const res = await API.post('/auth/register', userData);
-      if (res.data?.token) {
+      if (res.data?.token && res.data?.user) {
         await AsyncStorage.setItem('campus_token', res.data.token);
+        await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
+        return { success: true, token: res.data.token, user: res.data.user };
+      }
+      return { success: false, message: res.data?.message || 'Registration failed' };
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || (err.message === 'Network Error' ? `Cannot reach server at ${getBaseURL()}` : err.message);
+      return { success: false, message: errorMsg };
+    }
+  },
+
+  getMe: async () => {
+    try {
+      const res = await API.get('/auth/me');
+      if (res.data?.user) {
         await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
       }
       return res.data;
     } catch (err) {
-      const newUser = { ...userData, id: 'user_new_' + Date.now() };
-      const token = 'mock_jwt_token_2026';
-      await AsyncStorage.setItem('campus_token', token);
-      await AsyncStorage.setItem('campus_user', JSON.stringify(newUser));
-      return { success: true, token, user: newUser };
+      return { success: false, message: err.response?.data?.message || err.message };
     }
   },
 
@@ -164,5 +162,37 @@ export const apiService = {
   getGeolocationLocations: () => safeCall(() => API.get('/extra/geolocations/locations'), []),
   searchGeolocations: (q) => safeCall(() => API.get(`/extra/geolocations/search?q=${encodeURIComponent(q)}`), []),
   getGeoBitsLocations: () => safeCall(() => API.get('/extra/geolocations/locations'), []),
-  searchGeoBits: (q) => safeCall(() => API.get(`/extra/geolocations/search?q=${encodeURIComponent(q)}`), [])
+  searchGeoBits: (q) => safeCall(() => API.get(`/extra/geolocations/search?q=${encodeURIComponent(q)}`), []),
+
+  // RAG Chatbot API
+  sendChatMessage: async (message, history = []) => {
+    try {
+      const res = await API.post('/rag/chat', { message, history });
+      if (res.data && res.data.success && res.data.data) {
+        return res.data.data;
+      }
+    } catch (err) {
+      // Backend is offline or unreachable - use client-side offline RAG engine
+    }
+    return clientRagEngine.query(message);
+  },
+
+  getChatSuggestedPrompts: async () => {
+    try {
+      const res = await API.get('/rag/suggested');
+      if (res.data && res.data.success && res.data.data) {
+        return res.data.data;
+      }
+    } catch (err) {
+      // Offline fallback
+    }
+    return [
+      { id: '1', label: 'Where is the AI Lab located?', category: 'Navigation' },
+      { id: '2', label: 'What are the hostel curfew hours?', category: 'Campus Rules' },
+      { id: '3', label: 'What is the booking 15-min grace period?', category: 'Bookings' },
+      { id: '4', label: 'What is the campus emergency number?', category: 'Emergency' },
+      { id: '5', label: 'How does Dijkstra road navigation work?', category: 'GIS Routing' },
+      { id: '6', label: 'How can I reserve a MacBook Pro or VR headset?', category: 'Assets' }
+    ];
+  }
 };

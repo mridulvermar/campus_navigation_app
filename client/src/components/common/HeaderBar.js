@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Bell, User, MapPin, ArrowLeft, Home } from 'lucide-react-native';
+import { Bell, User, MapPin, ArrowLeft, Home, Sparkles } from 'lucide-react-native';
 import { colors } from '../../theme/colors';
 import { useAuth } from '../../context/AuthContext';
 
@@ -42,6 +42,14 @@ export const HeaderBar = ({ title, subtitle, navigation, showBack = false }) => 
       </View>
 
       <View style={styles.rightCol}>
+        <TouchableOpacity
+          style={styles.aiChatBtn}
+          onPress={() => navigation?.navigate('Chatbot')}
+          title="Campus AI Assistant"
+        >
+          <Sparkles size={18} color={colors.primary} />
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.homeIconBtn}
           onPress={() => navigation?.navigate('MainTabs', { screen: 'Dashboard' })}
@@ -142,6 +150,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8
+  },
+  aiChatBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: 'rgba(6, 182, 212, 0.18)',
+    borderWidth: 1.5,
+    borderColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.35,
+    shadowRadius: 3
   },
   homeIconBtn: {
     width: 36,

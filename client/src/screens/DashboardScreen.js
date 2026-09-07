@@ -91,6 +91,40 @@ export const DashboardScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        {/* Campus AI Assistant RAG Banner */}
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => navigation.navigate('Chatbot')}
+          style={styles.aiBannerWrap}
+        >
+          <GlassCard style={styles.aiBanner} glow>
+            <View style={styles.aiBannerHeader}>
+              <View style={styles.aiBannerTitleRow}>
+                <View style={styles.aiIconBadge}>
+                  <Sparkles size={16} color={colors.primary} />
+                </View>
+                <View>
+                  <Text style={styles.aiBannerTitle}>Campus AI Assistant</Text>
+                  <Text style={styles.aiBannerSubtitle}>RAG-Powered • Ask about buildings, rules & assets</Text>
+                </View>
+              </View>
+              <Badge variant="primary" size="sm">Ask AI ↗</Badge>
+            </View>
+
+            <View style={styles.aiPromptRow}>
+              <View style={styles.aiPromptChip}>
+                <Text style={styles.aiPromptChipText}>📍 AI Lab location</Text>
+              </View>
+              <View style={styles.aiPromptChip}>
+                <Text style={styles.aiPromptChipText}>⏰ Hostel curfews</Text>
+              </View>
+              <View style={styles.aiPromptChip}>
+                <Text style={styles.aiPromptChipText}>📋 15-min grace rule</Text>
+              </View>
+            </View>
+          </GlassCard>
+        </TouchableOpacity>
+
         {/* Live Weather & Emergency SOS Section */}
         <WeatherWidget />
         <EmergencyWidget />
@@ -346,5 +380,58 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: colors.textMuted,
     textAlign: 'center'
+  },
+  aiBannerWrap: {
+    marginBottom: 12
+  },
+  aiBanner: {
+    padding: 14,
+    gap: 10
+  },
+  aiBannerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  aiBannerTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  },
+  aiIconBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: 'rgba(6, 182, 212, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(6, 182, 212, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  aiBannerTitle: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: colors.text
+  },
+  aiBannerSubtitle: {
+    fontSize: 10,
+    color: colors.textSecondary
+  },
+  aiPromptRow: {
+    flexDirection: 'row',
+    gap: 6
+  },
+  aiPromptChip: {
+    backgroundColor: 'rgba(6, 182, 212, 0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(6, 182, 212, 0.25)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6
+  },
+  aiPromptChipText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.primary
   }
 });

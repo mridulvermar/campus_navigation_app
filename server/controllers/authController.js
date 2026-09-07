@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, email: user.email, role: user.role, name: user.name },
+    { id: user._id.toString(), email: user.email, role: user.role, name: user.name },
     process.env.JWT_SECRET || 'super_secret_campus_jwt_key_2026_antigravity',
     { expiresIn: process.env.JWT_EXPIRE || '30d' }
   );
@@ -13,8 +13,12 @@ const generateToken = (user) => {
 exports.register = async (req, res) => {
   try {
     const { name, email, password, role, department, phone } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: 'Please provide name, email, and password' });
+    }
     
-    let userExists = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    let userExists = await User.findOne({ email: normalizedEmail });
     if (userExists) {
       return res.status(400).json({ success: false, message: 'User already exists with this email' });
     }
@@ -23,8 +27,8 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password: hashedPassword,
       role: role || 'Student',
       department: department || 'Computer Science & Engineering',
@@ -36,7 +40,8 @@ exports.register = async (req, res) => {
       success: true,
       token,
       user: {
-        id: user._id,
+        id: user._id.toString(),
+        _id: user._id.toString(),
         name: user.name,
         email: user.email,
         role: user.role,
@@ -53,7 +58,12 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Please provide email and password' });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
@@ -69,7 +79,8 @@ exports.login = async (req, res) => {
       success: true,
       token,
       user: {
-        id: user._id,
+        id: user._id.toString(),
+        _id: user._id.toString(),
         name: user.name,
         email: user.email,
         role: user.role,
@@ -89,7 +100,20 @@ exports.getMe = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-    res.json({ success: true, user });
+    res.json({
+      success: true,
+      user: {
+        id: user._id.toString(),
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        department: user.department,
+        profilePhoto: user.profilePhoto,
+        phone: user.phone,
+        favoriteLocations: user.favoriteLocations
+      }
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
