@@ -1,0 +1,122 @@
+{
+  "project": "Campus Navigation & Management System",
+  "institution": "Bannari Amman Institute of Technology (BIT)",
+  "version": "2.0.0",
+  "generated_for": "RAG-Based AI Chatbot Knowledge Base",
+  "total_chunks": 12,
+  "documents": [
+    {
+      "id": "chunk_001_campus_overview",
+      "source_file": "01_campus_overview.md",
+      "category": "General Information",
+      "title": "Campus Overview, Geography & Gate Access",
+      "keywords": ["location", "gates", "gate a", "gate c", "parking", "hours", "sathyamangalam", "coordinates"],
+      "coordinates": {
+        "latitude_center": 11.4965,
+        "longitude_center": 77.2765
+      },
+      "text": "Bannari Amman Institute of Technology (BIT) is a premier 180-acre smart autonomous engineering campus situated in Sathyamangalam, Tamil Nadu. Main Gate A (BIT-GATE-A: 11.500344, 77.277934) serves as the primary 24/7 entrance with vehicle checkposts. Gate C (BIT-GATE-C: 11.493922, 77.273686) is the western entrance for sports arenas and west hostels (06:00 AM - 10:00 PM). Central parking (BIT-PRK: 11.498394, 77.278229) accommodates two-wheelers and four-wheelers with EV charging bays."
+    },
+    {
+      "id": "chunk_002_emergency_safety",
+      "source_file": "01_campus_overview.md",
+      "category": "Emergency & Healthcare",
+      "title": "Emergency SOS, Medical Center & Safety Hotlines",
+      "keywords": ["emergency", "sos", "ambulance", "doctor", "medical center", "phone", "extension", "hospital", "helpline", "security"],
+      "contacts": {
+        "emergency_desk": "Ext 6000 / 6111",
+        "medical_center": "Ext 6222",
+        "ambulance_dispatch": "Ext 6223",
+        "anti_ragging": "Ext 6555",
+        "external_phone": "+91 (04295) 226000"
+      },
+      "text": "Emergency assistance is available 24/7 across campus. Call internal extensions 6000/6111 or external line +91 (04295) 226000 for Security SOS. The BIT Medical Center (MED-CTR: 11.493860, 77.274593) provides round-the-clock doctors, 10-bed observation ward, in-house pharmacy, and a 24/7 ICU ambulance (Ext 6222/6223). The mobile app includes a one-touch Emergency SOS button that broadcasts GPS coordinates."
+    },
+    {
+      "id": "chunk_003_sf_block_computing",
+      "source_file": "02_buildings_directory.md",
+      "category": "Academic Buildings",
+      "title": "SF Academic Block - IT, Computer Science & AI Labs",
+      "building_code": "SF-BLK",
+      "coordinates": { "latitude": 11.496400, "longitude": 77.278644 },
+      "floors": 5,
+      "keywords": ["sf block", "ai lab", "computer science", "information technology", "data science", "cyber security", "it classrooms"],
+      "text": "The SF Academic Block (SF-BLK) is a 5-story computing hub. Base Floor contains Smart Classrooms IT 001-003 and the IT Seminar Hall. Floor 1 (Ground Floor) houses IT 101, IT 102, the IT Department Office, the Artificial Intelligence Lab (AI Lab) with GPU clusters, and the Data Science Lab. Floor 2 houses IT 201-205, Full Stack Dev Lab, and Cyber Security Lab. Floor 3 houses IT 301-305, Mobile App & AR/VR Lab, and the SF Conference Room."
+    },
+    {
+      "id": "chunk_004_ib_block_core_eng",
+      "source_file": "02_buildings_directory.md",
+      "category": "Academic Buildings",
+      "title": "IB Academic Block - Main Wing & East Wing",
+      "building_code": "IB-BLK-MAIN",
+      "coordinates": { "latitude": 11.494307, "longitude": 77.276529 },
+      "floors": 4,
+      "keywords": ["ib block", "lecture halls", "classes 101-125", "classes 201-225", "electrical", "electronics", "ece", "eee", "vlsi"],
+      "text": "The Institution Building (IB Block) features two primary wings. The Main Wing (IB-BLK-MAIN) houses Classrooms 101-117 on Floor 1, Classrooms 201-217 on Floor 2, Classrooms 301-317 on Floor 3, Dean Offices, and Power Electronics Labs. The East Wing (IB-BLK-EAST: 11.496902, 77.276419) houses Classrooms 118-125, 218-225, 318-325, VLSI Design Center, Embedded Systems Lab, and DSP Lab."
+    },
+    {
+      "id": "chunk_005_specialized_academic_blocks",
+      "source_file": "02_buildings_directory.md",
+      "category": "Academic Buildings",
+      "title": "Aeronautical, Mechanical & Applied Science Blocks",
+      "keywords": ["aeronautical", "mechanical", "as block", "wind tunnel", "robotics", "cnc", "flight simulator", "chemistry", "physics"],
+      "text": "Aeronautical Block (AERO-BLK: 11.497688, 77.278240, 4 floors) features supersonic wind tunnel labs, flight simulator pods, and avionics studios. Mechanical Block (MECH-BLK: 11.495788, 77.278523, 4 floors) houses CNC workshops, industrial robotics cells, and thermal fluid labs. AS Block (AS-BLK: 11.494401, 77.277540, 4 floors) houses Mathematics, Physics Labs, Chemistry Labs, and Language & Communication Centers."
+    },
+    {
+      "id": "chunk_006_library_learning_center",
+      "source_file": "02_buildings_directory.md",
+      "category": "Library & Auditorium",
+      "title": "BIT Central Learning Center & Vedhanayagam Auditorium",
+      "keywords": ["library", "learning center", "books", "study pods", "auditorium", "vedhanayagam", "convocation", "research"],
+      "text": "BIT Learning Center (LRN-CTR: 11.494200, 77.277162, 4 floors) is open 07:00 AM - 11:00 PM daily with 150,000+ volumes, IEEE digital access, reading halls, private study carrels, and collaboration pods. Vedhanayagam Auditorium (VEDHA-AUD: 11.494976, 77.277006) is a 2,500-seat grand convention hall equipped with line-array acoustics and 4K video projection for convocations and hackathons."
+    },
+    {
+      "id": "chunk_007_hostels_and_dining",
+      "source_file": "04_facilities_and_amenities.md",
+      "category": "Hostels & Dining",
+      "title": "Boys & Girls Hostels, Guest House & Cafeteria",
+      "keywords": ["hostel", "boys hostel", "girls hostel", "mess", "cafeteria", "canteen", "food", "guest house", "curfew"],
+      "text": "Boys Hostel (BOYS-HST: 11.494169, 77.278633, 6 floors, curfew 09:30 PM) and Girls Hostel (GIRLS-HST: 11.493970, 77.275827, 5 floors, curfew 09:00 PM) offer secure accommodation with dining messes, gyms, and WiFi. Central Cafeteria (BIT-CAF: 11.493778, 77.277569, open 07:00 AM - 09:30 PM) provides South/North Indian food courts, bakery, and juice bars. BIT Guest House (GST-HOUSE: 11.499858, 77.278559) offers 32 VIP AC suites for visitors."
+    },
+    {
+      "id": "chunk_008_sports_facilities",
+      "source_file": "04_facilities_and_amenities.md",
+      "category": "Sports & Recreation",
+      "title": "Sports Complex, Cricket Ground, Track & Courts",
+      "keywords": ["sports", "cricket ground", "athletic track", "tennis", "handball", "badminton", "basketball", "gym"],
+      "text": "Campus sports infrastructure includes a 400m synthetic Athletic Track (ATHLETIC-CRT, 05:30 AM - 09:00 PM), standard turf Cricket Ground (CRICKET-GND, 06:00 AM - 07:00 PM), floodlit synthetic Tennis Courts (TENNIS-CRT), Handball Court (HANDBALL-CRT), outdoor Basketball & Volleyball Sports Arena (SPORTS-ARNA, 06:00 AM - 09:30 PM), and an Indoor Badminton Complex with 4 wooden courts (BADMINTON-CRT, 06:00 AM - 09:30 PM)."
+    },
+    {
+      "id": "chunk_009_reserveable_tech_assets",
+      "source_file": "05_asset_and_equipment_catalog.md",
+      "category": "Assets & Equipment",
+      "title": "High-Value Tech Assets, MacBooks, VR & Drones",
+      "keywords": ["assets", "macbook", "vr headset", "quest 3", "drone", "dji mavic", "3d printer", "projector", "equipment"],
+      "text": "Reserveable campus assets include: (1) Apple MacBook Pro M3 Max (SN-MAC-2026-001) in Computer Center B-204 for ML/iOS projects; (2) Meta Quest 3 VR Headset (SN-VRQ3-2026-882) in Innovation Lab A-102 for spatial simulation; (3) DJI Mavic 3 Pro Survey Drone (SN-DJI-DRONE-991) in GIS Center for photogrammetry; (4) Ender 3 Pro 3D Printer (SN-3DP-2026-302) in Maker Studio B-105; and (5) Epson 4K Laser Projector (SN-PRJ-2026-092) in Library Pod 204."
+    },
+    {
+      "id": "chunk_010_booking_sops_and_qr_passes",
+      "source_file": "06_booking_and_reservation_rules.md",
+      "category": "Booking Rules & SOPs",
+      "title": "Facility Booking, QR Access Passes & Check-in Rules",
+      "keywords": ["booking rules", "qr code", "digital pass", "check in", "grace period", "cancellation", "permissions", "no show"],
+      "text": "Facility and asset bookings generate an instant encrypted QR Digital Access Pass. Users must scan their QR code at the room door reader or lab desk within a 15-minute grace period; failing to check in results in auto-cancellation as 'No-Show' to prevent ghost bookings. Cancellations are free up to 30 minutes prior. Students can have up to 2 active bookings, faculty up to 5."
+    },
+    {
+      "id": "chunk_011_dijkstra_navigation_engine",
+      "source_file": "07_navigation_and_gis_routing.md",
+      "category": "Navigation & GIS",
+      "title": "Dijkstra Road Routing, 320 Junctions & Dual Modes",
+      "keywords": ["dijkstra", "navigation engine", "routing", "road junctions", "walk mode", "drive mode", "gps", "wheelchair"],
+      "text": "The campus navigation engine uses Dijkstra's algorithm across 320 calibrated road junctions to generate strict road paths that avoid building collisions. Walk Mode utilizes pedestrian avenues and walkways at 4.5 km/h with wheelchair ramp filtering. Drive Mode routes vehicles strictly on vehicular asphalt ring roads at 20 km/h and directs drivers to the nearest parking bay. Live GPS marker syncs with real-time Socket.IO telemetry."
+    },
+    {
+      "id": "chunk_012_events_and_competitions",
+      "source_file": "08_events_and_campus_life.md",
+      "category": "Events & Highlights",
+      "title": "Hackathons, Symposia, Sports League & Clubs",
+      "keywords": ["events", "hackathon", "symposium", "sports league", "gdsc", "robotics club", "bit code"],
+      "text": "Major recurring campus events include: National Smart Campus Hackathon 2026 (Sep 05-07, Main Auditorium & SF Labs, 350+ attendees), AI & Robotics Symposium (Sep 12, IB Seminar Hall II, 180+ delegates), and BIT Inter-College Sports League (Sep 18-21, Sports Complex, 500+ athletes). Active student clubs include Google Developer Student Club (GDSC), Robotics & Automation Society (RAS), and Coding Guild."
+    }
+  ]
+}
