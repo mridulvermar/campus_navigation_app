@@ -14,7 +14,8 @@ import { clientRagEngine } from './ragEngine';
 // Determine backend URL across platforms
 export const getBaseURL = () => {
   if (Platform.OS === 'android') {
-    return 'http://10.0.2.2:5000/api';
+    // 10.247.55.1 is the host computer's local Wi-Fi IP for real mobile devices
+    return 'http://10.247.55.1:5000/api';
   }
   if (typeof window !== 'undefined' && window.location && window.location.hostname) {
     const host = window.location.hostname;

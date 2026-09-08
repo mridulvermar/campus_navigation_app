@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const serverUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000';
+    const serverUrl = Platform.OS === 'android' ? 'http://10.247.55.1:5000' : 'http://localhost:5000';
     let socketInstance = null;
 
     try {

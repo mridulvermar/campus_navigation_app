@@ -121,17 +121,25 @@ class RagService {
   }
 
   extractKeywords(text) {
-    const clean = text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
-    const tokens = clean.split(/\s+/).filter(t => t.length > 2 && !STOP_WORDS.has(t));
-    return Array.from(new Set(tokens)).slice(0, 20);
+    const clean = text.toLowerCase().replace(/[^a-z0-9\s\-_]/g, ' ');
+    const tokens = clean.split(/\s+/).filter(t => (t.length > 2 || CAMPUS_KEEP_TOKENS.has(t)) && !STOP_WORDS.has(t));
+    return Array.from(new Set(tokens)).slice(0, 30);
+  }
+
+  normalizeQueryText(text) {
+    if (!text) return '';
+    return text
+      .replace(/([a-zA-Z]+)(\d+)/g, '$1 $2')
+      .replace(/(\d+)([a-zA-Z]+)/g, '$1 $2');
   }
 
   tokenize(text) {
     if (!text) return [];
-    return text.toLowerCase()
-      .replace(/[^a-z0-9\s]/g, ' ')
+    const normalized = this.normalizeQueryText(text);
+    return normalized.toLowerCase()
+      .replace(/[^a-z0-9\s\-_]/g, ' ')
       .split(/\s+/)
-      .filter(t => t.length > 1 && !STOP_WORDS.has(t));
+      .filter(t => (t.length > 1 || CAMPUS_KEEP_TOKENS.has(t)) && (!STOP_WORDS.has(t) || CAMPUS_KEEP_TOKENS.has(t)));
   }
 
   buildTfIdfIndex() {
@@ -142,7 +150,7 @@ class RagService {
     const termDocFreq = new Map();
 
     this.chunks.forEach((chunk) => {
-      const fullContent = `${chunk.title} ${chunk.category} ${chunk.keywords.join(' ')} ${chunk.text}`;
+      const fullContent = `${chunk.title} ${chunk.category} ${(chunk.keywords || []).join(' ')} ${chunk.text}`;
       const tokens = new Set(this.tokenize(fullContent));
       tokens.forEach((term) => {
         termDocFreq.set(term, (termDocFreq.get(term) || 0) + 1);
@@ -156,7 +164,8 @@ class RagService {
   }
 
   expandQuerySynonyms(query) {
-    const lower = query.toLowerCase();
+    const normalized = this.normalizeQueryText(query);
+    const lower = `${query} ${normalized}`.toLowerCase();
     const additions = [];
 
     const synonymsMap = [
@@ -173,8 +182,23 @@ class RagService {
       { triggers: ['library', 'books', 'study', 'read'], words: ['central learning center', '07:00 am - 11:00 pm', 'lrn-ctr'] },
       { triggers: ['booking', 'reserve', 'qr code', 'grace period', 'cancel', 'no show'], words: ['15-minute grace period', 'digital qr pass', 'auto cancellation', 'door scanner'] },
       { triggers: ['sports', 'cricket', 'gym', 'badminton', 'track'], words: ['sports complex', 'athletic track', 'cricket ground', 'courts'] },
-      { triggers: ['parking', 'car', 'bike', 'ev', 'vehicle'], words: ['bit-prk', 'main gate a', 'ev charging', 'two wheeler'] }
+      { triggers: ['parking', 'car', 'bike', 'ev', 'vehicle'], words: ['bit-prk', 'main gate a', 'ev charging', 'two wheeler'] },
+      { triggers: ['it 001', 'it 002', 'it 003', 'it 101', 'it 102', 'it 201', 'cs 201', 'cs 202', 'cs 203', 'aiml 101'], words: ['sf block', 'sf-block', 'computing'] },
+      { triggers: ['data mining', 'cloud computing', 'dbms', 'programming lab', 'civil practical'], words: ['sf block labs', 'sf-block-labs'] },
+      { triggers: ['special labs', 'cad', 'cam', 'robotics'], words: ['special labs', 'as-main-right', 'mechanic-back'] },
+      { triggers: ['spinning', 'fashion'], words: ['spinning lab', 'fashion resource centre'] }
     ];
+
+    const ribMatch = lower.match(/(as|ib)\s*rib\s*(\d+)/i);
+    if (ribMatch) {
+      additions.push(`${ribMatch[1].toLowerCase()} rib ${ribMatch[2]}`, `${ribMatch[1].toLowerCase()}-rib-${ribMatch[2]}`);
+    }
+
+    // Match WW room patterns like "ww 102", "ww 002", "ww 201"
+    const wwMatch = lower.match(/ww\s*(\d+)/i);
+    if (wwMatch) {
+      additions.push(`ww ${wwMatch[1]}`, `ww${wwMatch[1]}`, 'ib block', 'ib rib');
+    }
 
     synonymsMap.forEach(({ triggers, words }) => {
       if (triggers.some(t => lower.includes(t))) {
@@ -185,25 +209,67 @@ class RagService {
     return additions.join(' ');
   }
 
+  matchRoomInLine(query, line) {
+    if (!line || (!line.startsWith('• ') && !line.startsWith('| **'))) return false;
+    const lineClean = line.toLowerCase();
+    const lineUnspaced = lineClean.replace(/[^a-z0-9]/g, '');
+
+    // 1. Alphanumeric room patterns like WW102, IT001, CS201, EW113, ME105, AIML101, CB101
+    const alphaNumMatches = query.match(/([a-zA-Z]{1,4})\s*([0-9]{2,4})/gi);
+    if (alphaNumMatches) {
+      for (const match of alphaNumMatches) {
+        const roomTarget = match.replace(/[^a-z0-9]/gi, '').toLowerCase();
+        if (roomTarget.length >= 3 && lineUnspaced.includes(roomTarget)) {
+          return true;
+        }
+      }
+    }
+
+    // 2. Exact words matching for lab/venue names
+    const qTokens = query.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w));
+    if (qTokens.length > 0) {
+      const matchCount = qTokens.filter(token => lineClean.includes(token)).length;
+      if (matchCount === qTokens.length && qTokens.length >= 2) return true;
+      if (matchCount >= 2 && qTokens.length >= 2 && matchCount / qTokens.length >= 0.6) return true;
+    }
+
+    return false;
+  }
+
   retrieve(query, topK = 4) {
     if (!this.chunks.length) return [];
 
-    const expandedQuery = `${query} ${this.expandQuerySynonyms(query)}`;
+    const normQuery = this.normalizeQueryText(query);
+    const expandedQuery = `${query} ${normQuery} ${this.expandQuerySynonyms(query)}`;
     const queryTokens = this.tokenize(expandedQuery);
     if (!queryTokens.length) {
       return this.chunks.slice(0, topK);
     }
 
     const queryLower = query.toLowerCase();
+    const normLower = normQuery.toLowerCase();
+    const queryUnspaced = queryLower.replace(/[^a-z0-9]/g, '');
 
     const scored = this.chunks.map((chunk) => {
       let score = 0;
       const titleTokens = this.tokenize(chunk.title);
       const chunkTokens = this.tokenize(chunk.text);
-      const keywordTokens = this.tokenize(chunk.keywords.join(' '));
+      const keywordTokens = this.tokenize((chunk.keywords || []).join(' '));
+      const chunkTextLower = chunk.text.toLowerCase();
+      const chunkTextUnspaced = chunkTextLower.replace(/[^a-z0-9]/g, '');
 
-      if (chunk.text.toLowerCase().includes(queryLower)) score += 8.0;
-      if (chunk.title.toLowerCase().includes(queryLower)) score += 12.0;
+      // Direct room line match boost
+      const lines = (chunk.text || '').split('\n');
+      for (const line of lines) {
+        if (this.matchRoomInLine(query, line)) {
+          score += 100.0;
+          break;
+        }
+      }
+
+      if (chunkTextLower.includes(queryLower) || chunkTextLower.includes(normLower)) score += 20.0;
+      if (chunkTextUnspaced.includes(queryUnspaced) && queryUnspaced.length >= 4) score += 30.0;
+      if (chunk.title.toLowerCase().includes(queryLower) || chunk.title.toLowerCase().includes(normLower)) score += 25.0;
 
       queryTokens.forEach((qToken) => {
         const idf = this.idfMap.get(qToken) || 1.0;
@@ -211,14 +277,14 @@ class RagService {
         score += titleCount * idf * 4.0;
 
         const kwCount = keywordTokens.filter(t => t === qToken).length;
-        score += kwCount * idf * 3.0;
+        score += kwCount * idf * 4.0;
 
         const bodyCount = chunkTokens.filter(t => t === qToken).length;
-        score += bodyCount * idf * 1.0;
+        score += bodyCount * idf * 1.5;
       });
 
-      if (chunk.buildingCode && queryLower.includes(chunk.buildingCode.toLowerCase())) {
-        score += 15.0;
+      if (chunk.buildingCode && (queryLower.includes(chunk.buildingCode.toLowerCase()) || normLower.includes(chunk.buildingCode.toLowerCase()))) {
+        score += 35.0;
       }
 
       return {
@@ -247,22 +313,52 @@ class RagService {
   }
 
   detectLocation(query, retrieved = []) {
-    const q = query.toLowerCase();
+    const norm = this.normalizeQueryText(query);
+    const q = `${query} ${norm}`.toLowerCase();
+
+    // 1. Check retrieved chunks (and all chunks) for matching room lines to get accurate destination
+    for (const chunk of retrieved) {
+      if (chunk.buildingCode && chunk.text) {
+        const lines = chunk.text.split('\n');
+        for (const line of lines) {
+          if (this.matchRoomInLine(query, line)) {
+            const cleanName = chunk.title.split('(')[0].replace(/^\d+\.\s*/, '').trim();
+            return {
+              name: cleanName || chunk.title.split('-')[0].replace(/^\d+\.\s*/, '').trim(),
+              destination: chunk.buildingCode.toLowerCase().replace(/_/g, '-')
+            };
+          }
+        }
+      }
+    }
+
+    const ribMatch = q.match(/(as|ib)\s*rib\s*(\d+)/i);
+    if (ribMatch) {
+      const type = ribMatch[1].toUpperCase();
+      const num = ribMatch[2];
+      return { name: `${type} rib ${num}`, destination: `${type.toLowerCase()}-rib-${num}` };
+    }
 
     const locationRules = [
-      { keys: ['ai lab', 'artificial intelligence lab', 'sf block', 'sf academic', 'computer center', 'it lab', 'data science lab'], name: 'Artificial Intelligence Lab (SF Block)', code: 'sf-block-labs' },
+      { keys: ['ai lab', 'artificial intelligence lab', 'sf block labs', 'data science lab'], name: 'SF Block Labs', code: 'sf-block-labs' },
+      { keys: ['sf block', 'sf academic', 'it 001', 'it 002', 'it 003', 'it 101', 'it 102', 'cs 201', 'cs 202', 'cs 203', 'aiml 101'], name: 'SF Block', code: 'sf-block' },
       { keys: ['library', 'learning center', 'lrn-ctr', 'central library', 'study pod'], name: 'BIT Central Learning Center', code: 'library' },
       { keys: ['medical center', 'hospital', 'clinic', 'ambulance', 'doctor', 'med-ctr'], name: 'BIT Medical Center', code: 'medical-centre' },
-      { keys: ['canteen', 'cafeteria', 'food court', 'mess', 'dining', 'bit-caf'], name: 'Central Cafeteria', code: 'canteen' },
-      { keys: ['ib block', 'institution building', 'ece', 'eee', 'vlsi'], name: 'IB Academic Block', code: 'ib-block' },
-      { keys: ['mech block', 'mechanical block', 'cnc', 'maker studio', 'robotics'], name: 'Mechanical Block', code: 'mechanical-block' },
-      { keys: ['aero block', 'aeronautical block', 'wind tunnel', 'flight simulator'], name: 'Aeronautical Block', code: 'aero-block' },
-      { keys: ['as block', 'applied science', 'physics lab', 'chemistry lab', 'maths'], name: 'Applied Science Block', code: 'as-block' },
+      { keys: ['canteen', 'cafeteria', 'food court', 'dining', 'bit-caf'], name: 'Central Cafeteria', code: 'canteen' },
+      { keys: ['mess', 'girls mess'], name: 'Campus Dining Mess', code: 'girls-mess' },
+      { keys: ['ib block', 'institution building', 'ece', 'eee', 'vlsi'], name: 'IB Academic Block', code: 'ib-block-1' },
+      { keys: ['mech block entrance', 'mechanic front'], name: 'Mech Block Entrance', code: 'mechanic-front' },
+      { keys: ['mechanic block', 'mech block', 'cnc', 'maker studio', 'robotics'], name: 'Mechanic Block', code: 'mechanic-back' },
+      { keys: ['special labs', 'human powered vehicle', 'manufacturing and fab'], name: 'Special Labs', code: 'as-main-right' },
+      { keys: ['as block', 'applied science', 'physics lab', 'chemistry lab', 'maths'], name: 'AS Block', code: 'as-main-left' },
+      { keys: ['fashion resource', 'fashion centre'], name: 'Fashion Resource Centre', code: 'fashion-centre' },
+      { keys: ['spinning lab'], name: 'Spinning Lab', code: 'spinning-lab' },
       { keys: ['auditorium', 'vedhanayagam', 'convention hall', 'seminar hall'], name: 'Vedhanayagam Auditorium', code: 'auditorium' },
       { keys: ['boys hostel', 'hostel boys'], name: 'Boys Hostel Complex', code: 'boys-hostel' },
       { keys: ['girls hostel', 'hostel girls'], name: 'Girls Hostel Complex', code: 'girls-hostel' },
       { keys: ['hostel'], name: 'Campus Hostels', code: 'boys-hostel' },
-      { keys: ['sports complex', 'cricket ground', 'athletic track', 'tennis', 'badminton', 'basketball', 'gym'], name: 'Campus Sports Arena & Grounds', code: 'sports-complex' },
+      { keys: ['gym', 'indoor gym'], name: 'Campus Indoor Gym', code: 'indoor-gym' },
+      { keys: ['sports complex', 'cricket ground', 'athletic track', 'tennis', 'badminton', 'basketball'], name: 'Campus Sports Arena & Grounds', code: 'sports-complex' },
       { keys: ['guest house', 'vip suite', 'visitors guest house'], name: 'BIT Guest House', code: 'guest-house' },
       { keys: ['main gate', 'gate a', 'entrance'], name: 'Main Gate A', code: 'main-gate' },
       { keys: ['gate c', 'west gate'], name: 'Gate C (West Entrance)', code: 'gate-c' },
@@ -278,8 +374,9 @@ class RagService {
     // Check retrieved chunks for building codes
     for (const chunk of retrieved) {
       if (chunk.buildingCode) {
+        const cleanName = chunk.title.split('(')[0].replace(/^\d+\.\s*/, '').trim();
         return {
-          name: chunk.title.split('-')[0].trim(),
+          name: cleanName || chunk.title.split('-')[0].replace(/^\d+\.\s*/, '').trim(),
           destination: chunk.buildingCode.toLowerCase().replace(/_/g, '-')
         };
       }
@@ -303,7 +400,7 @@ class RagService {
       });
     }
 
-    if (lower.includes('book') || lower.includes('reserve') || lower.includes('macbook') || lower.includes('lab') || lower.includes('room') || lower.includes('vr') || lower.includes('drone')) {
+    if (lower.includes('book') || lower.includes('reserve') || lower.includes('macbook') || lower.includes('lab') || lower.includes('room') || lower.includes('class') || lower.includes('vr') || lower.includes('drone')) {
       actions.push({
         type: 'book',
         label: 'Open Facility & Asset Bookings',
@@ -326,10 +423,10 @@ class RagService {
     const lower = query.toLowerCase();
     const suggestions = [];
 
-    if (lower.includes('ai lab') || lower.includes('sf block')) {
-      suggestions.push('How do I book the AI Lab with GPU clusters?');
-      suggestions.push('Where is the nearest parking to SF Block?');
-      suggestions.push('What are the opening hours of SF Block labs?');
+    if (lower.includes('ai lab') || lower.includes('sf block') || lower.includes('it 001') || lower.includes('cs 201') || lower.includes('ww')) {
+      suggestions.push('How do I book this room or lab in the app?');
+      suggestions.push('Where is the nearest parking?');
+      suggestions.push('What are the facilities in this room?');
     } else if (lower.includes('book') || lower.includes('reserve') || lower.includes('pass') || lower.includes('grace period')) {
       suggestions.push('What happens if I am late for my booking?');
       suggestions.push('How many active bookings can a student have?');
@@ -371,7 +468,25 @@ class RagService {
     const secondary = retrievedChunks[1];
 
     let answerText = '';
-    const qLower = query.toLowerCase();
+    const qNorm = this.normalizeQueryText(query);
+    const qLower = `${query} ${qNorm}`.toLowerCase();
+    const qUnspaced = query.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // Check for specific room or lab line match in retrieved chunks
+    let specificRoomLine = null;
+    let matchedChunk = primary;
+
+    for (const chunk of retrievedChunks) {
+      const allLines = (chunk.text || '').split('\n');
+      for (const line of allLines) {
+        if (this.matchRoomInLine(query, line)) {
+          specificRoomLine = line;
+          matchedChunk = chunk;
+          break;
+        }
+      }
+      if (specificRoomLine) break;
+    }
 
     if (qLower.includes('ai lab') || (qLower.includes('artificial intelligence') && qLower.includes('lab'))) {
       answerText = `📍 **Artificial Intelligence Lab (AI Lab)** is located on the **Ground Floor (Floor 1)** of the **SF Academic Block (\`SF-BLK\`)**.\n\n` +
@@ -410,14 +525,21 @@ class RagService {
         `• **DJI Mavic 3 Pro Drone:** GIS Spatial Analytics Center (requires 24h advance request & certification).\n` +
         `• **Ender 3 Pro 3D Printers:** Maker Studio B-105 (Mechanical Block, 2h to 12h slots).\n\n` +
         `Reserve via the **Assets** tab to generate a cryptographically signed QR checkout voucher.`;
+    } else if (specificRoomLine) {
+      const cleanMatchedTitle = matchedChunk.title.split('(')[0].trim();
+      answerText = `📍 **Venue Location Details:**\n\n` +
+        `${specificRoomLine}\n\n` +
+        `• **Building Complex:** **${cleanMatchedTitle}** (\`${matchedChunk.buildingCode || 'CAMPUS'}\`)\n` +
+        (matchedChunk.coordinates ? `• **Coordinates:** \`${matchedChunk.coordinates.latitude}, ${matchedChunk.coordinates.longitude}\`\n` : '') +
+        `• **Availability & Booking:** Available for academic sessions and app-based student/faculty reservations.`;
     } else {
       const cleanPrimaryText = primary.text
         .replace(/^#+\s+/gm, '')
         .replace(/\*\*/g, '')
         .split('\n')
         .filter(l => l.trim().length > 0)
-        .slice(0, 4)
-        .join(' ');
+        .slice(0, 5)
+        .join('\n');
 
       answerText = `Based on **${primary.title}** (${primary.category}):\n\n` +
         `${cleanPrimaryText}\n\n` +
@@ -627,6 +749,14 @@ If the context does not have the answer, politely direct the user to the Campus 
     };
   }
 }
+
+const CAMPUS_KEEP_TOKENS = new Set([
+  'it', 'cs', 'ib', 'as', 'ai', 'me', 'ee', 'ec', 'sf', 'ww', 'am', 'bt', 'ft', 'mc',
+  '001', '002', '003', '004', '005', '006', '007', '008', '010', '011', '012',
+  '101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115', '117', '118',
+  '201', '202', '203', '204', '205', '206', '207', '208', '209', '210', '211', '212', '213', '214', '215', '216', '217', '218', '219', '220', '221', '222', '223', '224', '225', '226', '227',
+  '301', '302', '303'
+]);
 
 const STOP_WORDS = new Set([
   'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'aren\'t', 'as', 'at',
