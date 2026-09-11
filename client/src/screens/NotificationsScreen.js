@@ -81,7 +81,11 @@ const styles = StyleSheet.create({
     gap: 10
   },
   notifCard: {
-    padding: 14
+    padding: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   topRow: {
     flexDirection: 'row',
@@ -97,8 +101,8 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   iconBox: {
-    width: 34,
-    height: 34,
+    width: 36,
+    height: 36,
     borderRadius: 10,
     backgroundColor: colors.cardBgLight,
     borderWidth: 1,
@@ -107,17 +111,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   title: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   time: {
-    fontSize: 10,
+    fontSize: 11,
     color: colors.textMuted,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: 'Manrope'
   },
   message: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
     lineHeight: 18
   }

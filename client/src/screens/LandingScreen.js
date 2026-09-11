@@ -22,9 +22,9 @@ export const LandingScreen = ({ navigation }) => {
         <View style={styles.navBar}>
           <View style={styles.brandRow}>
             <View style={styles.logoBadge}>
-              <MapPin size={18} color={colors.primary} />
+              <Navigation size={16} color="#24201D" />
             </View>
-            <Text style={styles.brandTitle}>CAMPUS GIS</Text>
+            <Text style={styles.brandTitle}>CampusNav</Text>
           </View>
           <TouchableOpacity
             style={styles.signInBtn}
@@ -37,16 +37,16 @@ export const LandingScreen = ({ navigation }) => {
         {/* Hero Section */}
         <View style={styles.heroSection}>
           <View style={styles.pillBadge}>
-            <Sparkles size={12} color={colors.primary} />
-            <Text style={styles.pillText}>Next-Gen Smart Campus Platform</Text>
+            <Sparkles size={12} color={colors.primaryDark} />
+            <Text style={styles.pillText}>Bannari Amman Institute of Technology</Text>
           </View>
 
           <Text style={styles.heroTitle}>
-            Spatial Navigation & <Text style={{ color: colors.primary }}>Smart Resource Hub</Text>
+            Spatial Navigation & <Text style={{ color: colors.primaryDark }}>Smart Campus Hub</Text>
           </Text>
 
           <Text style={styles.heroDescription}>
-            Instant turn-by-turn road Dijkstra routing across 320 junctions, 428 classrooms, live facility booking, real-time spatial sync, and automated digital passes.
+            Instant turn-by-turn road Dijkstra routing across 320 junctions, 428 classrooms, live facility booking, RAG campus AI assistant, and digital QR passes.
           </Text>
 
           {/* Quick CTA Buttons */}
@@ -55,7 +55,7 @@ export const LandingScreen = ({ navigation }) => {
               style={styles.primaryCta}
               onPress={() => navigation.navigate('MainTabs', { screen: 'Map' })}
             >
-              <Navigation size={16} color="#070B14" />
+              <Navigation size={16} color="#24201D" />
               <Text style={styles.primaryCtaText}>Explore Live Campus Map</Text>
             </TouchableOpacity>
 
@@ -63,7 +63,7 @@ export const LandingScreen = ({ navigation }) => {
               style={styles.secondaryCta}
               onPress={() => navigation.navigate('MainTabs', { screen: 'Bookings' })}
             >
-              <CalendarCheck size={16} color={colors.primary} />
+              <CalendarCheck size={16} color={colors.text} />
               <Text style={styles.secondaryCtaText}>Book Facilities</Text>
             </TouchableOpacity>
           </View>
@@ -74,8 +74,8 @@ export const LandingScreen = ({ navigation }) => {
 
         <View style={styles.grid}>
           <GlassCard style={styles.featureCard} glow>
-            <View style={[styles.cardIcon, { backgroundColor: 'rgba(6, 182, 212, 0.15)' }]}>
-              <Navigation size={22} color={colors.primary} />
+            <View style={[styles.cardIcon, { backgroundColor: '#FEF3C7' }]}>
+              <Navigation size={22} color="#D97706" />
             </View>
             <Text style={styles.cardTitle}>Dual-Mode Dijkstra GIS</Text>
             <Text style={styles.cardDesc}>
@@ -84,8 +84,8 @@ export const LandingScreen = ({ navigation }) => {
           </GlassCard>
 
           <GlassCard style={styles.featureCard}>
-            <View style={[styles.cardIcon, { backgroundColor: 'rgba(99, 102, 241, 0.15)' }]}>
-              <Search size={22} color={colors.secondary} />
+            <View style={[styles.cardIcon, { backgroundColor: '#EEF2FF' }]}>
+              <Search size={22} color="#4F46E5" />
             </View>
             <Text style={styles.cardTitle}>428 Classrooms Search</Text>
             <Text style={styles.cardDesc}>
@@ -94,8 +94,8 @@ export const LandingScreen = ({ navigation }) => {
           </GlassCard>
 
           <GlassCard style={styles.featureCard}>
-            <View style={[styles.cardIcon, { backgroundColor: 'rgba(16, 185, 129, 0.15)' }]}>
-              <CalendarCheck size={22} color={colors.accent} />
+            <View style={[styles.cardIcon, { backgroundColor: '#ECFDF5' }]}>
+              <CalendarCheck size={22} color="#059669" />
             </View>
             <Text style={styles.cardTitle}>Smart Facility Reservation</Text>
             <Text style={styles.cardDesc}>
@@ -104,8 +104,8 @@ export const LandingScreen = ({ navigation }) => {
           </GlassCard>
 
           <GlassCard style={styles.featureCard}>
-            <View style={[styles.cardIcon, { backgroundColor: 'rgba(245, 158, 11, 0.15)' }]}>
-              <ShieldCheck size={22} color={colors.warning} />
+            <View style={[styles.cardIcon, { backgroundColor: '#FFFBEB' }]}>
+              <ShieldCheck size={22} color="#B45309" />
             </View>
             <Text style={styles.cardTitle}>Live Emergency SOS</Text>
             <Text style={styles.cardDesc}>
@@ -115,7 +115,7 @@ export const LandingScreen = ({ navigation }) => {
         </View>
 
         {/* Direct Access CTA */}
-        <GlassCard style={styles.bannerCard} borderColor={colors.primaryGlow}>
+        <View style={styles.bannerCard}>
           <Text style={styles.bannerTitle}>Ready to navigate your campus?</Text>
           <Text style={styles.bannerSubtitle}>Access your student, faculty, or administrative portal seamlessly.</Text>
           <TouchableOpacity
@@ -123,9 +123,9 @@ export const LandingScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('MainTabs')}
           >
             <Text style={styles.bannerBtnText}>Enter Campus Platform</Text>
-            <ArrowRight size={16} color="#070B14" />
+            <ArrowRight size={16} color="#24201D" />
           </TouchableOpacity>
-        </GlassCard>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -141,47 +141,53 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 40
+    paddingBottom: 40,
+    maxWidth: 680,
+    width: '100%',
+    alignSelf: 'center'
   },
   navBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 28
+    marginBottom: 32
   },
   brandRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8
+    gap: 10
   },
   logoBadge: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
     borderRadius: 10,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.4)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center'
   },
   brandTitle: {
-    fontSize: 16,
-    fontWeight: '900',
+    fontSize: 18,
+    fontWeight: '800',
     color: colors.text,
-    letterSpacing: 1
+    fontFamily: 'Sora'
   },
   signInBtn: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 10,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
-    borderColor: colors.cardBorder
+    borderColor: colors.cardBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
   },
   signInText: {
     fontSize: 12,
-    fontWeight: '700',
-    color: colors.primary
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Manrope'
   },
   heroSection: {
     marginBottom: 32
@@ -190,33 +196,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
+    backgroundColor: colors.cardBgLight,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 999,
     alignSelf: 'flex-start',
     borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
+    borderColor: colors.cardBorder,
     marginBottom: 16
   },
   pillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: colors.primary
+    color: colors.textSecondary,
+    fontFamily: 'Manrope'
   },
   heroTitle: {
-    fontSize: 32,
-    fontWeight: '900',
+    fontSize: 34,
+    fontWeight: '800',
     color: colors.text,
-    lineHeight: 38,
+    lineHeight: 42,
     letterSpacing: -0.8,
-    marginBottom: 12
+    marginBottom: 12,
+    fontFamily: 'Sora'
   },
   heroDescription: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textSecondary,
-    lineHeight: 22,
-    marginBottom: 20
+    lineHeight: 24,
+    marginBottom: 24,
+    fontFamily: 'Manrope'
   },
   ctaRow: {
     flexDirection: 'row',
@@ -225,39 +234,36 @@ const styles = StyleSheet.create({
   },
   primaryCta: {
     backgroundColor: colors.primary,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    ...Platform.select({
-      web: {
-        boxShadow: '0 4px 14px rgba(6, 182, 212, 0.4)'
-      },
-      default: {
-        shadowColor: colors.primary,
-        shadowOpacity: 0.4,
-        shadowRadius: 10,
-        elevation: 4
-      }
-    })
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
   },
   primaryCtaText: {
     fontSize: 13,
-    fontWeight: '900',
-    color: '#070B14'
+    fontWeight: '800',
+    color: '#24201D'
   },
   secondaryCta: {
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8
+    gap: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
   },
   secondaryCtaText: {
     fontSize: 13,
@@ -268,14 +274,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 16
+    marginBottom: 16,
+    fontFamily: 'Sora'
   },
   grid: {
     gap: 14,
     marginBottom: 24
   },
   featureCard: {
-    padding: 16
+    padding: 18,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   cardIcon: {
     width: 44,
@@ -286,47 +297,58 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
   cardTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 6
+    marginBottom: 6,
+    fontFamily: 'Sora'
   },
   cardDesc: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
-    lineHeight: 18
+    lineHeight: 20,
+    fontFamily: 'Manrope'
   },
   bannerCard: {
-    padding: 20,
-    backgroundColor: 'rgba(6, 182, 212, 0.08)',
+    padding: 24,
+    backgroundColor: colors.cardBgLight,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: colors.cardBorder,
     alignItems: 'center',
     textAlign: 'center'
   },
   bannerTitle: {
     fontSize: 18,
-    fontWeight: '900',
+    fontWeight: '800',
     color: colors.text,
     marginBottom: 6,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Sora'
   },
   bannerSubtitle: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
     textAlign: 'center',
-    marginBottom: 16
+    marginBottom: 18,
+    fontFamily: 'Manrope'
   },
   bannerBtn: {
     backgroundColor: colors.primary,
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
     paddingVertical: 12,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8
+    gap: 8,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
   },
   bannerBtnText: {
     fontSize: 13,
-    fontWeight: '900',
-    color: '#070B14'
+    fontWeight: '800',
+    color: '#24201D'
   }
 });

@@ -89,19 +89,24 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
+    backgroundColor: colors.cardBg,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    gap: 10
+    gap: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
   },
   searchInput: {
     flex: 1,
     color: colors.text,
     fontSize: 13,
-    padding: 0
+    padding: 0,
+    outlineWidth: 0
   },
   categoriesRow: {
     flexDirection: 'row',
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 7,
     borderRadius: 999,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder
   },
@@ -126,12 +131,14 @@ const styles = StyleSheet.create({
     color: colors.textSecondary
   },
   categoryTextActive: {
-    color: '#070B14',
+    color: '#24201D',
     fontWeight: '800'
   },
   mapContainer: {
     flex: 1,
-    borderRadius: 24,
-    overflow: 'hidden'
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   }
 });

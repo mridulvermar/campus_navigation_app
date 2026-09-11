@@ -330,10 +330,18 @@ export const ChatbotScreen = ({ route, navigation }) => {
           <View style={styles.headerLeft}>
             <TouchableOpacity
               style={styles.backButton}
-              onPress={() => navigation.goBack()}
+              onPress={() => {
+                if (navigation?.canGoBack && navigation.canGoBack()) {
+                  navigation.goBack();
+                } else {
+                  navigation?.navigate('MainTabs', { screen: 'Dashboard' });
+                }
+              }}
               activeOpacity={0.8}
+              title="Back"
             >
-              <ArrowLeft size={18} color={colors.primary} />
+              <ArrowLeft size={15} color={colors.text} strokeWidth={2.4} />
+              <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
             
             <View style={styles.avatarBadge}>
@@ -592,11 +600,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
+    paddingTop: 14,
+    paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.4)',
-    backgroundColor: 'rgba(7, 11, 20, 0.96)'
+    borderBottomColor: colors.cardBorder,
+    backgroundColor: colors.cardBg
   },
   headerLeft: {
     flexDirection: 'row',
@@ -604,22 +612,33 @@ const styles = StyleSheet.create({
     gap: 10
   },
   backButton: {
-    width: 34,
-    height: 34,
-    borderRadius: 10,
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    gap: 5,
+    backgroundColor: colors.secondary,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+        boxShadow: '0 2px 6px -1px rgba(36, 32, 29, 0.06)'
+      }
+    })
+  },
+  backButtonText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Outfit'
   },
   avatarBadge: {
-    width: 34,
-    height: 34,
+    width: 36,
+    height: 36,
     borderRadius: 10,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
-    borderWidth: 1,
-    borderColor: colors.cardBorderGlow,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -629,23 +648,25 @@ const styles = StyleSheet.create({
     gap: 6
   },
   headerTitle: {
-    fontSize: 15,
-    fontWeight: '900',
-    color: colors.text
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   headerSubtitle: {
-    fontSize: 10,
-    color: colors.textSecondary,
-    marginTop: 1
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: 1,
+    fontFamily: 'Manrope'
   },
   clearButton: {
     padding: 8
   },
   suggestedBar: {
-    backgroundColor: 'rgba(11, 15, 25, 0.9)',
+    backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.3)',
-    paddingVertical: 8
+    borderBottomColor: colors.cardBorder,
+    paddingVertical: 10
   },
   suggestedContent: {
     paddingHorizontal: 16,
@@ -655,17 +676,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 7,
     borderRadius: 20,
-    backgroundColor: 'rgba(6, 182, 212, 0.08)',
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.25)'
+    borderColor: colors.cardBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
   },
   promptPillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: colors.primary
+    color: colors.text
   },
   messagesContainer: {
     flex: 1,
@@ -684,22 +709,24 @@ const styles = StyleSheet.create({
   },
   userBubble: {
     maxWidth: '82%',
-    backgroundColor: colors.secondary,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 16,
+    backgroundColor: colors.text, // crisp dark charcoal
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 18,
     borderBottomRightRadius: 4,
-    borderWidth: 1,
-    borderColor: 'rgba(99, 102, 241, 0.4)'
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
   },
   userMessageText: {
-    color: colors.white,
+    color: '#FFFFFF',
     fontSize: 13,
     fontWeight: '600',
-    lineHeight: 18
+    lineHeight: 19
   },
   userTimestamp: {
-    fontSize: 9,
+    fontSize: 10,
     color: 'rgba(255, 255, 255, 0.6)',
     alignSelf: 'flex-end',
     marginTop: 4
@@ -710,12 +737,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   aiAvatar: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: colors.cardBgLight,
     borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
+    borderColor: colors.cardBorder,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 2
@@ -724,15 +751,19 @@ const styles = StyleSheet.create({
     flex: 1
   },
   aiBubble: {
-    padding: 14,
-    borderRadius: 16,
-    borderBottomLeftRadius: 4
+    padding: 16,
+    borderRadius: 18,
+    borderBottomLeftRadius: 4,
+    backgroundColor: colors.cardBgLight,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   messageText: {
     color: colors.text,
     fontSize: 13,
     lineHeight: 20,
-    marginBottom: 4
+    marginBottom: 4,
+    fontFamily: 'Manrope'
   },
   boldText: {
     fontWeight: '800',
@@ -740,7 +771,8 @@ const styles = StyleSheet.create({
   },
   codePill: {
     fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
-    color: colors.primary,
+    color: colors.primaryDark,
+    backgroundColor: colors.cardBg,
     fontWeight: '700'
   },
   bulletLine: {
@@ -748,21 +780,22 @@ const styles = StyleSheet.create({
   },
   headerLine: {
     fontSize: 14,
-    fontWeight: '900',
-    color: colors.primary,
-    marginTop: 4,
-    marginBottom: 6
+    fontWeight: '800',
+    color: colors.text,
+    marginTop: 6,
+    marginBottom: 6,
+    fontFamily: 'Sora'
   },
   sourcesSection: {
     marginTop: 12,
     paddingTop: 10,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(51, 65, 85, 0.4)'
+    borderTopColor: colors.cardBorder
   },
   sourcesHeader: {
     fontSize: 10,
     fontWeight: '800',
-    color: colors.primary,
+    color: colors.textMuted,
     letterSpacing: 0.8,
     marginBottom: 6
   },
@@ -776,50 +809,51 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(30, 41, 59, 0.6)',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 6,
+    backgroundColor: colors.cardBg,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.6)'
+    borderColor: colors.cardBorder
   },
   sourceTagText: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '600',
     color: colors.textSecondary,
     flex: 1,
     marginRight: 6
   },
   sourceSnippetBox: {
-    backgroundColor: 'rgba(11, 15, 25, 0.85)',
-    padding: 8,
-    borderRadius: 6,
+    backgroundColor: colors.cardBg,
+    padding: 10,
+    borderRadius: 8,
     marginTop: 4,
-    borderLeftWidth: 2,
+    borderLeftWidth: 3,
     borderLeftColor: colors.primary
   },
   sourceSnippetTitle: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '800',
-    color: colors.primary,
+    color: colors.text,
     marginBottom: 2
   },
   sourceSnippetText: {
-    fontSize: 10,
+    fontSize: 11,
     color: colors.textSecondary,
     fontStyle: 'italic',
-    lineHeight: 14
+    lineHeight: 16
   },
   exploreBanner: {
-    marginTop: 12,
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
+    marginTop: 14,
+    backgroundColor: '#FFFBEB',
     borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: 'rgba(6, 182, 212, 0.45)',
-    padding: 12,
-    ...(Platform.OS === 'web'
-      ? { boxShadow: '0 4px 20px rgba(6, 182, 212, 0.2)' }
-      : { elevation: 3 })
+    borderColor: '#FDE68A',
+    padding: 14,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
   },
   exploreBannerHeader: {
     flexDirection: 'row',
@@ -836,15 +870,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   explorePretitle: {
-    fontSize: 9,
-    fontWeight: '900',
-    color: colors.primary,
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.primaryDark,
     letterSpacing: 0.8
   },
   explorePlaceTitle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   explorePromptText: {
     fontSize: 12,
@@ -862,14 +897,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 10,
-    ...(Platform.OS === 'web'
-      ? { boxShadow: '0 2px 10px rgba(6, 182, 212, 0.4)' }
-      : { elevation: 3 })
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
   exploreActionBtnText: {
     fontSize: 12,
-    fontWeight: '900',
-    color: '#070B14'
+    fontWeight: '800',
+    color: '#24201D'
   },
   actionsRow: {
     flexDirection: 'row',
@@ -881,17 +917,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: 'rgba(6, 182, 212, 0.25)',
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 8
   },
   actionBtnText: {
     fontSize: 11,
-    fontWeight: '800',
-    color: colors.white
+    fontWeight: '700',
+    color: colors.text
   },
   followUpsWrap: {
     marginTop: 12,
@@ -903,20 +939,20 @@ const styles = StyleSheet.create({
     color: colors.textMuted
   },
   followUpChip: {
-    backgroundColor: 'rgba(15, 23, 42, 0.6)',
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.5)',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    borderColor: colors.cardBorder,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
     borderRadius: 8
   },
   followUpChipText: {
     fontSize: 11,
     fontWeight: '600',
-    color: colors.textSecondary
+    color: colors.text
   },
   aiTimestamp: {
-    fontSize: 9,
+    fontSize: 10,
     color: colors.textMuted,
     alignSelf: 'flex-end',
     marginTop: 8
@@ -932,10 +968,13 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    borderRadius: 14
+    borderRadius: 14,
+    backgroundColor: colors.cardBgLight,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   loadingText: {
-    fontSize: 11,
+    fontSize: 12,
     color: colors.textSecondary,
     fontWeight: '600'
   },
@@ -944,23 +983,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: 'rgba(7, 11, 20, 0.98)',
+    backgroundColor: colors.cardBg,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(51, 65, 85, 0.4)',
+    borderTopColor: colors.cardBorder,
     gap: 10,
     flexShrink: 0,
     zIndex: 20
   },
   textInput: {
     flex: 1,
-    backgroundColor: colors.inputBg,
+    backgroundColor: colors.cardBgLight,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 16,
     paddingVertical: 10,
     color: colors.text,
-    fontSize: 13
+    fontSize: 13,
+    outlineWidth: 0
   },
   sendButton: {
     width: 42,
@@ -969,8 +1009,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: colors.primaryGlow
   },
   sendButtonDisabled: {
     backgroundColor: colors.cardBgLight,

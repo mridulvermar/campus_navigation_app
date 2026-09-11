@@ -108,22 +108,27 @@ const styles = StyleSheet.create({
     paddingBottom: 40
   },
   sectionCard: {
-    padding: 16,
-    marginBottom: 14
+    padding: 18,
+    marginBottom: 14,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   sectionTitle: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 12
+    marginBottom: 12,
+    fontFamily: 'Sora'
   },
   settingRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.4)'
+    borderBottomColor: colors.cardBorder
   },
   settingLabel: {
     fontSize: 13,
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   settingDesc: {
-    fontSize: 11,
+    fontSize: 12,
     color: colors.textSecondary,
     marginTop: 2
   },
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder,
     borderRadius: 14,
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
   },
   flushBtnText: {
     fontSize: 13,
-    fontWeight: '700',
-    color: colors.primary
+    fontWeight: '800',
+    color: colors.text
   }
 });

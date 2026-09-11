@@ -39,7 +39,7 @@ export const FloatingNavPanel = ({
   const [activePicker, setActivePicker] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
-  const [showSteps, setShowSteps] = useState(false);
+  const [showSteps, setShowSteps] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
 
   const allLocations = useMemo(() => getAllSelectableLocations(), []);
@@ -89,7 +89,7 @@ export const FloatingNavPanel = ({
   if (isMinimized) {
     return (
       <View style={styles.minimizedContainer}>
-        <GlassCard style={styles.minimizedCard} glow>
+        <View style={styles.minimizedCard}>
           <View style={styles.minimizedContent}>
             <View style={styles.minimizedRoute}>
               <View style={[styles.dotSmall, { backgroundColor: colors.accent }]} />
@@ -97,16 +97,18 @@ export const FloatingNavPanel = ({
                 {startNode?.name?.split('(')[0] || 'Start'}
               </Text>
               <Text style={styles.minimizedArrow}>→</Text>
-              <View style={[styles.dotSmall, { backgroundColor: colors.danger }]} />
+              <View style={[styles.dotSmall, { backgroundColor: colors.primary }]} />
               <Text style={styles.minimizedText} numberOfLines={1}>
                 {destNode?.name?.split('(')[0] || 'Destination'}
               </Text>
             </View>
 
             {routeData && (
-              <Badge variant="primary" size="sm">
-                {routeData.formattedWalkingTime || 'Active'} • {routeData.formattedDistance}
-              </Badge>
+              <View style={styles.miniBadge}>
+                <Text style={styles.miniBadgeText}>
+                  {routeData.formattedWalkingTime || 'Active'} • {routeData.formattedDistance}
+                </Text>
+              </View>
             )}
 
             <TouchableOpacity
@@ -114,60 +116,33 @@ export const FloatingNavPanel = ({
               onPress={() => setIsMinimized(false)}
               activeOpacity={0.8}
             >
-              <Text style={styles.expandBtnText}>Expand Search</Text>
-              <ChevronDown size={14} color={colors.primary} />
+              <Text style={styles.expandBtnText}>Route</Text>
+              <ChevronDown size={14} color={colors.text} />
             </TouchableOpacity>
           </View>
-        </GlassCard>
+        </View>
       </View>
     );
   }
 
   return (
     <View style={styles.floatingContainer}>
-      <GlassCard style={styles.panelCard} glow>
-        {/* Header with Minimize Toggle */}
+      <View style={styles.panelCard}>
+        {/* Header with Title & Mode Switcher */}
         <View style={styles.header}>
-          <View style={styles.titleRow}>
-            <View style={styles.iconBox}>
-              <Navigation size={16} color={colors.primary} />
-            </View>
-            <View>
-              <Text style={styles.heading}>Campus GIS Navigator</Text>
-              <Text style={styles.subheading}>Manual Point Selection & Dual-Mode Routing</Text>
-            </View>
+          <View style={styles.titleColumn}>
+            <Text style={styles.supertag}>ROUTE PLANNER</Text>
+            <Text style={styles.heading}>Where are you going?</Text>
           </View>
           
-          {/* Controls: Mode Switcher & Minimize Button */}
-          <View style={styles.headerRightControls}>
-            <View style={styles.modeToggle}>
-              <TouchableOpacity
-                style={[styles.modeBtn, navMode === 'pedestrian' && styles.modeBtnActive]}
-                onPress={() => onToggleNavMode('pedestrian')}
-              >
-                <Footprints size={12} color={navMode === 'pedestrian' ? '#070B14' : colors.textSecondary} />
-                <Text style={[styles.modeText, navMode === 'pedestrian' && styles.modeTextActive]}>Walk</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modeBtn, navMode === 'vehicle' && styles.modeBtnActive]}
-                onPress={() => onToggleNavMode('vehicle')}
-              >
-                <Car size={12} color={navMode === 'vehicle' ? '#070B14' : colors.textSecondary} />
-                <Text style={[styles.modeText, navMode === 'vehicle' && styles.modeTextActive]}>Drive</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Minimize Button */}
-            <TouchableOpacity
-              style={styles.minimizeHeaderBtn}
-              onPress={() => setIsMinimized(true)}
-              activeOpacity={0.8}
-              title="Minimize to see full map"
-            >
-              <ChevronUp size={16} color={colors.primary} />
-              <Text style={styles.minimizeBtnText}>Hide</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={styles.minimizeHeaderBtn}
+            onPress={() => setIsMinimized(true)}
+            activeOpacity={0.8}
+            title="Minimize to see full map"
+          >
+            <ChevronUp size={16} color={colors.textMuted} />
+          </TouchableOpacity>
         </View>
 
         {/* Dual Origin and Destination Pickers */}
@@ -181,16 +156,16 @@ export const FloatingNavPanel = ({
             }}
             activeOpacity={0.8}
           >
-            <View style={[styles.pinDot, { backgroundColor: colors.accent }]} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.pickerLabel}>STARTING POINT (FROM)</Text>
+            <MapPin size={16} color={colors.primary} />
+            <View style={{ flex: 1, marginLeft: 6 }}>
+              <Text style={styles.pickerLabel}>START</Text>
               <Text style={styles.pickerValue} numberOfLines={1}>
-                {startNode?.name || 'Tap to choose start location...'}
+                {startNode?.name || 'Choose start location…'}
               </Text>
             </View>
-            <Badge variant="emerald" size="sm">
-              {activePicker === 'start' ? 'Selecting...' : 'Change'}
-            </Badge>
+            <View style={styles.changePill}>
+              <Text style={styles.changePillText}>{activePicker === 'start' ? 'Done' : 'Change'}</Text>
+            </View>
           </TouchableOpacity>
 
           {/* SWAP BUTTON & DIVIDER */}
@@ -201,7 +176,7 @@ export const FloatingNavPanel = ({
               onPress={handleSwap}
               activeOpacity={0.8}
             >
-              <ArrowUpDown size={14} color={colors.primary} />
+              <ArrowUpDown size={13} color={colors.textSecondary} />
             </TouchableOpacity>
             <View style={styles.dividerLine} />
           </View>
@@ -215,16 +190,16 @@ export const FloatingNavPanel = ({
             }}
             activeOpacity={0.8}
           >
-            <View style={[styles.pinDot, { backgroundColor: colors.danger }]} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.pickerLabel}>DESTINATION (TO)</Text>
+            <MapPin size={16} color={colors.accent} />
+            <View style={{ flex: 1, marginLeft: 6 }}>
+              <Text style={styles.pickerLabel}>DESTINATION</Text>
               <Text style={styles.pickerValue} numberOfLines={1}>
-                {destNode?.name || 'Tap to choose destination...'}
+                {destNode?.name || 'Choose destination…'}
               </Text>
             </View>
-            <Badge variant="danger" size="sm">
-              {activePicker === 'dest' ? 'Selecting...' : 'Change'}
-            </Badge>
+            <View style={styles.changePill}>
+              <Text style={styles.changePillText}>{activePicker === 'dest' ? 'Done' : 'Change'}</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -233,19 +208,19 @@ export const FloatingNavPanel = ({
           <View style={styles.selectionDropdown}>
             <View style={styles.dropdownHeader}>
               <Text style={styles.dropdownTitle}>
-                {activePicker === 'start' ? '🟢 Choose Start Location' : '🔴 Choose Destination'}
+                {activePicker === 'start' ? 'Select Start Location' : 'Select Destination'}
               </Text>
               <TouchableOpacity onPress={() => setActivePicker(null)}>
-                <X size={16} color={colors.textSecondary} />
+                <X size={16} color={colors.textMuted} />
               </TouchableOpacity>
             </View>
 
             {/* Live Search Input */}
             <View style={styles.searchBar}>
-              <Search size={14} color={colors.primary} />
+              <Search size={15} color={colors.textMuted} />
               <TextInput
                 style={styles.searchInput}
-                placeholder="Search 428 classrooms, labs, buildings..."
+                placeholder="Search buildings, rooms, labs…"
                 placeholderTextColor={colors.textMuted}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -253,7 +228,7 @@ export const FloatingNavPanel = ({
               />
               {searchQuery ? (
                 <TouchableOpacity onPress={() => setSearchQuery('')}>
-                  <X size={14} color={colors.textSecondary} />
+                  <X size={14} color={colors.textMuted} />
                 </TouchableOpacity>
               ) : null}
             </View>
@@ -281,7 +256,7 @@ export const FloatingNavPanel = ({
                   style={styles.locationItem}
                   onPress={() => handleSelectLocation(loc)}
                 >
-                  <MapPin size={14} color={activePicker === 'start' ? colors.accent : colors.danger} />
+                  <MapPin size={15} color={colors.primary} />
                   <View style={{ flex: 1 }}>
                     <Text style={styles.locationName} numberOfLines={1}>{loc.name}</Text>
                     <Text style={styles.locationSub}>{loc.category} {loc.floorName ? `• ${loc.floorName}` : ''}</Text>
@@ -292,6 +267,24 @@ export const FloatingNavPanel = ({
           </View>
         )}
 
+        {/* Mode switcher: Walk / Drive */}
+        <View style={styles.modeToggle}>
+          <TouchableOpacity
+            style={[styles.modeBtn, navMode === 'pedestrian' && styles.modeBtnActive]}
+            onPress={() => onToggleNavMode('pedestrian')}
+          >
+            <Footprints size={14} color={navMode === 'pedestrian' ? '#24201D' : colors.textMuted} />
+            <Text style={[styles.modeText, navMode === 'pedestrian' && styles.modeTextActive]}>Walk</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modeBtn, navMode === 'vehicle' && styles.modeBtnActive]}
+            onPress={() => onToggleNavMode('vehicle')}
+          >
+            <Car size={14} color={navMode === 'vehicle' ? '#24201D' : colors.textMuted} />
+            <Text style={[styles.modeText, navMode === 'vehicle' && styles.modeTextActive]}>Drive</Text>
+          </TouchableOpacity>
+        </View>
+
         {/* Action Controls */}
         <View style={styles.actionRow}>
           <TouchableOpacity
@@ -299,44 +292,38 @@ export const FloatingNavPanel = ({
             onPress={onCalculateRoute}
             activeOpacity={0.8}
           >
-            <Navigation size={14} color="#070B14" />
-            <Text style={styles.calculateBtnText}>Calculate Shortest Road Route</Text>
+            <Navigation size={16} color="#24201D" />
+            <Text style={styles.calculateBtnText}>Find fastest route</Text>
           </TouchableOpacity>
 
           {routeData && (
             <TouchableOpacity
               style={styles.resetBtn}
               onPress={onResetRoute}
+              title="Reset Route"
             >
-              <RotateCcw size={14} color={colors.danger} />
+              <RotateCcw size={15} color={colors.textMuted} />
             </TouchableOpacity>
           )}
-
-          <TouchableOpacity
-            style={styles.minimizeBtn}
-            onPress={() => setIsMinimized(true)}
-            activeOpacity={0.8}
-          >
-            <Minimize2 size={14} color={colors.primary} />
-            <Text style={styles.minimizeText}>See Full Map</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Route Metrics and Turn-by-Turn Guidance */}
         {routeData && (
           <View style={styles.metricsBox}>
             <View style={styles.metricsRow}>
-              <View style={styles.metricItem}>
-                <Clock size={12} color={colors.primary} />
-                <Text style={styles.metricText}>{routeData.formattedWalkingTime || '3 min'}</Text>
+              <View>
+                <Text style={styles.timeMetric}>
+                  {routeData.formattedWalkingTime ? routeData.formattedWalkingTime.split(' ').slice(0, 2).join(' ') : '7 min'}
+                </Text>
+                <Text style={styles.metricLabel}>Estimated time</Text>
               </View>
-              <View style={styles.metricItem}>
-                <Footprints size={12} color={colors.accent} />
-                <Text style={styles.metricText}>{routeData.formattedDistance || '240 m'}</Text>
+              <View>
+                <Text style={styles.distanceMetric}>{routeData.formattedDistance || '511 m'}</Text>
+                <Text style={styles.metricLabel}>Distance</Text>
               </View>
-              <TouchableOpacity onPress={() => setShowSteps(!showSteps)}>
+              <TouchableOpacity onPress={() => setShowSteps(!showSteps)} style={styles.stepsToggleBtn}>
                 <Text style={styles.stepsToggleText}>
-                  {showSteps ? 'Hide Turn-by-Turn Steps ▲' : 'View Turn-by-Turn Steps ▼'}
+                  {showSteps ? 'Hide steps' : 'View steps'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -345,7 +332,9 @@ export const FloatingNavPanel = ({
               <ScrollView style={styles.stepsList} nestedScrollEnabled>
                 {routeData.stepInstructions.map((step, idx) => (
                   <View key={`step_${idx}`} style={styles.stepItem}>
-                    <Text style={styles.stepNum}>{idx + 1}.</Text>
+                    <View style={styles.stepNumBadge}>
+                      <Text style={styles.stepNum}>{idx + 1}</Text>
+                    </View>
                     <Text style={styles.stepText}>{step}</Text>
                   </View>
                 ))}
@@ -353,7 +342,7 @@ export const FloatingNavPanel = ({
             )}
           </View>
         )}
-      </GlassCard>
+      </View>
     </View>
   );
 };
@@ -361,207 +350,186 @@ export const FloatingNavPanel = ({
 const styles = StyleSheet.create({
   floatingContainer: {
     position: 'absolute',
-    top: 14,
-    left: 14,
-    right: 14,
-    maxWidth: 580,
+    top: 16,
+    left: 16,
+    right: 16,
+    maxWidth: 440,
     zIndex: 900,
-    alignSelf: 'center'
+    alignSelf: 'flex-start'
   },
   minimizedContainer: {
     position: 'absolute',
-    top: 14,
-    left: 14,
-    right: 14,
-    maxWidth: 580,
+    top: 16,
+    left: 16,
+    right: 16,
+    maxWidth: 440,
     zIndex: 900,
-    alignSelf: 'center'
+    alignSelf: 'flex-start'
   },
   minimizedCard: {
-    backgroundColor: 'rgba(11, 15, 25, 0.95)',
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    borderColor: colors.cardBorderGlow
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 4
   },
   minimizedContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 8,
-    flexWrap: 'wrap'
   },
   minimizedRoute: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     flex: 1,
-    minWidth: 160
   },
   dotSmall: {
-    width: 8,
-    height: 8,
+    width: 7,
+    height: 7,
     borderRadius: 4
   },
   minimizedText: {
     fontSize: 12,
-    fontWeight: '800',
+    fontWeight: '700',
     color: colors.text,
-    maxWidth: 120
+    maxWidth: 90
   },
   minimizedArrow: {
     fontSize: 12,
-    color: colors.primary,
-    fontWeight: '900'
+    color: colors.textMuted,
+    fontWeight: '700'
+  },
+  miniBadge: {
+    backgroundColor: colors.cardBgLight,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+  },
+  miniBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textSecondary
   },
   expandBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
+    backgroundColor: colors.cardBgLight,
     borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.35)',
+    borderColor: colors.cardBorder,
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 5,
     borderRadius: 8
   },
   expandBtnText: {
     fontSize: 11,
-    fontWeight: '800',
-    color: colors.primary
+    fontWeight: '700',
+    color: colors.text
   },
   panelCard: {
-    backgroundColor: 'rgba(11, 15, 25, 0.95)',
-    padding: 14,
-    borderColor: colors.cardBorderGlow
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 4
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10
+    alignItems: 'flex-start',
+    marginBottom: 14
   },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  titleColumn: {
     flex: 1
   },
-  iconBox: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
-    backgroundColor: 'rgba(6, 182, 212, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center'
+  supertag: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: colors.textMuted,
+    letterSpacing: 0.8,
+    fontFamily: 'Manrope'
   },
   heading: {
-    fontSize: 13,
+    fontSize: 18,
     fontWeight: '800',
-    color: colors.text
-  },
-  subheading: {
-    fontSize: 9,
-    color: colors.textSecondary
-  },
-  headerRightControls: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6
-  },
-  modeToggle: {
-    flexDirection: 'row',
-    backgroundColor: colors.cardBgLight,
-    borderRadius: 8,
-    padding: 2,
-    gap: 2
-  },
-  modeBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 6
-  },
-  modeBtnActive: {
-    backgroundColor: colors.primary
-  },
-  modeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: colors.textSecondary
-  },
-  modeTextActive: {
-    color: '#070B14'
+    color: colors.text,
+    marginTop: 2,
+    fontFamily: 'Sora'
   },
   minimizeHeaderBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    borderRadius: 6
-  },
-  minimizeBtnText: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: colors.primary
+    padding: 6,
+    borderRadius: 8,
+    backgroundColor: colors.cardBgLight,
   },
   pickerBox: {
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
-    padding: 8,
-    marginBottom: 8,
     borderWidth: 1,
-    borderColor: colors.cardBorder
+    borderColor: colors.cardBorder,
+    overflow: 'hidden',
+    marginBottom: 12
   },
   pickerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingVertical: 6,
-    paddingHorizontal: 6,
-    borderRadius: 8
+    paddingVertical: 10,
+    paddingHorizontal: 12,
   },
   pickerRowActive: {
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
-    borderWidth: 1,
-    borderColor: colors.primary
-  },
-  pinDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5
+    backgroundColor: colors.cardBgLight,
   },
   pickerLabel: {
     fontSize: 9,
     fontWeight: '800',
     color: colors.textMuted,
-    letterSpacing: 0.6
+    letterSpacing: 0.6,
   },
   pickerValue: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
     color: colors.text,
     marginTop: 1
   },
+  changePill: {
+    backgroundColor: colors.cardBgLight,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
+  },
+  changePillText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.textSecondary
+  },
   swapDividerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 2
+    marginVertical: 0
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: 'rgba(51, 65, 85, 0.4)'
+    backgroundColor: colors.cardBorder
   },
   swapButton: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder,
@@ -570,12 +538,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   selectionDropdown: {
-    backgroundColor: '#0F172A',
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.primary,
-    padding: 10,
-    marginBottom: 8
+    padding: 12,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
   },
   dropdownHeader: {
     flexDirection: 'row',
@@ -591,12 +563,12 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
-    borderRadius: 10,
+    backgroundColor: colors.cardBgLight,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 7,
     gap: 8,
     marginBottom: 8
   },
@@ -604,7 +576,8 @@ const styles = StyleSheet.create({
     flex: 1,
     color: colors.text,
     fontSize: 12,
-    padding: 0
+    padding: 0,
+    outlineWidth: 0
   },
   pillsRow: {
     flexDirection: 'row',
@@ -629,7 +602,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary
   },
   categoryPillTextActive: {
-    color: '#070B14',
+    color: '#24201D',
     fontWeight: '800'
   },
   resultsList: {
@@ -639,10 +612,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingVertical: 7,
-    paddingHorizontal: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 6,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.4)'
+    borderBottomColor: colors.cardBorder
   },
   locationName: {
     fontSize: 12,
@@ -651,102 +624,143 @@ const styles = StyleSheet.create({
   },
   locationSub: {
     fontSize: 10,
+    color: colors.textMuted
+  },
+  modeToggle: {
+    flexDirection: 'row',
+    backgroundColor: colors.cardBgLight,
+    borderRadius: 12,
+    padding: 3,
+    gap: 4,
+    marginBottom: 12
+  },
+  modeBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 8,
+    borderRadius: 9,
+  },
+  modeBtnActive: {
+    backgroundColor: colors.cardBg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2
+  },
+  modeText: {
+    fontSize: 12,
+    fontWeight: '700',
     color: colors.textSecondary
+  },
+  modeTextActive: {
+    color: '#24201D',
+    fontWeight: '800'
   },
   actionRow: {
     flexDirection: 'row',
-    gap: 6,
+    gap: 8,
     alignItems: 'center'
   },
   calculateBtn: {
     flex: 1,
     backgroundColor: colors.primary,
-    borderRadius: 10,
-    paddingVertical: 9,
+    borderRadius: 12,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6
+    gap: 8,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   calculateBtnText: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#28231D',
+    fontFamily: 'Sora'
   },
   resetBtn: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: colors.cardBgLight,
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.4)',
+    borderColor: colors.cardBorder,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  minimizeBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.35)',
-    paddingHorizontal: 10,
-    height: 36,
-    borderRadius: 10
-  },
-  minimizeText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.primary
-  },
   metricsBox: {
-    marginTop: 8,
-    backgroundColor: 'rgba(6, 182, 212, 0.08)',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
-    padding: 8
+    marginTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: colors.cardBorder,
+    paddingTop: 12
   },
   metricsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'flex-end',
+    marginBottom: 8
   },
-  metricItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4
+  timeMetric: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Sora'
   },
-  metricText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.text
+  distanceMetric: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Sora'
   },
-  stepsToggleText: {
+  metricLabel: {
     fontSize: 10,
     fontWeight: '700',
-    color: colors.primary
+    color: colors.textMuted,
+    marginTop: 1
+  },
+  stepsToggleBtn: {
+    paddingVertical: 4
+  },
+  stepsToggleText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textSecondary
   },
   stepsList: {
     marginTop: 8,
-    maxHeight: 120,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(6, 182, 212, 0.2)',
-    paddingTop: 6
+    maxHeight: 140,
   },
   stepItem: {
     flexDirection: 'row',
-    gap: 6,
-    marginBottom: 4
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 8
+  },
+  stepNumBadge: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: colors.cardBgLight,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1
   },
   stepNum: {
     fontSize: 10,
-    fontWeight: '700',
-    color: colors.primary
+    fontWeight: '800',
+    color: colors.textSecondary
   },
   stepText: {
     flex: 1,
-    fontSize: 10,
-    color: colors.textSecondary
+    fontSize: 12,
+    color: colors.text,
+    lineHeight: 18
   }
 });

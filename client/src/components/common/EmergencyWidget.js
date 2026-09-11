@@ -73,7 +73,9 @@ export const EmergencyWidget = () => {
 const styles = StyleSheet.create({
   card: {
     marginVertical: 6,
-    backgroundColor: 'rgba(239, 68, 68, 0.08)'
+    backgroundColor: '#FEF2F2',
+    borderWidth: 1,
+    borderColor: '#FCA5A5'
   },
   headerRow: {
     flexDirection: 'row',
@@ -85,11 +87,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 10,
-    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+    backgroundColor: '#FEE2E2',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.4)'
+    borderColor: '#FCA5A5'
   },
   headerText: {
     flex: 1
@@ -97,11 +99,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   subtitle: {
     fontSize: 11,
-    color: colors.textSecondary
+    color: colors.textSecondary,
+    fontFamily: 'Manrope'
   },
   actionsRow: {
     flexDirection: 'row',
@@ -119,28 +123,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    ...Platform.select({
-      web: {
-        boxShadow: '0 4px 12px rgba(239, 68, 68, 0.45)'
-      },
-      default: {
-        shadowColor: colors.danger,
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
-        elevation: 4
-      }
-    })
+    shadowColor: colors.danger,
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 3
   },
   sosText: {
-    color: colors.white,
-    fontWeight: '900',
+    color: '#FFFFFF',
+    fontWeight: '800',
     fontSize: 12,
     letterSpacing: 0.5
   },
   callButton: {
     flex: 1,
     minWidth: 120,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.cardBorder,
@@ -152,7 +149,7 @@ const styles = StyleSheet.create({
     gap: 4
   },
   callText: {
-    color: colors.primary,
+    color: colors.text,
     fontSize: 11,
     fontWeight: '700'
   }

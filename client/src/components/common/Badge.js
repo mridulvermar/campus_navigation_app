@@ -2,26 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../theme/colors';
 
-export const Badge = ({ children, variant = 'primary', size = 'md' }) => {
+export const Badge = ({ children, variant = 'secondary', size = 'md' }) => {
   const getBadgeColors = () => {
     switch (variant) {
       case 'success':
       case 'emerald':
-        return { bg: 'rgba(16, 185, 129, 0.15)', text: colors.accent, border: 'rgba(16, 185, 129, 0.4)' };
+        return { bg: 'rgba(16, 185, 129, 0.12)', text: '#059669', border: 'rgba(16, 185, 129, 0.25)' };
       case 'warning':
+      case 'primary':
       case 'amber':
-        return { bg: 'rgba(245, 158, 11, 0.15)', text: colors.warning, border: 'rgba(245, 158, 11, 0.4)' };
+        return { bg: 'rgba(234, 162, 40, 0.15)', text: colors.primaryDark, border: 'rgba(234, 162, 40, 0.3)' };
       case 'danger':
       case 'red':
-        return { bg: 'rgba(239, 68, 68, 0.15)', text: colors.danger, border: 'rgba(239, 68, 68, 0.4)' };
+        return { bg: 'rgba(239, 68, 68, 0.12)', text: colors.danger, border: 'rgba(239, 68, 68, 0.25)' };
       case 'secondary':
-      case 'indigo':
-        return { bg: 'rgba(99, 102, 241, 0.15)', text: colors.secondary, border: 'rgba(99, 102, 241, 0.4)' };
-      case 'purple':
-        return { bg: 'rgba(168, 85, 247, 0.15)', text: colors.purple, border: 'rgba(168, 85, 247, 0.4)' };
-      case 'primary':
       default:
-        return { bg: 'rgba(6, 182, 212, 0.15)', text: colors.primary, border: 'rgba(6, 182, 212, 0.4)' };
+        return { bg: colors.secondary, text: colors.textSecondary, border: colors.cardBorder };
     }
   };
 
@@ -54,13 +50,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   badgeSm: {
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
     paddingVertical: 2
   },
   text: {
     fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 0.3
+    fontWeight: '700'
   },
   textSm: {
     fontSize: 10

@@ -20,7 +20,8 @@ import {
   Minus, 
   X, 
   Home, 
-  Map as MapIcon 
+  Map as MapIcon,
+  ArrowLeft 
 } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 import { InteractiveCampusMap } from '../components/map/InteractiveCampusMap';
@@ -60,7 +61,10 @@ export const NavigationScreen = ({ route, navigation }) => {
 
   // Auto calculate on route parameter
   useEffect(() => {
-    const destCode = route?.params?.destCode || route?.params?.destination;
+    const destCode = route?.params?.destCode || 
+                     route?.params?.destination || 
+                     route?.params?.targetLocation || 
+                     route?.params?.venueName;
     if (destCode) {
       const allLocs = getAllSelectableLocations();
       const codeStr = String(destCode).toLowerCase().replace(/[-_]/g, ' ');
@@ -71,15 +75,18 @@ export const NavigationScreen = ({ route, navigation }) => {
                (l.name && l.name.toLowerCase().includes(String(destCode).toLowerCase())) ||
                (l.name && l.name.toLowerCase().replace(/[-_]/g, ' ').includes(codeStr)) ||
                (l.roomOnlyName && l.roomOnlyName.toLowerCase().includes(String(destCode).toLowerCase())) ||
-               (String(destCode).toLowerCase().includes('sf') && l.id === 'sf-block-labs') ||
-               (String(destCode).toLowerCase().includes('ib') && l.id === 'ib-block') ||
-               (String(destCode).toLowerCase().includes('mech') && l.id === 'mechanical-block') ||
-               (String(destCode).toLowerCase().includes('aero') && l.id === 'aero-block') ||
-               (String(destCode).toLowerCase().includes('lib') && (l.id === 'library' || l.name?.toLowerCase().includes('learning'))) ||
-               (String(destCode).toLowerCase().includes('audi') && (l.id === 'auditorium' || l.name?.toLowerCase().includes('auditorium'))) ||
-               (String(destCode).toLowerCase().includes('medic') && (l.id === 'medical-centre' || l.name?.toLowerCase().includes('medical'))) ||
-               (String(destCode).toLowerCase().includes('caf') && (l.id === 'canteen' || l.name?.toLowerCase().includes('cafeteria'))) ||
-               (String(destCode).toLowerCase().includes('hostel') && (l.id?.includes('hostel') || l.name?.toLowerCase().includes('hostel')))
+               (codeStr.includes('audi') && (l.id === 'auditorium' || l.name?.toLowerCase().includes('auditorium') || l.id === 'vedhanayagam-auditorium')) ||
+               (codeStr.includes('sport') && (l.id === 'sports-ground' || l.name?.toLowerCase().includes('sports') || l.id?.includes('ground'))) ||
+               (codeStr.includes('as') && (l.id === 'as-block' || l.name?.toLowerCase().includes('as block') || l.id?.includes('academic'))) ||
+               (codeStr.includes('gate') && (l.id === 'main-gate' || l.name?.toLowerCase().includes('gate'))) ||
+               (codeStr.includes('sf') && l.id === 'sf-block-labs') ||
+               (codeStr.includes('ib') && l.id === 'ib-block') ||
+               (codeStr.includes('mech') && l.id === 'mechanical-block') ||
+               (codeStr.includes('aero') && l.id === 'aero-block') ||
+               (codeStr.includes('lib') && (l.id === 'library' || l.name?.toLowerCase().includes('learning'))) ||
+               (codeStr.includes('medic') && (l.id === 'medical-centre' || l.name?.toLowerCase().includes('medical'))) ||
+               (codeStr.includes('caf') && (l.id === 'canteen' || l.name?.toLowerCase().includes('cafeteria'))) ||
+               (codeStr.includes('hostel') && (l.id?.includes('hostel') || l.name?.toLowerCase().includes('hostel')))
       );
       if (matched) {
         setDestBuilding(matched);
@@ -135,22 +142,40 @@ export const NavigationScreen = ({ route, navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       {/* 1. TOP CAMPUS NAV HEADER */}
       <View style={styles.topNavBar}>
-        {/* Far-Left: Brand Logo */}
-        <TouchableOpacity 
-          style={styles.brandContainer}
-          onPress={() => navigation?.navigate('MainTabs', { screen: 'Dashboard' })}
-          activeOpacity={0.8}
-        >
-          <View style={styles.logoRow}>
-            <View style={styles.brandBadge}>
-              <Navigation size={15} color="#00a8ff" />
+        {/* Far-Left: Back Button + Brand Logo */}
+        <View style={styles.topLeftNav}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => {
+              if (navigation?.canGoBack && navigation.canGoBack()) {
+                navigation.goBack();
+              } else {
+                navigation?.navigate('MainTabs', { screen: 'Dashboard' });
+              }
+            }}
+            activeOpacity={0.8}
+            title="Back"
+          >
+            <ArrowLeft size={16} color={colors.text} strokeWidth={2.4} />
+            <Text style={styles.backBtnText}>Back</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.brandContainer}
+            onPress={() => navigation?.navigate('MainTabs', { screen: 'Dashboard' })}
+            activeOpacity={0.8}
+          >
+            <View style={styles.logoRow}>
+              <View style={styles.brandBadge}>
+                <Navigation size={14} color="#24201D" />
+              </View>
+              <View>
+                <Text style={styles.brandTitle}>CampusNav</Text>
+                <Text style={styles.brandSubtitle}>BIT Wayfinding</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.brandTitle}>CAMPUS <Text style={{ color: '#00a8ff' }}>NAV</Text></Text>
-              <Text style={styles.brandSubtitle}>Spatial Map & Routing</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
 
         {/* Far-Right: Layer Switcher Segment + Home */}
         <View style={styles.topRightActions}>
@@ -160,9 +185,9 @@ export const NavigationScreen = ({ route, navigation }) => {
               onPress={() => setMapLayer('satellite')}
               activeOpacity={0.8}
             >
-              <Sun size={12} color={mapLayer === 'satellite' ? '#070B14' : '#00a8ff'} />
+              <Sun size={12} color={mapLayer === 'satellite' ? '#24201D' : colors.textMuted} />
               <Text style={[styles.layerOptionText, mapLayer === 'satellite' && styles.layerOptionTextActive]}>
-                🛰️ Satellite
+                Satellite
               </Text>
             </TouchableOpacity>
 
@@ -171,9 +196,9 @@ export const NavigationScreen = ({ route, navigation }) => {
               onPress={() => setMapLayer('streets')}
               activeOpacity={0.8}
             >
-              <MapIcon size={12} color={(mapLayer === 'streets' || mapLayer === 'svg') ? '#070B14' : '#00a8ff'} />
+              <MapIcon size={12} color={(mapLayer === 'streets' || mapLayer === 'svg') ? '#24201D' : colors.textMuted} />
               <Text style={[styles.layerOptionText, (mapLayer === 'streets' || mapLayer === 'svg') && styles.layerOptionTextActive]}>
-                🗺️ Streets
+                Streets
               </Text>
             </TouchableOpacity>
           </View>
@@ -184,14 +209,14 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Back to Dashboard"
           >
-            <Home size={16} color="#94A3B8" />
+            <Home size={16} color={colors.textSecondary} />
           </TouchableOpacity>
         </View>
       </View>
 
       {/* 2. MAP AREA WITH FLOATING NAV PANEL */}
       <View style={styles.mapCanvasWrapper}>
-        {/* Floating Navigation Search & Route Panel (Original Version with Category Filters) */}
+        {/* Floating Navigation Search & Route Panel */}
         <FloatingNavPanel
           startNode={sourceBuilding}
           destNode={destBuilding}
@@ -230,7 +255,7 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Campus Map Info"
           >
-            <Info size={16} color="#00a8ff" />
+            <Info size={16} color={colors.textSecondary} />
           </TouchableOpacity>
 
           <TouchableOpacity 
@@ -239,7 +264,7 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Reset Orientation"
           >
-            <Compass size={16} color="#00a8ff" />
+            <Compass size={16} color={colors.textSecondary} />
           </TouchableOpacity>
         </View>
 
@@ -251,7 +276,7 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Center Location"
           >
-            <Crosshair size={16} color="#00a8ff" />
+            <Crosshair size={16} color={colors.textSecondary} />
           </TouchableOpacity>
 
           <TouchableOpacity 
@@ -260,7 +285,7 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Zoom In"
           >
-            <Plus size={16} color="#00a8ff" />
+            <Plus size={16} color={colors.textSecondary} />
           </TouchableOpacity>
 
           <TouchableOpacity 
@@ -269,7 +294,7 @@ export const NavigationScreen = ({ route, navigation }) => {
             activeOpacity={0.8}
             title="Zoom Out"
           >
-            <Minus size={16} color="#00a8ff" />
+            <Minus size={16} color={colors.textSecondary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -281,13 +306,13 @@ export const NavigationScreen = ({ route, navigation }) => {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Campus Nav Instructions</Text>
               <TouchableOpacity onPress={() => setShowInfoModal(false)}>
-                <X size={18} color="#94A3B8" />
+                <X size={18} color={colors.textMuted} />
               </TouchableOpacity>
             </View>
             <View style={styles.modalBody}>
               <Text style={styles.infoText}>• Use the floating search panel to search classrooms, labs, and buildings.</Text>
-              <Text style={styles.infoText}>• Pick your starting point and destination with 1-tap swap (🔄).</Text>
-              <Text style={styles.infoText}>• Click "Hide ⌃" on the search panel to view the full campus map.</Text>
+              <Text style={styles.infoText}>• Pick your starting point and destination with 1-tap swap.</Text>
+              <Text style={styles.infoText}>• Click minimize icon on the search panel to view the full campus map.</Text>
               <Text style={styles.infoText}>• Switch between SVG Vector Streets and Satellite imagery using the top switch button.</Text>
             </View>
             <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setShowInfoModal(false)}>
@@ -303,7 +328,7 @@ export const NavigationScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#070B14'
+    backgroundColor: colors.background
   },
   
   /* Top Header */
@@ -313,10 +338,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: 'rgba(15, 23, 42, 0.96)',
+    backgroundColor: colors.cardBg,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.4)',
+    borderBottomColor: colors.cardBorder,
     zIndex: 1000
+  },
+  topLeftNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  },
+  backBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: colors.secondary,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+        boxShadow: '0 2px 6px -1px rgba(36, 32, 29, 0.06)'
+      }
+    })
+  },
+  backBtnText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Outfit'
   },
   brandContainer: {
     paddingRight: 10
@@ -330,22 +383,21 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 8,
-    backgroundColor: 'rgba(0, 168, 255, 0.15)',
-    borderWidth: 1.5,
-    borderColor: 'rgba(0, 168, 255, 0.4)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center'
   },
   brandTitle: {
     fontSize: 16,
-    fontWeight: '900',
-    color: '#F8FAFC',
-    letterSpacing: -0.3
+    fontWeight: '800',
+    color: colors.text,
+    letterSpacing: -0.3,
+    fontFamily: 'Sora'
   },
   brandSubtitle: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: '700',
-    color: '#94A3B8',
+    color: colors.textMuted,
     letterSpacing: 0.2
   },
   topRightActions: {
@@ -355,11 +407,11 @@ const styles = StyleSheet.create({
   },
   layerSwitchContainer: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(2, 6, 23, 0.9)',
+    backgroundColor: colors.cardBgLight,
     borderRadius: 8,
     padding: 2,
     borderWidth: 1,
-    borderColor: 'rgba(0, 168, 255, 0.35)',
+    borderColor: colors.cardBorder,
     gap: 2
   },
   layerOptionBtn: {
@@ -367,26 +419,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
     paddingHorizontal: 8,
-    paddingVertical: 5,
+    paddingVertical: 4,
     borderRadius: 6
   },
   layerOptionBtnActive: {
-    backgroundColor: '#00a8ff'
+    backgroundColor: colors.cardBg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
   },
   layerOptionText: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '700',
-    color: '#00a8ff'
+    color: colors.textSecondary
   },
   layerOptionTextActive: {
-    color: '#070B14',
+    color: colors.text,
     fontWeight: '800'
   },
   homeLinkBtn: {
     width: 32,
     height: 32,
     borderRadius: 8,
-    backgroundColor: 'rgba(30, 41, 59, 0.8)',
+    backgroundColor: colors.cardBgLight,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -402,41 +460,49 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 24,
     left: 16,
-    backgroundColor: 'rgba(15, 23, 42, 0.92)',
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.6)',
+    borderColor: colors.cardBorder,
     padding: 4,
     gap: 6,
-    zIndex: 900
+    zIndex: 900,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
   },
   bottomRightToolbar: {
     position: 'absolute',
     bottom: 24,
     right: 16,
-    backgroundColor: 'rgba(15, 23, 42, 0.92)',
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.6)',
+    borderColor: colors.cardBorder,
     padding: 4,
     gap: 6,
-    zIndex: 900
+    zIndex: 900,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
   },
   dockIconBtn: {
-    width: 34,
-    height: 34,
+    width: 36,
+    height: 36,
     borderRadius: 8,
-    backgroundColor: 'rgba(2, 6, 23, 0.8)',
+    backgroundColor: colors.cardBgLight,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(0, 168, 255, 0.2)'
+    borderColor: colors.cardBorder
   },
 
   /* Modals */
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    backgroundColor: 'rgba(36, 32, 29, 0.4)',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20
@@ -444,11 +510,15 @@ const styles = StyleSheet.create({
   infoModalCard: {
     width: '100%',
     maxWidth: 440,
-    backgroundColor: '#0F172A',
+    backgroundColor: colors.cardBg,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#00a8ff',
-    padding: 16
+    borderColor: colors.cardBorder,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -457,28 +527,29 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
   modalTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
-    color: '#F8FAFC'
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   modalBody: {
     gap: 8,
     marginBottom: 16
   },
   infoText: {
-    fontSize: 12,
-    color: '#CBD5E1',
+    fontSize: 13,
+    color: colors.textSecondary,
     lineHeight: 18
   },
   modalCloseBtn: {
-    backgroundColor: '#00a8ff',
-    borderRadius: 8,
-    paddingVertical: 8,
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    paddingVertical: 10,
     alignItems: 'center'
   },
   modalCloseBtnText: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#24201D'
   }
 });

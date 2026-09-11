@@ -20,35 +20,35 @@ export const GlassCard = ({ children, style, glow = false, borderColor }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.cardBg,
-    borderRadius: 20,
+    borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.cardBorder,
     padding: 16,
     overflow: 'hidden',
     ...Platform.select({
       web: {
-        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)'
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)'
       },
       default: {
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-        elevation: 4
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
+        elevation: 2
       }
     })
   },
   cardGlow: {
-    borderColor: colors.cardBorderGlow,
+    borderColor: colors.primary,
     ...Platform.select({
       web: {
-        boxShadow: '0 0 16px rgba(6, 182, 212, 0.35)'
+        boxShadow: '0 4px 18px rgba(234, 162, 40, 0.18)'
       },
       default: {
         shadowColor: colors.primary,
-        shadowOpacity: 0.4,
-        shadowRadius: 14,
-        elevation: 6
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 3
       }
     })
   }

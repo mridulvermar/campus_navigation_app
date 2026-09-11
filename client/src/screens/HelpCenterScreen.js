@@ -89,62 +89,77 @@ const styles = StyleSheet.create({
   contactsGrid: {
     flexDirection: 'row',
     gap: 10,
-    marginBottom: 20
+    marginBottom: 16
   },
   contactCard: {
     flex: 1,
-    padding: 14,
+    padding: 16,
     alignItems: 'center',
-    gap: 4
+    gap: 6,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   contactTitle: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: colors.text
-  },
-  contactValue: {
-    fontSize: 11,
-    color: colors.textSecondary
-  },
-  faqHeading: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 12
+    fontFamily: 'Sora'
+  },
+  contactValue: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    fontFamily: 'Manrope'
+  },
+  faqHeading: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 12,
+    fontFamily: 'Sora'
   },
   faqsList: {
     gap: 10
   },
   faqCard: {
-    padding: 14
+    padding: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   question: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
-    color: colors.primary,
-    marginBottom: 6
+    color: colors.text,
+    marginBottom: 6,
+    fontFamily: 'Sora'
   },
   answer: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
-    lineHeight: 18
+    lineHeight: 19,
+    fontFamily: 'Manrope'
   },
   aiChatCardWrap: {
-    marginBottom: 20
+    marginBottom: 18
   },
   aiChatCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 14,
-    gap: 12
+    padding: 16,
+    gap: 12,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   aiIconBadge: {
     width: 38,
     height: 38,
     borderRadius: 10,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.3)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -152,27 +167,28 @@ const styles = StyleSheet.create({
     flex: 1
   },
   aiCardTitle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 2
+    marginBottom: 2,
+    fontFamily: 'Sora'
   },
   aiCardDesc: {
-    fontSize: 10,
+    fontSize: 11,
     color: colors.textSecondary,
-    lineHeight: 14
+    lineHeight: 16
   },
   chatNowBadge: {
-    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+    backgroundColor: colors.cardBgLight,
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 6,
     borderRadius: 8
   },
   chatNowText: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '800',
-    color: colors.primary
+    color: colors.text
   }
 });

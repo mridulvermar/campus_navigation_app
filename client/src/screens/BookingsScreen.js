@@ -367,10 +367,10 @@ const styles = StyleSheet.create({
   tabSwitcher: {
     flexDirection: 'row',
     backgroundColor: colors.cardBgLight,
-    borderRadius: 14,
-    padding: 4,
+    borderRadius: 12,
+    padding: 3,
     gap: 4,
-    marginBottom: 12
+    marginBottom: 14
   },
   tabBtn: {
     flex: 1,
@@ -379,18 +379,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 6,
     paddingVertical: 9,
-    borderRadius: 10
+    borderRadius: 9
   },
   tabBtnActive: {
-    backgroundColor: colors.primary
+    backgroundColor: colors.cardBg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2
   },
   tabText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
     color: colors.textSecondary
   },
   tabTextActive: {
-    color: '#070B14',
+    color: colors.text,
     fontWeight: '800'
   },
   scrollArea: {
@@ -399,20 +404,25 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 9,
     gap: 8,
-    marginBottom: 10
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.03,
+    shadowRadius: 4,
   },
   searchInput: {
     flex: 1,
     color: colors.text,
     fontSize: 12,
-    padding: 0
+    padding: 0,
+    outlineWidth: 0
   },
   filterScroll: {
     flexDirection: 'row',
@@ -420,16 +430,16 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   filterPill: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 6,
     borderRadius: 999,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder
   },
   filterPillActive: {
-    backgroundColor: colors.secondary,
-    borderColor: colors.secondary
+    backgroundColor: colors.primary,
+    borderColor: colors.primary
   },
   filterText: {
     fontSize: 11,
@@ -437,14 +447,18 @@ const styles = StyleSheet.create({
     color: colors.textSecondary
   },
   filterTextActive: {
-    color: colors.white,
+    color: '#24201D',
     fontWeight: '800'
   },
   roomsList: {
     gap: 10
   },
   roomCard: {
-    padding: 14
+    padding: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   roomCardHeader: {
     flexDirection: 'row',
@@ -459,7 +473,7 @@ const styles = StyleSheet.create({
   blockTag: {
     fontSize: 10,
     fontWeight: '800',
-    color: colors.primary,
+    color: colors.textMuted,
     letterSpacing: 0.8
   },
   floorTag: {
@@ -467,15 +481,16 @@ const styles = StyleSheet.create({
     color: colors.textMuted
   },
   roomTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.text,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: 'Sora'
   },
   featuresRow: {
     flexDirection: 'row',
     gap: 14,
-    marginVertical: 10
+    marginVertical: 12
   },
   featItem: {
     flexDirection: 'row',
@@ -494,7 +509,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary,
     borderRadius: 10,
-    paddingVertical: 9,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -503,11 +518,11 @@ const styles = StyleSheet.create({
   reserveBtnText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#24201D'
   },
   routeBtn: {
-    width: 38,
-    height: 38,
+    width: 40,
+    height: 40,
     borderRadius: 10,
     backgroundColor: colors.cardBgLight,
     borderWidth: 1,
@@ -516,8 +531,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   passCard: {
-    padding: 14,
-    marginBottom: 10
+    padding: 16,
+    marginBottom: 10,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   passHeader: {
     flexDirection: 'row',
@@ -526,16 +545,18 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   passRoom: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   passPurpose: {
     fontSize: 12,
-    color: colors.textSecondary
+    color: colors.textSecondary,
+    marginTop: 2
   },
   passMetaRow: {
-    marginVertical: 8
+    marginVertical: 10
   },
   passMetaItem: {
     flexDirection: 'row',
@@ -544,7 +565,7 @@ const styles = StyleSheet.create({
   },
   passMetaText: {
     fontSize: 11,
-    color: colors.primary,
+    color: colors.textMuted,
     fontWeight: '600'
   },
   passFooter: {
@@ -556,7 +577,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.primary,
     borderRadius: 10,
-    paddingVertical: 9,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -565,13 +586,14 @@ const styles = StyleSheet.create({
   qrBtnText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#28231D',
+    fontFamily: 'Sora'
   },
   navPassBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     borderRadius: 10,
     backgroundColor: colors.cardBgLight,
     borderWidth: 1,
@@ -580,7 +602,7 @@ const styles = StyleSheet.create({
   navPassText: {
     fontSize: 11,
     fontWeight: '700',
-    color: colors.primary
+    color: colors.text
   },
   emptyPasses: {
     alignItems: 'center',
@@ -588,10 +610,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   emptyTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 4
+    marginBottom: 4,
+    fontFamily: 'Sora'
   },
   emptySubtitle: {
     fontSize: 12,
@@ -601,24 +624,32 @@ const styles = StyleSheet.create({
   },
   browseNowBtn: {
     backgroundColor: colors.primary,
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 10
   },
   browseNowText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#28231D',
+    fontFamily: 'Sora'
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    backgroundColor: 'rgba(36, 32, 29, 0.4)',
     justifyContent: 'center',
     padding: 16
   },
   modalContent: {
-    backgroundColor: '#0F172A',
-    padding: 18
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    padding: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -629,7 +660,8 @@ const styles = StyleSheet.create({
   modalHeading: {
     fontSize: 16,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   modalBody: {
     gap: 10
@@ -640,14 +672,15 @@ const styles = StyleSheet.create({
     color: colors.textSecondary
   },
   modalInput: {
-    backgroundColor: colors.inputBg,
+    backgroundColor: colors.cardBgLight,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     color: colors.text,
     fontSize: 12,
     paddingHorizontal: 12,
-    paddingVertical: 8
+    paddingVertical: 9,
+    outlineWidth: 0
   },
   timeRow: {
     flexDirection: 'row',
@@ -665,7 +698,7 @@ const styles = StyleSheet.create({
   },
   confirmSubmitText: {
     fontSize: 13,
-    fontWeight: '900',
-    color: '#070B14'
+    fontWeight: '800',
+    color: '#24201D'
   }
 });

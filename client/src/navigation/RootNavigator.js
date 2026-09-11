@@ -4,12 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { 
-  Home, 
-  Map, 
-  CalendarCheck, 
+  Compass, 
+  Building2, 
+  CalendarDays, 
   Package, 
-  User, 
-  Navigation as NavIcon 
+  UserRound 
 } from 'lucide-react-native';
 
 import { colors } from '../theme/colors';
@@ -36,24 +35,46 @@ import { AdminScreen } from '../screens/AdminScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function TabIcon({ Icon, focused }) {
+  return (
+    <View style={[
+      styles.iconWrapper,
+      focused && styles.iconWrapperActive
+    ]}>
+      <Icon 
+        size={20} 
+        color={focused ? '#24201D' : colors.textMuted} 
+        strokeWidth={focused ? 2.5 : 2}
+      />
+    </View>
+  );
+}
+
 function MainTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#070B14',
-          borderTopColor: 'rgba(51, 65, 85, 0.4)',
+          backgroundColor: colors.cardBg,
+          borderTopColor: colors.cardBorder,
           borderTopWidth: 1,
-          height: Platform.OS === 'ios' ? 88 : 64,
-          paddingBottom: Platform.OS === 'ios' ? 24 : 8,
-          paddingTop: 8
+          height: Platform.OS === 'ios' ? 84 : 70,
+          paddingBottom: Platform.OS === 'ios' ? 24 : 10,
+          paddingTop: 8,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.04,
+          shadowRadius: 8,
+          elevation: 6
         },
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.textMuted,
         tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: '700'
+          fontSize: 11,
+          fontWeight: '700',
+          fontFamily: 'Manrope',
+          marginTop: 2
         }
       }}
     >
@@ -61,16 +82,16 @@ function MainTabNavigator() {
         name="Dashboard"
         component={DashboardScreen}
         options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => <Home size={size - 2} color={color} />
+          tabBarLabel: 'Campus',
+          tabBarIcon: ({ focused }) => <TabIcon Icon={Building2} focused={focused} />
         }}
       />
       <Tab.Screen
         name="Map"
         component={MapScreen}
         options={{
-          tabBarLabel: 'Map',
-          tabBarIcon: ({ color, size }) => <Map size={size - 2} color={color} />
+          tabBarLabel: 'Navigate',
+          tabBarIcon: ({ focused }) => <TabIcon Icon={Compass} focused={focused} />
         }}
       />
       <Tab.Screen
@@ -78,7 +99,7 @@ function MainTabNavigator() {
         component={BookingsScreen}
         options={{
           tabBarLabel: 'Bookings',
-          tabBarIcon: ({ color, size }) => <CalendarCheck size={size - 2} color={color} />
+          tabBarIcon: ({ focused }) => <TabIcon Icon={CalendarDays} focused={focused} />
         }}
       />
       <Tab.Screen
@@ -86,7 +107,7 @@ function MainTabNavigator() {
         component={AssetsScreen}
         options={{
           tabBarLabel: 'Assets',
-          tabBarIcon: ({ color, size }) => <Package size={size - 2} color={color} />
+          tabBarIcon: ({ focused }) => <TabIcon Icon={Package} focused={focused} />
         }}
       />
       <Tab.Screen
@@ -94,27 +115,39 @@ function MainTabNavigator() {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => <User size={size - 2} color={color} />
+          tabBarIcon: ({ focused }) => <TabIcon Icon={UserRound} focused={focused} />
         }}
       />
     </Tab.Navigator>
   );
 }
 
+const styles = StyleSheet.create({
+  iconWrapper: {
+    padding: 6,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconWrapperActive: {
+    backgroundColor: colors.primary,
+  }
+});
+
 export function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Landing"
+        initialRouteName="MainTabs"
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: colors.background }
         }}
       >
+        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         
         {/* Detail Screens */}
         <Stack.Screen name="Navigation" component={NavigationScreen} />

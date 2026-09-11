@@ -117,29 +117,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     padding: 16,
-    marginBottom: 16
+    marginBottom: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   bannerTitle: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: colors.text
-  },
-  bannerDesc: {
-    fontSize: 11,
-    color: colors.textSecondary,
-    marginTop: 2
-  },
-  heading: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 12
+    fontFamily: 'Sora'
+  },
+  bannerDesc: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginTop: 2,
+    fontFamily: 'Manrope'
+  },
+  heading: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 12,
+    fontFamily: 'Sora'
   },
   list: {
     gap: 10
   },
   bookingCard: {
-    padding: 14
+    padding: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   cardHeader: {
     flexDirection: 'row',
@@ -148,37 +159,39 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   roomName: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   userEmail: {
-    fontSize: 11,
-    color: colors.primary,
+    fontSize: 12,
+    color: colors.textMuted,
     marginTop: 1
   },
   purpose: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
-    marginVertical: 4
+    marginVertical: 6
   },
   timeText: {
     fontSize: 11,
-    color: colors.textMuted
+    color: colors.textMuted,
+    fontWeight: '600'
   },
   actionsRow: {
     flexDirection: 'row',
     gap: 8,
-    marginTop: 10,
+    marginTop: 12,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(51, 65, 85, 0.4)',
-    paddingTop: 10
+    borderTopColor: colors.cardBorder,
+    paddingTop: 12
   },
   approveBtn: {
     flex: 1,
     backgroundColor: colors.primary,
     borderRadius: 8,
-    paddingVertical: 8,
+    paddingVertical: 9,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -187,15 +200,15 @@ const styles = StyleSheet.create({
   approveText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#24201D'
   },
   rejectBtn: {
     flex: 1,
     backgroundColor: colors.cardBgLight,
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.4)',
+    borderColor: colors.cardBorder,
     borderRadius: 8,
-    paddingVertical: 8,
+    paddingVertical: 9,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

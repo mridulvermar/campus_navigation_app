@@ -65,7 +65,7 @@ export const QRModal = ({ visible, onClose, booking }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    backgroundColor: 'rgba(36, 32, 29, 0.4)',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20
@@ -73,8 +73,15 @@ const styles = StyleSheet.create({
   modalCard: {
     width: '100%',
     maxWidth: 380,
-    backgroundColor: '#0F172A',
-    borderColor: colors.cardBorderGlow
+    backgroundColor: colors.cardBg,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.12,
+    shadowRadius: 24,
   },
   header: {
     flexDirection: 'row',
@@ -90,47 +97,44 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 16,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   closeBtn: {
     padding: 4
   },
   qrContainer: {
     alignItems: 'center',
-    marginVertical: 12
+    marginVertical: 14
   },
   qrBox: {
-    padding: 16,
-    backgroundColor: colors.white,
+    padding: 18,
+    backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    ...Platform.select({
-      web: {
-        boxShadow: '0 4px 14px rgba(6, 182, 212, 0.35)'
-      },
-      default: {
-        shadowColor: colors.primary,
-        shadowOpacity: 0.3,
-        shadowRadius: 10
-      }
-    })
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
   },
   qrSimulated: {
     alignItems: 'center',
     justifyContent: 'center'
   },
   qrCodeText: {
-    marginTop: 10,
+    marginTop: 12,
     fontSize: 12,
-    fontWeight: '700',
-    color: colors.primary,
+    fontWeight: '800',
+    color: colors.primaryDark,
     letterSpacing: 1
   },
   details: {
     backgroundColor: colors.cardBgLight,
     borderRadius: 12,
-    padding: 12,
+    padding: 14,
     gap: 8,
-    marginVertical: 12
+    marginVertical: 14
   },
   detailRow: {
     flexDirection: 'row',
@@ -156,7 +160,7 @@ const styles = StyleSheet.create({
     gap: 6
   },
   doneText: {
-    color: '#070B14',
+    color: '#24201D',
     fontWeight: '800',
     fontSize: 14
   }

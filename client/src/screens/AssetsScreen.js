@@ -135,20 +135,25 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
+    backgroundColor: colors.cardBg,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
+    borderColor: colors.cardBorder,
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 9,
     gap: 8,
-    marginBottom: 10
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.03,
+    shadowRadius: 4,
   },
   searchInput: {
     flex: 1,
     color: colors.text,
     fontSize: 12,
-    padding: 0
+    padding: 0,
+    outlineWidth: 0
   },
   catScroll: {
     flexDirection: 'row',
@@ -156,10 +161,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   catPill: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 6,
     borderRadius: 999,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder
   },
@@ -173,7 +178,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary
   },
   catTextActive: {
-    color: '#070B14',
+    color: '#24201D',
     fontWeight: '800'
   },
   scrollArea: {
@@ -183,7 +188,11 @@ const styles = StyleSheet.create({
     gap: 10
   },
   assetCard: {
-    padding: 14
+    padding: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   cardTop: {
     flexDirection: 'row',
@@ -193,19 +202,20 @@ const styles = StyleSheet.create({
   serialTag: {
     fontSize: 10,
     fontWeight: '800',
-    color: colors.primary,
+    color: colors.textMuted,
     letterSpacing: 0.5
   },
   assetName: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '800',
     color: colors.text,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: 'Sora'
   },
   detailsRow: {
     flexDirection: 'row',
     gap: 14,
-    marginVertical: 8
+    marginVertical: 10
   },
   detailItem: {
     flexDirection: 'row',
@@ -213,7 +223,7 @@ const styles = StyleSheet.create({
     gap: 4
   },
   detailText: {
-    fontSize: 11,
+    fontSize: 12,
     color: colors.textSecondary
   },
   cardFooter: {
@@ -221,9 +231,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: 'rgba(51, 65, 85, 0.5)',
-    paddingTop: 8,
-    marginTop: 4
+    borderTopColor: colors.cardBorder,
+    paddingTop: 10,
+    marginTop: 6
   },
   healthScore: {
     fontSize: 11,
@@ -233,7 +243,7 @@ const styles = StyleSheet.create({
   locateBtn: {
     backgroundColor: colors.primary,
     borderRadius: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 6,
     flexDirection: 'row',
     alignItems: 'center',
@@ -242,6 +252,6 @@ const styles = StyleSheet.create({
   locateBtnText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#070B14'
+    color: '#24201D'
   }
 });

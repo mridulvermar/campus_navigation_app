@@ -105,43 +105,53 @@ const styles = StyleSheet.create({
   profileCard: {
     alignItems: 'center',
     padding: 24,
-    marginBottom: 16
+    marginBottom: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   avatarLarge: {
-    width: 72,
-    height: 72,
+    width: 76,
+    height: 76,
     borderRadius: 24,
-    backgroundColor: colors.secondary,
-    borderWidth: 2,
-    borderColor: 'rgba(99, 102, 241, 0.6)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12
   },
   avatarText: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: colors.white
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#28231D',
+    fontFamily: 'Sora'
   },
   name: {
-    fontSize: 18,
-    fontWeight: '900',
-    color: colors.text
-  },
-  email: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    marginTop: 2
-  },
-  infoCard: {
-    padding: 16,
-    marginBottom: 16
-  },
-  cardHeading: {
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 12
+    fontFamily: 'Sora'
+  },
+  email: {
+    fontSize: 13,
+    color: colors.textSecondary,
+    marginTop: 2,
+    fontFamily: 'Manrope'
+  },
+  infoCard: {
+    padding: 18,
+    marginBottom: 16,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
+  },
+  cardHeading: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 12,
+    fontFamily: 'Sora'
   },
   infoRow: {
     flexDirection: 'row',
@@ -149,10 +159,10 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(51, 65, 85, 0.4)'
+    borderBottomColor: colors.cardBorder
   },
   infoLabel: {
-    fontSize: 10,
+    fontSize: 11,
     color: colors.textMuted,
     fontWeight: '700'
   },
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    backgroundColor: colors.cardBgLight,
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
     borderColor: colors.cardBorder,
     borderRadius: 14,

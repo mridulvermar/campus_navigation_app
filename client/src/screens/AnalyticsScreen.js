@@ -128,8 +128,12 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
   chartCard: {
-    padding: 16,
-    marginBottom: 12
+    padding: 18,
+    marginBottom: 12,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   chartHeader: {
     flexDirection: 'row',
@@ -138,13 +142,15 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   chartTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
-    color: colors.text
+    color: colors.text,
+    fontFamily: 'Sora'
   },
   chartSubtitle: {
-    fontSize: 11,
-    color: colors.textSecondary
+    fontSize: 12,
+    color: colors.textSecondary,
+    fontFamily: 'Manrope'
   },
   barChartContainer: {
     flexDirection: 'row',
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
   barTrack: {
     width: 18,
     height: 100,
-    backgroundColor: 'rgba(51, 65, 85, 0.4)',
+    backgroundColor: colors.cardBgLight,
     borderRadius: 8,
     justifyContent: 'flex-end',
     overflow: 'hidden'
@@ -175,43 +181,48 @@ const styles = StyleSheet.create({
     marginTop: 6
   },
   valLabel: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.text,
     marginTop: 2
   },
   zonesCard: {
-    padding: 16
+    padding: 18,
+    backgroundColor: colors.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.cardBorder
   },
   sectionHeading: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 12
+    marginBottom: 14,
+    fontFamily: 'Sora'
   },
   zonesList: {
     gap: 12
   },
   zoneItem: {
-    gap: 4
+    gap: 6
   },
   zoneTop: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   zoneName: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
     color: colors.text
   },
   zonePct: {
     fontSize: 12,
     fontWeight: '800',
-    color: colors.primary
+    color: colors.text
   },
   zoneProgressBar: {
     height: 6,
-    backgroundColor: 'rgba(51, 65, 85, 0.4)',
+    backgroundColor: colors.cardBgLight,
     borderRadius: 3,
     overflow: 'hidden'
   },

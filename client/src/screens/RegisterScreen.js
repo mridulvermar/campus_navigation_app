@@ -38,19 +38,19 @@ export const RegisterScreen = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.branding}>
             <View style={styles.logoBadge}>
-              <MapPin size={24} color={colors.primary} />
+              <MapPin size={24} color="#24201D" />
             </View>
-            <Text style={styles.title}>CREATE ACCOUNT</Text>
-            <Text style={styles.subtitle}>Join BIT Campus Spatial & Navigation Platform</Text>
+            <Text style={styles.title}>CampusNav</Text>
+            <Text style={styles.subtitle}>Create your BIT institutional account</Text>
           </View>
 
           <GlassCard style={styles.card} glow>
-            <Text style={styles.formTitle}>Institutional Registration</Text>
+            <Text style={styles.formTitle}>Join CampusNav</Text>
 
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Full Name</Text>
               <View style={styles.inputWrapper}>
-                <User size={16} color={colors.primary} />
+                <User size={16} color={colors.textMuted} />
                 <TextInput
                   style={styles.input}
                   placeholder="e.g. Aditi Sharma"
@@ -64,7 +64,7 @@ export const RegisterScreen = ({ navigation }) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Campus Email</Text>
               <View style={styles.inputWrapper}>
-                <Mail size={16} color={colors.primary} />
+                <Mail size={16} color={colors.textMuted} />
                 <TextInput
                   style={styles.input}
                   placeholder="name@campus.edu"
@@ -80,7 +80,7 @@ export const RegisterScreen = ({ navigation }) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Department</Text>
               <View style={styles.inputWrapper}>
-                <Building size={16} color={colors.primary} />
+                <Building size={16} color={colors.textMuted} />
                 <TextInput
                   style={styles.input}
                   placeholder="Department / Branch"
@@ -94,7 +94,7 @@ export const RegisterScreen = ({ navigation }) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
               <View style={styles.inputWrapper}>
-                <Lock size={16} color={colors.primary} />
+                <Lock size={16} color={colors.textMuted} />
                 <TextInput
                   style={styles.input}
                   placeholder="••••••••"
@@ -112,9 +112,9 @@ export const RegisterScreen = ({ navigation }) => {
               disabled={loading}
               activeOpacity={0.8}
             >
-              <UserPlus size={18} color="#070B14" />
+              <UserPlus size={18} color="#24201D" />
               <Text style={styles.submitText}>
-                {loading ? 'Creating...' : 'Register'}
+                {loading ? 'Creating...' : 'Create Account'}
               </Text>
             </TouchableOpacity>
 
@@ -139,7 +139,10 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     justifyContent: 'center',
-    minHeight: '100%'
+    minHeight: '100%',
+    maxWidth: 460,
+    width: '100%',
+    alignSelf: 'center'
   },
   branding: {
     alignItems: 'center',
@@ -149,87 +152,124 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 14,
-    backgroundColor: 'rgba(6, 182, 212, 0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(6, 182, 212, 0.4)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12
   },
   title: {
-    fontSize: 22,
+    fontSize: 30,
     fontWeight: '900',
     color: colors.text,
-    letterSpacing: 1
+    fontFamily: 'Outfit',
+    letterSpacing: -0.6
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textSecondary,
-    marginTop: 4,
-    textAlign: 'center'
+    marginTop: 6,
+    textAlign: 'center',
+    fontFamily: 'Manrope',
+    maxWidth: 360
   },
   card: {
-    padding: 20
+    padding: 28,
+    backgroundColor: colors.cardBg,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    ...Platform.select({
+      web: {
+        boxShadow: '0 16px 36px -8px rgba(36, 32, 29, 0.08), 0 4px 12px -2px rgba(36, 32, 29, 0.03)'
+      },
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.06,
+        shadowRadius: 14,
+        elevation: 3
+      }
+    })
   },
   formTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '800',
     color: colors.text,
-    marginBottom: 14
+    marginBottom: 14,
+    fontFamily: 'Outfit'
   },
   inputGroup: {
-    marginBottom: 12
+    marginBottom: 14
   },
   label: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
-    color: colors.textSecondary,
+    color: colors.text,
+    fontFamily: 'Manrope',
     marginBottom: 6
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: colors.inputBorder,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    gap: 10
+    borderColor: colors.cardBorder,
+    paddingHorizontal: 14,
+    height: 48
   },
   input: {
     flex: 1,
     color: colors.text,
-    fontSize: 13,
-    padding: 0
+    fontSize: 14,
+    fontFamily: 'Manrope',
+    marginLeft: 8,
+    height: '100%',
+    outlineStyle: 'none'
   },
   submitBtn: {
     backgroundColor: colors.primary,
-    borderRadius: 12,
-    paddingVertical: 13,
+    height: 50,
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    marginTop: 10
+    marginTop: 10,
+    ...Platform.select({
+      web: {
+        boxShadow: '0 6px 20px -2px rgba(234, 162, 40, 0.42)'
+      },
+      default: {
+        shadowColor: colors.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 3
+      }
+    })
   },
   submitText: {
-    fontSize: 14,
-    fontWeight: '900',
-    color: '#070B14'
+    fontSize: 15,
+    fontWeight: '800',
+    color: colors.primaryForeground,
+    fontFamily: 'Outfit'
   },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 16
+    alignItems: 'center',
+    marginTop: 18
   },
   footerText: {
-    fontSize: 12,
-    color: colors.textSecondary
+    fontSize: 13,
+    color: colors.textSecondary,
+    fontFamily: 'Manrope'
   },
   loginLink: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '800',
-    color: colors.primary
+    color: colors.primaryDark,
+    fontFamily: 'Outfit'
   }
 });
