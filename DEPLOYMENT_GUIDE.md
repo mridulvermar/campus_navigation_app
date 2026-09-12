@@ -103,9 +103,89 @@ node utils/seedRunner.js
 
 ---
 
+## 📌 STEP 5: Convert Application into Android APK (.apk)
+
+Because the project is built with **Expo & React Native**, you can build a standalone installable Android APK (`.apk`) using **EAS (Expo Application Services) Cloud Build** (recommended, zero Android Studio setup required) or **Local Native Gradle Build**.
+
+### 🌟 Method A: EAS Cloud Build (Recommended & Easiest)
+
+EAS compiles your `.apk` in the cloud on Expo's high-performance build servers and gives you a direct download link and QR code to install on any Android phone.
+
+1. **Install EAS CLI globally**:
+   ```bash
+   npm install -g eas-cli
+   ```
+
+2. **Navigate to the client directory**:
+   ```bash
+   cd client
+   ```
+
+3. **Login to Expo** (create a free account at [expo.dev](https://expo.dev) if you don't have one):
+   ```bash
+   npx eas-cli login
+   ```
+
+4. **Initialize Project ID**:
+   ```bash
+   npx eas-cli project:init
+   ```
+
+5. **Ensure your live Render backend is linked** in `client/.env`:
+   ```env
+   EXPO_PUBLIC_API_URL=https://your-backend-service.onrender.com/api
+   ```
+
+6. **Trigger the standalone APK Build**:
+   ```bash
+   npx eas-cli build --platform android --profile preview
+   ```
+   *(The `preview` profile is already configured in `client/eas.json` with `"buildType": "apk"`).*
+
+7. **Download & Install**:
+   - Once the build finishes (~3-5 mins), EAS will display a direct **Download URL** and **QR code**.
+   - Open the link or scan the QR code on any Android device to download and install `campus-navigation.apk`!
+
+---
+
+### 💻 Method B: Local Gradle Build (Requires Android Studio & Android SDK)
+
+If you have Android Studio and the Android SDK installed locally on your computer:
+
+1. **Navigate to `client/`**:
+   ```bash
+   cd client
+   ```
+
+2. **Generate the native Android project**:
+   ```bash
+   npx expo prebuild --platform android
+   ```
+
+3. **Build the Release APK with Gradle wrapper**:
+   - On Windows PowerShell:
+     ```powershell
+     cd android
+     .\gradlew.bat assembleRelease
+     ```
+   - On Mac/Linux:
+     ```bash
+     cd android
+     ./gradlew assembleRelease
+     ```
+
+4. **Locate your generated APK file**:
+   ```
+   client/android/app/build/outputs/apk/release/app-release.apk
+   ```
+   Transfer this `.apk` file to your Android phone via USB, Google Drive, or WhatsApp, and tap to install!
+
+---
+
 ## 💡 Quick Health Check
 
 - ✅ **Backend Health**: `https://<your-render-url>/api/health`
 - ✅ **Frontend Web App**: `https://<your-vercel-url>`
-- ✅ **Login Test**: Sign in with `admin@bitsathy.ac.in` / `bitsathy` or click `Continue as Campus Visitor`.
+- ✅ **Android APK**: Download and run `.apk` on any Android device.
+- ✅ **Login Test**: Sign in with `admin@campus.edu` / `password123` or click `Continue as Campus Visitor`.
 - ✅ **Dijkstra Road Navigation**: Open any event or room and click "Navigate".
