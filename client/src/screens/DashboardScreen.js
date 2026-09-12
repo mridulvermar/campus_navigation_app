@@ -673,24 +673,24 @@ export const DashboardScreen = ({ navigation }) => {
           {/* Interactive Map Quick Launcher Card */}
           <View style={styles.sectionWrap}>
             <View style={styles.mapLauncherCard}>
-              <View style={styles.mapLauncherContent}>
+              <View style={styles.mapLauncherTopRow}>
                 <View style={styles.mapLauncherIconBadge}>
-                  <Compass size={24} color={colors.primaryForeground} />
+                  <Compass size={22} color={colors.primaryForeground} strokeWidth={2.4} />
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={styles.mapLauncherTextCol}>
                   <Text style={styles.mapLauncherSuper}>FULL CAMPUS GIS WAYFINDING</Text>
                   <Text style={styles.mapLauncherTitle}>Turn-by-Turn Road Dijkstra Map</Text>
                   <Text style={styles.mapLauncherDesc}>320 road junctions, 428 classroom nodes, pedestrian pathways, and vehicle routes.</Text>
                 </View>
-                <TouchableOpacity
-                  style={styles.mapLauncherBtn}
-                  onPress={() => navigation.navigate('Map')}
-                  activeOpacity={0.85}
-                >
-                  <Text style={styles.mapLauncherBtnText}>Open Interactive Map</Text>
-                  <ArrowRight size={15} color={colors.primaryForeground} />
-                </TouchableOpacity>
               </View>
+              <TouchableOpacity
+                style={styles.mapLauncherBtn}
+                onPress={() => navigation.navigate('Map')}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.mapLauncherBtnText}>Open Interactive Map</Text>
+                <ArrowRight size={15} color={colors.primaryForeground} />
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -1183,16 +1183,15 @@ const styles = StyleSheet.create({
   // 4 Shortcuts Grid
   shortcutsGrid: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 24,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 20
   },
   shortcutCard: {
-    flex: 1,
-    minWidth: 140,
+    width: '48%',
     backgroundColor: colors.cardBg,
-    borderRadius: 18,
-    padding: 16,
+    borderRadius: 16,
+    padding: 14,
     borderWidth: 1,
     borderColor: colors.cardBorder,
     alignItems: 'flex-start',
@@ -1204,46 +1203,47 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
-        shadowRadius: 4,
+        shadowRadius: 3,
         elevation: 2
       }
     })
   },
   shortcutIconBox: {
-    width: 44,
-    height: 44,
-    borderRadius: 14,
+    width: 40,
+    height: 40,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 12
+    marginBottom: 10
   },
   shortcutLabel: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '800',
     color: colors.text,
     fontFamily: 'Outfit',
     marginBottom: 2
   },
   shortcutDesc: {
-    fontSize: 11,
+    fontSize: 10,
     color: colors.textMuted,
     fontFamily: 'Manrope'
   },
 
   // Section Headers
   sectionWrap: {
-    marginBottom: 24
+    marginBottom: 22
   },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginBottom: 14
+    marginBottom: 12
   },
   sectionTitleCol: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: 2
+    gap: 2,
+    flex: 1
   },
   sectionSuper: {
     fontSize: 10,
@@ -1254,7 +1254,7 @@ const styles = StyleSheet.create({
     marginBottom: 2
   },
   sectionTitle: {
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: '800',
     color: colors.text,
     fontFamily: 'Outfit',
@@ -1263,24 +1263,19 @@ const styles = StyleSheet.create({
   headerBtnGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8
+    gap: 6
   },
   adminAddBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
     backgroundColor: colors.primary,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-    ...Platform.select({
-      web: {
-        boxShadow: '0 2px 8px -1px rgba(234, 162, 40, 0.4)'
-      }
-    })
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 999
   },
   adminAddBtnText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '800',
     color: colors.primaryForeground,
     fontFamily: 'Outfit'
@@ -1290,14 +1285,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
     backgroundColor: colors.secondary,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: colors.cardBorder
   },
   headerActionText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: colors.text,
     fontFamily: 'Manrope'
@@ -1305,52 +1300,40 @@ const styles = StyleSheet.create({
 
   // CAMPUS EVENTS STYLES
   eventsGrid: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    gap: 14,
-    flexWrap: 'wrap'
+    gap: 12
   },
   eventCard: {
-    flex: 1,
-    minWidth: 280,
     backgroundColor: colors.cardBg,
-    borderRadius: 20,
-    padding: 18,
+    borderRadius: 18,
+    padding: 16,
     borderWidth: 1,
     borderColor: colors.cardBorder,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignSelf: 'stretch',
     ...Platform.select({
       web: {
-        boxShadow: '0 2px 10px -2px rgba(36, 32, 29, 0.05)',
-        display: 'flex'
+        boxShadow: '0 2px 8px -2px rgba(36, 32, 29, 0.05)'
       },
       default: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
-        shadowRadius: 4,
+        shadowRadius: 3,
         elevation: 2
       }
     })
   },
   eventCardContent: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    marginBottom: 16
+    marginBottom: 12
   },
   eventCardTop: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 12
+    marginBottom: 10
   },
   eventCategoryPill: {
     backgroundColor: colors.secondary,
-    paddingHorizontal: 9,
-    paddingVertical: 3.5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     borderRadius: 6
   },
   eventCategoryText: {
@@ -1362,8 +1345,8 @@ const styles = StyleSheet.create({
   },
   eventStatusBadge: {
     backgroundColor: 'rgba(16, 185, 129, 0.12)',
-    paddingHorizontal: 9,
-    paddingVertical: 3.5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     borderRadius: 999
   },
   eventStatusText: {
@@ -1379,31 +1362,20 @@ const styles = StyleSheet.create({
     color: colors.danger
   },
   eventTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
     color: colors.text,
     fontFamily: 'Outfit',
-    minHeight: 46,
-    lineHeight: 22,
-    marginBottom: 10,
-    ...Platform.select({
-      web: {
-        display: '-webkit-box',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden'
-      }
-    })
+    lineHeight: 21,
+    marginBottom: 10
   },
   eventMetaBlock: {
-    marginTop: 'auto',
     gap: 6
   },
   eventInfoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    minHeight: 20
+    gap: 6
   },
   eventInfoText: {
     fontSize: 12,
@@ -1413,8 +1385,7 @@ const styles = StyleSheet.create({
   eventVenueRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    minHeight: 22
+    gap: 6
   },
   eventVenueText: {
     fontSize: 12,
@@ -1426,17 +1397,13 @@ const styles = StyleSheet.create({
   eventNavBtn: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 8,
     backgroundColor: colors.primary,
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    height: 42,
     borderRadius: 12,
-    marginTop: 'auto',
-    ...Platform.select({
-      web: {
-        boxShadow: '0 4px 14px -2px rgba(234, 162, 40, 0.35)'
-      }
-    })
+    marginTop: 12
   },
   eventNavBtnText: {
     fontSize: 12,
@@ -1447,55 +1414,43 @@ const styles = StyleSheet.create({
 
   // LOST & FOUND STYLES
   lostFoundGrid: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    gap: 14,
-    flexWrap: 'wrap'
+    gap: 12
   },
   lostFoundCard: {
-    flex: 1,
-    minWidth: 280,
     backgroundColor: colors.cardBg,
-    borderRadius: 20,
-    padding: 18,
+    borderRadius: 18,
+    padding: 16,
     borderWidth: 1,
     borderColor: colors.cardBorder,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignSelf: 'stretch',
     ...Platform.select({
       web: {
-        boxShadow: '0 2px 10px -2px rgba(36, 32, 29, 0.05)',
-        display: 'flex'
+        boxShadow: '0 2px 8px -2px rgba(36, 32, 29, 0.05)'
       },
       default: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
-        shadowRadius: 4,
+        shadowRadius: 3,
         elevation: 2
       }
     })
   },
   lfCardContent: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    marginBottom: 14
+    marginBottom: 10
   },
   lfTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10
+    marginBottom: 8
   },
   lfTypePill: {
-    paddingHorizontal: 9,
-    paddingVertical: 3.5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     borderRadius: 6
   },
   lfTypeText: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '800',
     fontFamily: 'Outfit',
     letterSpacing: 0.5
@@ -1506,31 +1461,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope'
   },
   lfTitle: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '800',
     color: colors.text,
     fontFamily: 'Outfit',
-    minHeight: 42,
-    lineHeight: 20,
-    marginBottom: 8,
-    ...Platform.select({
-      web: {
-        display: '-webkit-box',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden'
-      }
-    })
+    lineHeight: 19,
+    marginBottom: 8
   },
   lfMetaBlock: {
-    marginTop: 'auto',
     gap: 5
   },
   lfMetaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    minHeight: 18
+    gap: 6
   },
   lfLocationText: {
     fontSize: 12,
@@ -1541,8 +1485,7 @@ const styles = StyleSheet.create({
   lfDeskRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    minHeight: 18
+    gap: 6
   },
   lfDeskText: {
     fontSize: 12,
@@ -1554,10 +1497,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingTop: 12,
+    paddingTop: 10,
     borderTopWidth: 1,
     borderTopColor: colors.cardBorder,
-    marginTop: 'auto'
+    marginTop: 10
   },
   lfNavBtn: {
     flexDirection: 'row',
@@ -1579,7 +1522,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope'
   },
   lfReportBtn: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 10,
     borderWidth: 1,
@@ -1900,10 +1843,10 @@ const styles = StyleSheet.create({
   // Map Quick Launcher Card
   mapLauncherCard: {
     backgroundColor: colors.cardBg,
-    borderRadius: 20,
+    borderRadius: 18,
     borderWidth: 1,
     borderColor: colors.cardBorder,
-    padding: 20,
+    padding: 16,
     ...Platform.select({
       web: {
         background: 'linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 100%)',
@@ -1911,26 +1854,29 @@ const styles = StyleSheet.create({
       }
     })
   },
-  mapLauncherContent: {
+  mapLauncherTopRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-    flexWrap: 'wrap'
+    alignItems: 'flex-start',
+    gap: 12
   },
   mapLauncherIconBadge: {
-    width: 48,
-    height: 48,
-    borderRadius: 16,
+    width: 42,
+    height: 42,
+    borderRadius: 12,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 2
+  },
+  mapLauncherTextCol: {
+    flex: 1
   },
   mapLauncherSuper: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '800',
     color: colors.primaryDark,
     letterSpacing: 0.8,
@@ -1938,25 +1884,30 @@ const styles = StyleSheet.create({
     marginBottom: 2
   },
   mapLauncherTitle: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.text,
-    fontFamily: 'Outfit'
+    fontFamily: 'Outfit',
+    lineHeight: 20
   },
   mapLauncherDesc: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textSecondary,
     fontFamily: 'Manrope',
-    marginTop: 2
+    marginTop: 4,
+    lineHeight: 16
   },
   mapLauncherBtn: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 8,
     backgroundColor: colors.primary,
     paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 12
+    height: 44,
+    borderRadius: 12,
+    width: '100%',
+    marginTop: 14
   },
   mapLauncherBtnText: {
     fontSize: 13,
@@ -1968,15 +1919,14 @@ const styles = StyleSheet.create({
   // Metrics Grid
   metricsGrid: {
     flexDirection: 'row',
-    gap: 12,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    gap: 10
   },
   metricCard: {
-    flex: 1,
-    minWidth: 180,
+    width: '48%',
     backgroundColor: colors.cardBg,
-    borderRadius: 18,
-    padding: 18,
+    borderRadius: 16,
+    padding: 14,
     borderWidth: 1,
     borderColor: colors.cardBorder
   },
@@ -1984,42 +1934,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10
+    marginBottom: 8
   },
   metricTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: colors.textSecondary,
-    fontFamily: 'Manrope'
+    fontFamily: 'Manrope',
+    flex: 1
   },
   metricIconWrap: {
-    width: 30,
-    height: 30,
+    width: 28,
+    height: 28,
     borderRadius: 8,
     backgroundColor: colors.secondary,
     alignItems: 'center',
     justifyContent: 'center'
   },
   metricBigNum: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: '800',
     color: colors.text,
     fontFamily: 'Outfit',
-    letterSpacing: -1,
-    marginBottom: 4
+    letterSpacing: -0.5,
+    marginBottom: 2
   },
   metricSubtitle: {
-    fontSize: 11,
+    fontSize: 10,
     color: colors.textMuted,
     fontFamily: 'Manrope'
   },
   liveIndicatorPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 5,
     backgroundColor: 'rgba(16, 185, 129, 0.12)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     borderRadius: 999
   },
   liveIndicatorDot: {
@@ -2029,7 +1980,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent
   },
   liveIndicatorText: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '800',
     color: '#059669',
     fontFamily: 'Manrope'

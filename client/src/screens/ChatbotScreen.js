@@ -10,7 +10,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
-  Linking
+  Linking,
+  StatusBar
 } from 'react-native';
 import {
   Sparkles,
@@ -600,7 +601,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 14,
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 28) + 12 : 14,
     paddingBottom: 14,
     borderBottomWidth: 1,
     borderBottomColor: colors.cardBorder,
