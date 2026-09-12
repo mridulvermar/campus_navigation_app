@@ -149,27 +149,31 @@ export function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={isAuthenticated ? "MainTabs" : "Login"}
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: colors.background }
         }}
       >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Landing" component={LandingScreen} />
-        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
-        
-        {/* Detail Screens */}
-        <Stack.Screen name="Navigation" component={NavigationScreen} />
-        <Stack.Screen name="Analytics" component={AnalyticsScreen} />
-        <Stack.Screen name="Notifications" component={NotificationsScreen} />
-        <Stack.Screen name="LostFound" component={LostFoundScreen} />
-        <Stack.Screen name="Events" component={EventsScreen} />
-        <Stack.Screen name="Help" component={HelpCenterScreen} />
-        <Stack.Screen name="Chatbot" component={ChatbotScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="Admin" component={AdminScreen} />
+        {!isAuthenticated ? (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Landing" component={LandingScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+            <Stack.Screen name="Navigation" component={NavigationScreen} />
+            <Stack.Screen name="Analytics" component={AnalyticsScreen} />
+            <Stack.Screen name="Notifications" component={NotificationsScreen} />
+            <Stack.Screen name="LostFound" component={LostFoundScreen} />
+            <Stack.Screen name="Events" component={EventsScreen} />
+            <Stack.Screen name="Help" component={HelpCenterScreen} />
+            <Stack.Screen name="Chatbot" component={ChatbotScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Admin" component={AdminScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,48 +13,35 @@ import {
 import { 
   Mail, 
   Lock, 
-  LogIn, 
-  UserCheck, 
-  Shield, 
-  GraduationCap, 
+  Eye,
+  EyeOff,
   Navigation,
-  ArrowRight,
-  Sparkles,
-  Compass
+  ArrowRight
 } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
 
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('admin@campus.edu');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const { login } = useAuth();
 
-  const handleLogin = async (overrideEmail, overridePassword) => {
-    const loginEmail = overrideEmail || email;
-    const loginPass = overridePassword || password;
-
-    if (!loginEmail || !loginPass) {
+  const handleLogin = async () => {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !password) {
       setErrorMsg('Please enter your institutional email and password');
       return;
     }
     setErrorMsg('');
     setLoading(true);
-    const res = await login(loginEmail, loginPass);
+    const res = await login(trimmedEmail, password);
     setLoading(false);
-    if (res.success) {
-      navigation.navigate('MainTabs');
-    } else {
-      setErrorMsg(res.message || 'Login failed. Please check credentials.');
+    if (!res.success) {
+      setErrorMsg(res.message || 'Authentication failed. Please check your credentials.');
     }
-  };
-
-  const setDemoRoleAndLogin = (roleEmail) => {
-    setEmail(roleEmail);
-    setPassword('password123');
-    handleLogin(roleEmail, 'password123');
   };
 
   return (
@@ -76,15 +63,15 @@ export const LoginScreen = ({ navigation }) => {
               </View>
             </View>
             <Text style={styles.subtitle}>
-              Turn-by-turn GIS navigation, event wayfinding, and facility reservation system for Bannari Amman Institute of Technology
+              Institutional spatial navigation, event wayfinding, and facility reservation portal
             </Text>
           </View>
 
           {/* Login Card */}
           <View style={styles.card}>
             <View style={styles.cardHeader}>
-              <Text style={styles.formTitle}>Welcome back</Text>
-              <Text style={styles.formSubtitle}>Enter your institutional credentials to access your account</Text>
+              <Text style={styles.formTitle}>Institutional Sign In</Text>
+              <Text style={styles.formSubtitle}>Enter your campus credentials to access your account</Text>
             </View>
 
             {/* Error Banner */}
@@ -98,16 +85,19 @@ export const LoginScreen = ({ navigation }) => {
 
             {/* Email Field */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Institutional Email</Text>
+              <Text style={styles.label}>Campus Email Address</Text>
               <View style={styles.inputWrapper}>
                 <Mail size={18} color={colors.textMuted} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
-                  placeholder="name@campus.edu"
+                  placeholder="e.g. yourname@campus.edu"
                   placeholderTextColor={colors.textMuted}
                   value={email}
                   onChangeText={setEmail}
                   autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="off"
+                  textContentType="none"
                   keyboardType="email-address"
                 />
               </View>
@@ -115,29 +105,39 @@ export const LoginScreen = ({ navigation }) => {
 
             {/* Password Field */}
             <View style={styles.inputGroup}>
-              <View style={styles.passwordLabelRow}>
-                <Text style={styles.label}>Password</Text>
-                <TouchableOpacity onPress={() => handleLogin('student@campus.edu', 'password123')}>
-                  <Text style={styles.forgotPassText}>Use demo pass</Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.label}>Account Password</Text>
               <View style={styles.inputWrapper}>
                 <Lock size={18} color={colors.textMuted} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
-                  placeholder="••••••••••••"
+                  placeholder="Enter your account password"
                   placeholderTextColor={colors.textMuted}
                   value={password}
                   onChangeText={setPassword}
-                  secureTextEntry
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="off"
+                  textContentType="none"
                 />
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.eyeToggleBtn}
+                  activeOpacity={0.7}
+                >
+                  {showPassword ? (
+                    <EyeOff size={18} color={colors.textMuted} />
+                  ) : (
+                    <Eye size={18} color={colors.textMuted} />
+                  )}
+                </TouchableOpacity>
               </View>
             </View>
 
             {/* Submit Button */}
             <TouchableOpacity
               style={styles.submitBtn}
-              onPress={() => handleLogin()}
+              onPress={handleLogin}
               disabled={loading}
               activeOpacity={0.85}
             >
@@ -147,68 +147,11 @@ export const LoginScreen = ({ navigation }) => {
               <ArrowRight size={18} color={colors.primaryForeground} />
             </TouchableOpacity>
 
-            {/* Guest Access Button */}
-            <TouchableOpacity
-              style={styles.guestBtn}
-              onPress={() => navigation.navigate('MainTabs')}
-              activeOpacity={0.85}
-            >
-              <Compass size={16} color={colors.text} />
-              <Text style={styles.guestBtnText}>Continue as Campus Visitor</Text>
-            </TouchableOpacity>
-
-            {/* Fast Demo Switcher */}
-            <View style={styles.demoSection}>
-              <View style={styles.demoHeaderRow}>
-                <View style={styles.demoLine} />
-                <Text style={styles.demoTitle}>QUICK ONE-TAP DEMO ACCESS</Text>
-                <View style={styles.demoLine} />
-              </View>
-
-              <View style={styles.demoButtonsRow}>
-                <TouchableOpacity
-                  style={styles.demoBtn}
-                  onPress={() => setDemoRoleAndLogin('admin@campus.edu')}
-                  activeOpacity={0.8}
-                >
-                  <View style={[styles.demoIconWrap, { backgroundColor: '#FEE2E2' }]}>
-                    <Shield size={15} color={colors.danger} />
-                  </View>
-                  <Text style={styles.demoRole}>Admin</Text>
-                  <Text style={styles.demoSub}>Full Control</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={styles.demoBtn}
-                  onPress={() => setDemoRoleAndLogin('faculty@campus.edu')}
-                  activeOpacity={0.8}
-                >
-                  <View style={[styles.demoIconWrap, { backgroundColor: '#ECFDF5' }]}>
-                    <UserCheck size={15} color="#059669" />
-                  </View>
-                  <Text style={styles.demoRole}>Faculty</Text>
-                  <Text style={styles.demoSub}>Staff Passes</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={styles.demoBtn}
-                  onPress={() => setDemoRoleAndLogin('student@campus.edu')}
-                  activeOpacity={0.8}
-                >
-                  <View style={[styles.demoIconWrap, { backgroundColor: colors.secondary }]}>
-                    <GraduationCap size={15} color={colors.primaryDark} />
-                  </View>
-                  <Text style={styles.demoRole}>Student</Text>
-                  <Text style={styles.demoSub}>Campus User</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
             {/* Register Link */}
             <View style={styles.footerRow}>
-              <Text style={styles.footerText}>Need institutional account? </Text>
+              <Text style={styles.footerText}>Need an institutional account? </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text style={styles.registerLink}>Create account →</Text>
+                <Text style={styles.registerLink}>Register here →</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -338,24 +281,12 @@ const styles = StyleSheet.create({
   inputGroup: {
     marginBottom: 16
   },
-  passwordLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 6
-  },
   label: {
     fontSize: 12,
     fontWeight: '700',
     color: colors.text,
     fontFamily: 'Manrope',
     marginBottom: 6
-  },
-  forgotPassText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.primaryDark,
-    fontFamily: 'Manrope'
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -377,6 +308,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope',
     height: '100%',
     outlineStyle: 'none'
+  },
+  eyeToggleBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   submitBtn: {
     backgroundColor: colors.primary,
@@ -407,84 +343,11 @@ const styles = StyleSheet.create({
     color: colors.primaryForeground,
     fontFamily: 'Outfit'
   },
-  guestBtn: {
-    backgroundColor: colors.cardBgLight,
-    height: 44,
-    borderRadius: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    borderWidth: 1,
-    borderColor: colors.cardBorder,
-    marginBottom: 20
-  },
-  guestBtnText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.text,
-    fontFamily: 'Manrope'
-  },
-  demoSection: {
-    marginBottom: 20
-  },
-  demoHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 14
-  },
-  demoLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.cardBorder
-  },
-  demoTitle: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: colors.textMuted,
-    letterSpacing: 0.8,
-    fontFamily: 'Outfit'
-  },
-  demoButtonsRow: {
-    flexDirection: 'row',
-    gap: 8
-  },
-  demoBtn: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.cardBorder
-  },
-  demoIconWrap: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 6
-  },
-  demoRole: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: colors.text,
-    fontFamily: 'Outfit',
-    marginBottom: 1
-  },
-  demoSub: {
-    fontSize: 10,
-    color: colors.textMuted,
-    fontFamily: 'Manrope'
-  },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 8
+    paddingTop: 12
   },
   footerText: {
     fontSize: 13,

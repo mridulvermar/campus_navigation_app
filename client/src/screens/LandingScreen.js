@@ -53,18 +53,18 @@ export const LandingScreen = ({ navigation }) => {
           <View style={styles.ctaRow}>
             <TouchableOpacity
               style={styles.primaryCta}
-              onPress={() => navigation.navigate('MainTabs', { screen: 'Map' })}
+              onPress={() => navigation.navigate('Login')}
             >
               <Navigation size={16} color="#24201D" />
-              <Text style={styles.primaryCtaText}>Explore Live Campus Map</Text>
+              <Text style={styles.primaryCtaText}>Sign In to Explore Map</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.secondaryCta}
-              onPress={() => navigation.navigate('MainTabs', { screen: 'Bookings' })}
+              onPress={() => navigation.navigate('Register')}
             >
               <CalendarCheck size={16} color={colors.text} />
-              <Text style={styles.secondaryCtaText}>Book Facilities</Text>
+              <Text style={styles.secondaryCtaText}>Create Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -117,12 +117,12 @@ export const LandingScreen = ({ navigation }) => {
         {/* Direct Access CTA */}
         <View style={styles.bannerCard}>
           <Text style={styles.bannerTitle}>Ready to navigate your campus?</Text>
-          <Text style={styles.bannerSubtitle}>Access your student, faculty, or administrative portal seamlessly.</Text>
+          <Text style={styles.bannerSubtitle}>Access your student, faculty, or administrative portal securely.</Text>
           <TouchableOpacity
             style={styles.bannerBtn}
-            onPress={() => navigation.navigate('MainTabs')}
+            onPress={() => navigation.navigate('Login')}
           >
-            <Text style={styles.bannerBtnText}>Enter Campus Platform</Text>
+            <Text style={styles.bannerBtnText}>Sign In to CampusNav</Text>
             <ArrowRight size={16} color="#24201D" />
           </TouchableOpacity>
         </View>
