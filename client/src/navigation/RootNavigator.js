@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,6 +12,7 @@ import {
 } from 'lucide-react-native';
 
 import { colors } from '../theme/colors';
+import { useAuth } from '../context/AuthContext';
 
 // Screens
 import { LandingScreen } from '../screens/LandingScreen';
@@ -135,19 +136,29 @@ const styles = StyleSheet.create({
 });
 
 export function RootNavigator() {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="MainTabs"
+        initialRouteName={isAuthenticated ? "MainTabs" : "Login"}
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: colors.background }
         }}
       >
-        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
-        <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Landing" component={LandingScreen} />
+        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         
         {/* Detail Screens */}
         <Stack.Screen name="Navigation" component={NavigationScreen} />

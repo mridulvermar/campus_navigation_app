@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EAA228" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="28" fill="#FAF8F5" />
+  <circle cx="50" cy="50" r="38" fill="url(#glowGrad)" />
+  <polygon points="50,22 58,46 50,42" fill="#FFFFFF" />
+  <polygon points="50,22 42,46 50,42" fill="#FAF8F5" opacity="0.8" />
+  <polygon points="50,78 58,54 50,58" fill="#24201D" />
+  <polygon points="50,78 42,54 50,58" fill="#38332E" opacity="0.9" />
+  <circle cx="50" cy="50" r="4.5" fill="#FAF8F5" stroke="#24201D" stroke-width="1.5" />
+</svg>

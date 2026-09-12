@@ -4,54 +4,98 @@ import { Platform } from 'react-native';
 
 const SocketContext = createContext();
 
+const getSocketServerUrl = () => {
+  if (process.env.EXPO_PUBLIC_API_URL) {
+    return process.env.EXPO_PUBLIC_API_URL.replace(/\/api\/?$/, '');
+  }
+  if (Platform.OS === 'android') {
+    return 'http://10.247.55.1:3000';
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:5000';
+    }
+    if (window.location.hostname.endsWith('vercel.app')) {
+      return null;
+    }
+    return window.location.origin;
+  }
+  return null;
+};
+
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [spatialLocation, setSpatialLocation] = useState({
     latitude: 11.4960,
     longitude: 77.2765,
-    accuracyMeters: 5
+    accuracyMeters: 5,
+    timestamp: Date.now()
   });
   const [connected, setConnected] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const serverUrl = Platform.OS === 'android' 
-      ? 'http://10.247.55.1:3000' 
-      : (typeof window !== 'undefined' && window.location ? window.location.origin : 'http://localhost:3000');
+    const serverUrl = getSocketServerUrl();
     let socketInstance = null;
+    let localSimInterval = null;
 
-    try {
-      socketInstance = io(serverUrl, {
-        transports: ['websocket', 'polling'],
-        timeout: 3000,
-        reconnectionAttempts: 3
-      });
+    if (serverUrl) {
+      try {
+        socketInstance = io(serverUrl, {
+          transports: ['polling', 'websocket'],
+          timeout: 4000,
+          reconnectionAttempts: 2,
+          autoConnect: true
+        });
 
-      socketInstance.on('connect', () => {
-        setConnected(true);
-      });
+        socketInstance.on('connect', () => {
+          setConnected(true);
+        });
 
-      socketInstance.on('disconnect', () => {
-        setConnected(false);
-      });
+        socketInstance.on('disconnect', () => {
+          setConnected(false);
+        });
 
-      socketInstance.on('spatial:locationUpdate', (data) => {
-        if (data && data.latitude && data.longitude) {
-          setSpatialLocation(data);
-        }
-      });
+        socketInstance.on('connect_error', () => {
+          // Graceful silent fallback to local simulated spatial tracking
+          setConnected(false);
+        });
 
-      socketInstance.on('notification', (notif) => {
-        setNotifications((prev) => [notif, ...prev]);
-      });
+        socketInstance.on('spatial:locationUpdate', (data) => {
+          if (data && data.latitude && data.longitude) {
+            setSpatialLocation(data);
+          }
+        });
 
-      setSocket(socketInstance);
-    } catch (err) {
-      console.warn('[SocketContext] Connection fallback to local state');
+        socketInstance.on('spatial_location_pulse', (data) => {
+          if (data && data.latitude && data.longitude) {
+            setSpatialLocation(data);
+          }
+        });
+
+        socketInstance.on('notification', (notif) => {
+          setNotifications((prev) => [notif, ...prev]);
+        });
+
+        setSocket(socketInstance);
+      } catch (err) {
+        // Fallback safely
+      }
     }
+
+    // Local simulated spatial GPS jitter
+    localSimInterval = setInterval(() => {
+      setSpatialLocation((prev) => ({
+        latitude: 11.4960 + (Math.random() - 0.5) * 0.0008,
+        longitude: 77.2765 + (Math.random() - 0.5) * 0.0008,
+        accuracyMeters: Math.floor(Math.random() * 3) + 3,
+        timestamp: Date.now()
+      }));
+    }, 4000);
 
     return () => {
       if (socketInstance) socketInstance.disconnect();
+      if (localSimInterval) clearInterval(localSimInterval);
     };
   }, []);
 

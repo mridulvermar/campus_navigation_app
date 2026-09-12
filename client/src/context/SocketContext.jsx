@@ -3,6 +3,22 @@ import { io } from 'socket.io-client';
 
 const SocketContext = createContext();
 
+const getSocketServerUrl = () => {
+  if (typeof process !== 'undefined' && process.env?.EXPO_PUBLIC_API_URL) {
+    return process.env.EXPO_PUBLIC_API_URL.replace(/\/api\/?$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:5000';
+    }
+    if (window.location.hostname.endsWith('vercel.app')) {
+      return null;
+    }
+    return window.location.origin;
+  }
+  return null;
+};
+
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [spatialLocation, setSpatialLocation] = useState({
@@ -13,26 +29,33 @@ export const SocketProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const serverUrl = typeof window !== 'undefined' && window.location ? window.location.origin : 'http://localhost:3000';
-    const newSocket = io(serverUrl, {
-      transports: ['polling', 'websocket'],
-      autoConnect: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000
-    });
+    const serverUrl = getSocketServerUrl();
+    let newSocket = null;
 
-    newSocket.on('connect_error', () => {
-      // Graceful fallback handling
-    });
+    if (serverUrl) {
+      try {
+        newSocket = io(serverUrl, {
+          transports: ['polling', 'websocket'],
+          autoConnect: true,
+          reconnectionAttempts: 2,
+          reconnectionDelay: 1000,
+          timeout: 4000
+        });
 
-    newSocket.on('spatial_location_pulse', (data) => {
-      setSpatialLocation(data);
-    });
+        newSocket.on('connect_error', () => {
+          // Graceful silent fallback
+        });
 
-    setSocket(newSocket);
+        newSocket.on('spatial_location_pulse', (data) => {
+          if (data && data.latitude) setSpatialLocation(data);
+        });
+
+        setSocket(newSocket);
+      } catch (err) {}
+    }
 
     return () => {
-      newSocket.disconnect();
+      if (newSocket) newSocket.disconnect();
     };
   }, []);
 

@@ -53,6 +53,7 @@ This guide provides a step-by-step walkthrough to deploy the complete **Campus N
    - `PORT` = `5000`
    - `MONGO_URI` = `mongodb+srv://admin:<password>@cluster0.xxxxx.mongodb.net/campus_navigation?retryWrites=true&w=majority`
    - `JWT_SECRET` = `your_super_secret_jwt_key_2026`
+   - `GEMINI_API_KEY` = `your_gemini_api_key_from_google_ai_studio` *(Get free from https://aistudio.google.com/app/apikey)*
    - `CLIENT_URL` = `*` (or your frontend Vercel URL once deployed)
 6. Click **Create Web Service**.
 7. Render will build and deploy your API. Once deployed, note down your backend URL:

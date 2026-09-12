@@ -44,7 +44,8 @@ app.use(express.urlencoded({ extended: true }));
 // Connect Database
 connectDB();
 
-// Health Check API
+// Health Check API & Favicon
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',

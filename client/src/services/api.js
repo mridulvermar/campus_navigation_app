@@ -14,7 +14,11 @@ import { clientRagEngine } from './ragEngine';
 // Determine backend URL across platforms
 export const getBaseURL = () => {
   if (process.env.EXPO_PUBLIC_API_URL) {
-    return process.env.EXPO_PUBLIC_API_URL;
+    let url = process.env.EXPO_PUBLIC_API_URL.trim();
+    if (!url.endsWith('/api') && !url.endsWith('/api/')) {
+      url = `${url.replace(/\/+$/, '')}/api`;
+    }
+    return url;
   }
   if (Platform.OS === 'web' || (typeof window !== 'undefined' && window.location)) {
     return '/api';
@@ -90,6 +94,10 @@ export const apiService = {
 
   getMe: async () => {
     try {
+      const token = await AsyncStorage.getItem('campus_token');
+      if (!token || token === 'mock_jwt_token_2026' || token === 'demo_token_2026') {
+        return { success: false, message: 'No token stored' };
+      }
       const res = await API.get('/auth/me');
       if (res.data?.user) {
         await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
@@ -119,7 +127,17 @@ export const apiService = {
 
   // Bookings API
   getBookings: () => safeCall(() => API.get('/bookings'), MOCK_BOOKINGS),
-  getMyBookings: () => safeCall(() => API.get('/bookings/my'), MOCK_BOOKINGS),
+  getMyBookings: async () => {
+    try {
+      const token = await AsyncStorage.getItem('campus_token');
+      if (!token || token === 'mock_jwt_token_2026' || token === 'demo_token_2026') {
+        return { success: true, data: MOCK_BOOKINGS, count: MOCK_BOOKINGS.length };
+      }
+      return safeCall(() => API.get('/bookings/my'), MOCK_BOOKINGS);
+    } catch (err) {
+      return { success: true, data: MOCK_BOOKINGS, count: MOCK_BOOKINGS.length };
+    }
+  },
   createBooking: async (bookingData) => {
     try {
       const res = await API.post('/bookings', bookingData);
