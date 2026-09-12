@@ -8,19 +8,13 @@ const getSocketServerUrl = () => {
   if (process.env.EXPO_PUBLIC_API_URL) {
     return process.env.EXPO_PUBLIC_API_URL.replace(/\/api\/?$/, '');
   }
-  if (Platform.OS === 'android') {
-    return 'http://10.247.55.1:3000';
-  }
   if (typeof window !== 'undefined' && window.location) {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       return 'http://localhost:5000';
     }
-    if (window.location.hostname.endsWith('vercel.app')) {
-      return null;
-    }
-    return window.location.origin;
   }
-  return null;
+  // Standalone APK and production fallback
+  return 'https://campus-navigation-app-6nil.onrender.com';
 };
 
 export const SocketProvider = ({ children }) => {

@@ -20,14 +20,13 @@ export const getBaseURL = () => {
     }
     return url;
   }
-  if (Platform.OS === 'web' || (typeof window !== 'undefined' && window.location)) {
-    return '/api';
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && window.location) {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return '/api';
+    }
   }
-  if (Platform.OS === 'android') {
-    // 10.247.55.1 is the host computer's local Wi-Fi IP for real mobile devices
-    return 'http://10.247.55.1:3000/api';
-  }
-  return '/api';
+  // Production / Standalone APK fallback to live Render backend
+  return 'https://campus-navigation-app-6nil.onrender.com/api';
 };
 
 const API = axios.create({

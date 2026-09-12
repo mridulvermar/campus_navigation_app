@@ -22,6 +22,12 @@
     },
     "web": {
       "bundler": "metro"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "391f5e79-e9f0-4a4f-a64a-55a85253b446"
+      }
+    },
+    "owner": "mridulvermar"
   }
 }
