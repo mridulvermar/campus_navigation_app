@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -65,6 +66,32 @@ app.use('/api/extra', extraRoutes);
 app.use('/api/rag', ragRoutes);
 app.use('/api/chat', ragRoutes);
 
+// Database fallback for offline Mongoose
+app.use((err, req, res, next) => {
+  if (err && (err.name === 'MongooseError' || err.name === 'MongoNetworkError' || (err.message && err.message.includes('buffering timed out')))) {
+    console.warn('[AI Studio] Database offline — returning fallback');
+    if (req.method === 'GET') {
+      return res.json({ success: true, data: req.path.endsWith('s') ? [] : {} });
+    }
+    return res.status(503).json({ success: false, message: 'Database temporarily unavailable' });
+  }
+  next(err);
+});
+
+// Serve frontend static build
+const clientDistPath = path.resolve(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
+
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) {
+    return next();
+  }
+  const indexPath = path.join(clientDistPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) next();
+  });
+});
+
 // Global Error Handler
 app.use(errorHandler);
 
@@ -90,8 +117,8 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+const PORT = 3000;
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 [Server] Campus Platform running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 

@@ -13,7 +13,8 @@ export const SocketProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const newSocket = io('http://localhost:5000', {
+    const serverUrl = typeof window !== 'undefined' && window.location ? window.location.origin : 'http://localhost:3000';
+    const newSocket = io(serverUrl, {
       transports: ['polling', 'websocket'],
       autoConnect: true,
       reconnectionAttempts: 5,

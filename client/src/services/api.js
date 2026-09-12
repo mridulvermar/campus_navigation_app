@@ -16,15 +16,14 @@ export const getBaseURL = () => {
   if (process.env.EXPO_PUBLIC_API_URL) {
     return process.env.EXPO_PUBLIC_API_URL;
   }
+  if (Platform.OS === 'web' || (typeof window !== 'undefined' && window.location)) {
+    return '/api';
+  }
   if (Platform.OS === 'android') {
     // 10.247.55.1 is the host computer's local Wi-Fi IP for real mobile devices
-    return 'http://10.247.55.1:5000/api';
+    return 'http://10.247.55.1:3000/api';
   }
-  if (typeof window !== 'undefined' && window.location && window.location.hostname) {
-    const host = window.location.hostname;
-    return `http://${host}:5000/api`;
-  }
-  return 'http://localhost:5000/api';
+  return '/api';
 };
 
 const API = axios.create({
