@@ -17,12 +17,23 @@ export const calculateDistanceMeters = (lat1, lon1, lat2, lon2) => {
 };
 
 /**
- * Calculates estimated walking time in minutes based on average 1.4 m/s walking speed
+ * Calculates estimated travel time in minutes based on distance and mode
+ * - Walking (pedestrian): ~1.35 m/s (~4.86 km/h)
+ * - Driving (vehicle): 30 km/h speed limit (500 m/min or ~8.33 m/s)
  */
-export const calculateWalkingTimeMinutes = (distanceMeters) => {
+export const calculateTravelTimeMinutes = (distanceMeters, mode = 'pedestrian') => {
+  const isDriving = mode === 'vehicle' || mode === 'drive' || mode === 'driving';
+  if (isDriving) {
+    const speedMetersPerMin = 500; // 30 km/h = 30000 m / 60 min = 500 m/min
+    return Math.max(1, Math.round(distanceMeters / speedMetersPerMin));
+  }
   const speedMetersPerSec = 1.35;
   const seconds = distanceMeters / speedMetersPerSec;
-  return Math.ceil(seconds / 60);
+  return Math.max(1, Math.ceil(seconds / 60));
+};
+
+export const calculateWalkingTimeMinutes = (distanceMeters, mode = 'pedestrian') => {
+  return calculateTravelTimeMinutes(distanceMeters, mode);
 };
 
 /**

@@ -274,7 +274,10 @@ export function findGeolocationsRoute(fromLocationId, toLocationId, type = 'pede
   });
 
   const estimatedMeters = Math.round(totalPixelDistance);
-  const estimatedWalkingTimeMinutes = Math.max(1, Math.round(estimatedMeters / 75));
+  const isDriving = type === 'vehicle' || type === 'drive' || type === 'driving';
+  // Walking: ~4.5 km/h (75 m/min). Driving: 30 km/h speed limit (500 m/min).
+  const metersPerMinute = isDriving ? 500 : 75;
+  const estimatedWalkingTimeMinutes = Math.max(1, Math.round(estimatedMeters / metersPerMinute));
 
   return {
     success: path.length > 0 && distances[endJunctionId] !== Infinity,
@@ -283,8 +286,9 @@ export function findGeolocationsRoute(fromLocationId, toLocationId, type = 'pede
     mode: type,
     totalDistanceMeters: estimatedMeters,
     estimatedWalkingTimeMinutes,
+    estimatedTimeMinutes: estimatedWalkingTimeMinutes,
     formattedDistance: `${estimatedMeters} m`,
-    formattedWalkingTime: `${estimatedWalkingTimeMinutes} min ${type === 'vehicle' ? 'drive' : 'walk'}`,
+    formattedWalkingTime: `${estimatedWalkingTimeMinutes} min ${isDriving ? 'drive' : 'walk'}`,
     pathJunctionIds: path,
     coordinates: pathCoordinates,
     crsSimpleCoordinates: crsSimpleCoordinates,
