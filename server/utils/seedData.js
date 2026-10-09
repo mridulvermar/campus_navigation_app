@@ -635,7 +635,7 @@ const seedDatabase = async () => {
         facilities: ["Smart Board","Air Conditioning","Dual Projectors","WiFi 6"]
       },
       {
-        roomNumber: "CS 202 💞 (SF Block - First Floor)",
+        roomNumber: "CS 202 (SF Block - First Floor)",
         building: buildings[0]._id,
         floor: 3,
         capacity: 60,
@@ -1795,9 +1795,9 @@ const seedDatabase = async () => {
         facilities: ["Smart Board","Air Conditioning","Dual Projectors","WiFi 6"]
       },
       {
-        roomNumber: "Embedded Systems Lab (AS Block - Second Floor)",
-        building: buildings[4]._id,
-        floor: 3,
+        roomNumber: "Embedded Systems Lab (IB rib 10 - First Floor)",
+        building: buildings[31]._id,
+        floor: 2,
         capacity: 45,
         availability: true,
         currentOccupancy: 19,

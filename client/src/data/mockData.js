@@ -484,7 +484,7 @@ export const MOCK_ROOMS = [
   },
   {
     "_id": "rm_10",
-    "roomNumber": "CS 202 💞 (SF Block - First Floor)",
+    "roomNumber": "CS 202 (SF Block - First Floor)",
     "building": {
       "_id": "b_sf-block",
       "name": "SF Block",
@@ -2804,13 +2804,13 @@ export const MOCK_ROOMS = [
   },
   {
     "_id": "rm_126",
-    "roomNumber": "Embedded Systems Lab (AS Block - Second Floor)",
+    "roomNumber": "Embedded Systems Lab (IB rib 10 - First Floor)",
     "building": {
-      "_id": "b_as-main-left",
-      "name": "AS Block",
-      "code": "AS-MAIN-LEFT"
+      "_id": "b_ib-rib-10",
+      "name": "IB rib 10",
+      "code": "IB-RIB-10"
     },
-    "floor": 3,
+    "floor": 2,
     "capacity": 45,
     "availability": true,
     "currentOccupancy": 16,

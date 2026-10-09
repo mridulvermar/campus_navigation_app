@@ -181,36 +181,6 @@
       "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800"
     },
     {
-      "id": "ib_block_main",
-      "name": "IB Academic Block (Main Wing - Classes 101, 201)",
-      "code": "IB-BLK-MAIN",
-      "category": "Academic Buildings",
-      "coords": [11.494307, 77.276529],
-      "description": "Institution Building Main Academic Block featuring lecture halls (Classes 101-117, 201-217).",
-      "workingHours": "08:00 AM - 08:00 PM",
-      "departments": ["Electrical & Electronics Eng", "Electronics & Comm Eng"],
-      "floors": [
-        "1st Floor: Classes IB-101 to IB-117 & Computer Labs",
-        "2nd Floor: Classes IB-201 to IB-217 & Seminar Halls"
-      ],
-      "image": "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      "id": "ib_block_east",
-      "name": "IB Academic Block (East Wing - Classes 118-125, 218-225)",
-      "code": "IB-BLK-EAST",
-      "category": "Academic Buildings",
-      "coords": [11.496902, 77.276419],
-      "description": "Institution Building East Wing (Closest entrance for Classes 118-125 and 218-225).",
-      "workingHours": "08:00 AM - 08:00 PM",
-      "departments": ["Computer Science Extension", "AI & Robotics Wing"],
-      "floors": [
-        "1st Floor: Classes IB-118 to IB-125 & Cloud Lab",
-        "2nd Floor: Classes IB-218 to IB-225 & Capstone Lab"
-      ],
-      "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800"
-    },
-    {
       "id": "auditorium",
       "name": "BIT Auditorium",
       "code": "BIT-AUD",
@@ -397,8 +367,6 @@
     { "source": "as_block", "target": "road_central_quad_1", "weight": 25, "instruction": "Walk West out of AS Academic Block onto Central Quad Walkway." },
     { "source": "learning_center", "target": "road_central_quad_1", "weight": 20, "instruction": "Step out of Learning Center onto Central Quad Walkway." },
     { "source": "auditorium", "target": "road_central_quad_2", "weight": 20, "instruction": "Exit Auditorium onto Auditorium Plaza Road." },
-    { "source": "ib_block_main", "target": "road_west_ave_1", "weight": 15, "instruction": "Step out of IB Block Main Wing onto West Academic Road." },
-    { "source": "ib_block_east", "target": "road_west_ave_2", "weight": 15, "instruction": "Step out of IB Block East Wing onto West Academic Road." },
     { "source": "girls_hostel", "target": "road_west_ring_1", "weight": 15, "instruction": "Walk out of Girls Hostel onto West Ring Road." },
     { "source": "medical_center", "target": "road_west_ring_2", "weight": 10, "instruction": "Step out of Medical Center onto Access Road." },
     { "source": "gate_c", "target": "road_gate_c", "weight": 5, "instruction": "Exit Gate C onto Gate C Access Road." },

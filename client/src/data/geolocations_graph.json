@@ -4297,7 +4297,7 @@
           "name": "First Floor",
           "rooms": [
             "CS 201",
-            "CS 202 💞",
+            "CS 202",
             "CS 203",
             "Department of Computer Science and Engineering",
             "CSE Lab 1"
@@ -4540,7 +4540,6 @@
             "Integrated AI Lab",
             "Sensor Lab",
             "Vision Engineering Lab",
-            "Embedded Systems Lab",
             "UAV Lab",
             "UUV Lab",
             "Robotics Lab",
@@ -5496,7 +5495,8 @@
           "name": "First Floor",
           "rooms": [
             "Faculty Hall",
-            "EEE Computer Centre"
+            "EEE Computer Centre",
+            "Embedded Systems Lab"
           ]
         },
         {

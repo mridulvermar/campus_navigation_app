@@ -25,8 +25,9 @@ import { NotFoundPage } from '../pages/NotFoundPage';
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Landing Page */}
-      <Route path="/" element={<LandingPage />} />
+      {/* Root Direct to Login for Authentication & Authorization */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/landing" element={<LandingPage />} />
 
       {/* Auth Routes */}
       <Route element={<AuthLayout />}>

@@ -88,7 +88,6 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 | **Integrated AI Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Sensor Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Vision Engineering Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
-| **Embedded Systems Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **UAV Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **UUV Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Robotics Lab (AS Block - Second Floor)** | 2nd Floor (Floor 2) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
@@ -410,6 +409,7 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 | **BIT Gurugualam (IB rib 10 - Ground Floor)** | Ground Floor (Floor 0) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Faculty Hall (IB rib 10 - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **EEE Computer Centre (IB rib 10 - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
+| **Embedded Systems Lab (IB rib 10 - First Floor)** | 1st Floor (Floor 1) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Store Room (IB rib 10 - Second Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **EEE Tutorial Hall (IB rib 10 - Second Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 
@@ -729,7 +729,7 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 | **Department of Information Technology (SF Block - Ground Floor)** | Ground Floor (Floor 0) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Artificial Intelligence Lab (AI Lab) (SF Block - Ground Floor)** | Ground Floor (Floor 0) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **CS 201 (SF Block - First Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
-| **CS 202 💞 (SF Block - First Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
+| **CS 202 (SF Block - First Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **CS 203 (SF Block - First Floor)** | 2nd Floor (Floor 2) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Department of Computer Science and Engineering (SF Block - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **CSE Lab 1 (SF Block - First Floor)** | 1st Floor (Floor 1) | Labs | 45 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
