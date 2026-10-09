@@ -1,23 +1,24 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Users, Sparkles, CalendarCheck, MapPin, CheckCircle2, Clock, AlertCircle } from 'lucide-react-native';
+import { Sparkles, CalendarCheck, MapPin, CheckCircle2, Clock, Armchair } from 'lucide-react-native';
 import { colors } from '../../theme/colors';
 import { GlassCard } from '../common/GlassCard';
 import { Badge } from '../common/Badge';
 
-export const RoomCardItem = React.memo(({ room, onReserve, onNavigate, activeBooking }) => {
+export const RoomCardItem = React.memo(({ room, onReserve, onNavigate, bookedSeatsCount = 0, activeBooking }) => {
   const buildingName = room.building?.name || 'Academic Block';
   const floorNumber = room.floor || 2;
   const roomTitle = room.name || room.roomNumber;
   const roomType = room.type || 'Lecture Hall';
   const capacity = room.capacity || 60;
 
-  // Determine Live Availability Status
-  const isBooked = !!activeBooking;
-  const isApprovedBooking = activeBooking?.status === 'Approved';
+  // Real-time Seat Availability:
+  // All classes are available for booking and only removed when ALL seats are booked!
+  const isFull = bookedSeatsCount >= capacity;
+  const availableSeats = Math.max(0, capacity - bookedSeatsCount);
 
   return (
-    <GlassCard style={[styles.roomCard, isBooked && styles.roomCardBooked]} glow={!isBooked}>
+    <GlassCard style={styles.roomCard} glow={availableSeats > 0}>
       <View style={styles.roomCardHeader}>
         <View style={{ flex: 1, marginRight: 8 }}>
           <View style={styles.blockRow}>
@@ -31,51 +32,46 @@ export const RoomCardItem = React.memo(({ room, onReserve, onNavigate, activeBoo
         </Badge>
       </View>
 
-      {/* Live Availability Status Indicator */}
+      {/* Live Seat Availability Bar */}
       <View style={styles.availabilityRow}>
-        {isBooked ? (
-          <View style={[styles.statusTag, isApprovedBooking ? styles.statusTagOccupied : styles.statusTagReserved]}>
-            <Clock size={12} color={isApprovedBooking ? '#EF4444' : '#F59E0B'} />
-            <Text style={[styles.statusTagText, { color: isApprovedBooking ? '#EF4444' : '#F59E0B' }]} numberOfLines={1}>
-              {isApprovedBooking ? 'In Use Today' : 'Reserved Today'}: {activeBooking.startTime} - {activeBooking.endTime}
-            </Text>
-          </View>
-        ) : (
+        {!isFull ? (
           <View style={[styles.statusTag, styles.statusTagAvailable]}>
             <CheckCircle2 size={12} color="#10B981" />
             <Text style={[styles.statusTagText, { color: '#10B981' }]}>
-              Available Now • Free for Reservation
+              {availableSeats} / {capacity} Seats Free {bookedSeatsCount > 0 ? `(${bookedSeatsCount} Booked)` : '• Available Now'}
+            </Text>
+          </View>
+        ) : (
+          <View style={[styles.statusTag, styles.statusTagOccupied]}>
+            <Clock size={12} color="#EF4444" />
+            <Text style={[styles.statusTagText, { color: '#EF4444' }]} numberOfLines={1}>
+              All {capacity} Seats Booked / Full
             </Text>
           </View>
         )}
       </View>
 
-      {isBooked && activeBooking.purpose ? (
-        <Text style={styles.bookedPurposeText} numberOfLines={1}>
-          📌 {activeBooking.purpose}
-        </Text>
-      ) : null}
-
       <View style={styles.featuresRow}>
         <View style={styles.featItem}>
-          <Users size={12} color={colors.accent} />
-          <Text style={styles.featText}>Seats: {capacity}</Text>
+          <Armchair size={12} color={colors.accent} />
+          <Text style={styles.featText}>Capacity: {capacity} Seats</Text>
         </View>
         <View style={styles.featItem}>
           <Sparkles size={12} color={colors.primary} />
-          <Text style={styles.featText}>Smart Projector & AC</Text>
+          <Text style={styles.featText}>Smart Screen & AC</Text>
         </View>
       </View>
 
       <View style={styles.roomCardFooter}>
         <TouchableOpacity
-          style={[styles.reserveBtn, isBooked && styles.reserveBtnBooked]}
+          style={[styles.reserveBtn, isFull && styles.reserveBtnFull]}
           onPress={() => onReserve(room)}
+          disabled={isFull}
           activeOpacity={0.8}
         >
           <CalendarCheck size={14} color="#070B14" />
           <Text style={styles.reserveBtnText}>
-            {isBooked ? 'Reserve Another Slot' : 'Reserve Classroom'}
+            {!isFull ? 'Book 1 Seat' : 'Classroom Full'}
           </Text>
         </TouchableOpacity>
 
@@ -99,9 +95,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.cardBorder
-  },
-  roomCardBooked: {
-    borderColor: 'rgba(245, 158, 11, 0.3)'
   },
   roomCardHeader: {
     flexDirection: 'row',
@@ -153,20 +146,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(239, 68, 68, 0.25)'
   },
-  statusTagReserved: {
-    backgroundColor: 'rgba(245, 158, 11, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(245, 158, 11, 0.25)'
-  },
   statusTagText: {
     fontSize: 11,
     fontWeight: '700'
-  },
-  bookedPurposeText: {
-    fontSize: 11,
-    color: colors.textMuted,
-    marginTop: 2,
-    fontStyle: 'italic'
   },
   featuresRow: {
     flexDirection: 'row',
@@ -196,8 +178,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 6
   },
-  reserveBtnBooked: {
-    backgroundColor: '#F59E0B'
+  reserveBtnFull: {
+    backgroundColor: colors.cardBgLight,
+    opacity: 0.5
   },
   reserveBtnText: {
     fontSize: 12,

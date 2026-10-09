@@ -147,41 +147,95 @@ export const apiService = {
   // Assets API
   getAssets: () => safeCall(() => API.get('/assets'), MOCK_ASSETS),
 
-  // Bookings API
-  getBookings: (params = {}) => safeCall(() => API.get('/bookings', { params }), MOCK_BOOKINGS),
+  // Bookings API with real-time shared local store
+  getBookings: async (params = {}) => {
+    try {
+      const res = await API.get('/bookings', { params });
+      if (res.data?.data && Array.isArray(res.data.data)) {
+        return res.data;
+      }
+    } catch (err) {}
+    try {
+      const stored = await AsyncStorage.getItem('campus_local_bookings');
+      const list = stored ? JSON.parse(stored) : [];
+      return { success: true, count: list.length, data: list };
+    } catch (e) {
+      return { success: true, count: 0, data: [] };
+    }
+  },
   getMyBookings: async () => {
     try {
       const token = await AsyncStorage.getItem('campus_token');
-      if (!token || token === 'mock_jwt_token_2026' || token === 'demo_token_2026') {
-        return { success: true, data: MOCK_BOOKINGS, count: MOCK_BOOKINGS.length };
+      if (token && token !== 'mock_jwt_token_2026' && token !== 'demo_token_2026') {
+        const res = await API.get('/bookings/my');
+        if (res.data?.data && Array.isArray(res.data.data)) return res.data;
       }
-      return safeCall(() => API.get('/bookings/my'), MOCK_BOOKINGS);
-    } catch (err) {
-      return { success: true, data: MOCK_BOOKINGS, count: MOCK_BOOKINGS.length };
+    } catch (err) {}
+    try {
+      const stored = await AsyncStorage.getItem('campus_local_bookings');
+      const list = stored ? JSON.parse(stored) : [];
+      return { success: true, count: list.length, data: list };
+    } catch (e) {
+      return { success: true, count: 0, data: [] };
     }
   },
   createBooking: async (bookingData) => {
+    let newBooking;
     try {
-      const res = await API.post('/bookings', bookingData);
-      return res.data;
-    } catch (err) {
-      const newBooking = {
+      const payload = {
+        room: bookingData.room?._id || (typeof bookingData.room === 'string' ? bookingData.room : undefined),
+        bookingType: bookingData.bookingType === 'Asset' ? 'Asset' : 'Facility',
+        date: bookingData.date || 'Today',
+        startTime: bookingData.startTime || '09:00 AM',
+        endTime: bookingData.endTime || '11:00 AM',
+        durationHours: bookingData.durationHours || 2,
+        purpose: bookingData.purpose || 'Classroom Lecture / Study Session'
+      };
+      const res = await API.post('/bookings', payload);
+      if (res.data?.data) {
+        newBooking = res.data.data;
+        if (!newBooking.room && bookingData.room) newBooking.room = bookingData.room;
+        if (!newBooking.user && bookingData.user) newBooking.user = bookingData.user;
+      }
+    } catch (err) {}
+
+    if (!newBooking) {
+      const storedUserStr = await AsyncStorage.getItem('campus_user');
+      const currentUser = bookingData.user || (storedUserStr ? JSON.parse(storedUserStr) : { name: 'Student', email: 'student@campus.edu', department: 'Computer Science', role: 'Student' });
+      newBooking = {
         _id: 'bk_' + Date.now(),
-        user: { name: 'Current User', email: 'user@campus.edu' },
+        user: currentUser,
         ...bookingData,
         status: 'Pending',
+        createdAt: new Date().toISOString(),
         qrCodeData: `CAMPUS-BOOKING-${Date.now()}`
       };
-      return { success: true, data: newBooking };
     }
+
+    try {
+      const stored = await AsyncStorage.getItem('campus_local_bookings');
+      const list = stored ? JSON.parse(stored) : [];
+      const updatedList = [newBooking, ...list.filter(b => b._id !== newBooking._id)];
+      await AsyncStorage.setItem('campus_local_bookings', JSON.stringify(updatedList));
+    } catch (e) {}
+
+    return { success: true, data: newBooking };
   },
   updateBookingStatus: async (id, status, adminComment) => {
     try {
-      const res = await API.patch(`/bookings/${id}/status`, { status, adminComment });
-      return res.data;
-    } catch (err) {
-      return { success: true, message: `Booking updated to ${status}` };
-    }
+      await API.patch(`/bookings/${id}/status`, { status, adminComment });
+    } catch (err) {}
+
+    try {
+      const stored = await AsyncStorage.getItem('campus_local_bookings');
+      if (stored) {
+        const list = JSON.parse(stored);
+        const updated = list.map(b => (b._id === id ? { ...b, status, adminComment } : b));
+        await AsyncStorage.setItem('campus_local_bookings', JSON.stringify(updated));
+      }
+    } catch (e) {}
+
+    return { success: true, message: `Booking updated to ${status}` };
   },
 
   // Notifications API

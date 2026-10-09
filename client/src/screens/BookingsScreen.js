@@ -20,7 +20,7 @@ export const BookingsScreen = ({ route, navigation }) => {
   const isAdmin = user?.role === 'Administrator' || user?.role === 'admin' || (typeof user?.email === 'string' && user.email.includes('admin'));
 
   const [rooms, setRooms] = useState(MOCK_ROOMS);
-  const [allBookings, setAllBookings] = useState(MOCK_BOOKINGS);
+  const [allBookings, setAllBookings] = useState([]);
   const [myBookings, setMyBookings] = useState([]);
   const [activeTab, setActiveTab] = useState('browse'); // 'browse' or 'my_passes'
   const [selectedBuildingFilter, setSelectedBuildingFilter] = useState('All Blocks');
@@ -30,10 +30,10 @@ export const BookingsScreen = ({ route, navigation }) => {
   // Booking Modal State
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [purpose, setPurpose] = useState('');
+  const [purpose, setPurpose] = useState('Attending Class Lecture / Self Study');
   const [startTime, setStartTime] = useState('09:00 AM');
   const [endTime, setEndTime] = useState('11:00 AM');
-  const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
+  const [date, setDate] = useState('Today');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // QR Modal State
@@ -64,44 +64,46 @@ export const BookingsScreen = ({ route, navigation }) => {
     };
   }, [route?.params]);
 
-  // Lookup map of active present/today bookings keyed by room identifier
-  const activeBookingsMap = useMemo(() => {
+  // Real-time map of how many student seats are booked for each room
+  const bookedSeatsMap = useMemo(() => {
     const map = {};
     const todayStr = new Date().toISOString().split('T')[0];
 
     allBookings.forEach((b) => {
-      // Check if booking is active (Pending or Approved) and for today / recent
       if (b.status !== 'Rejected' && b.status !== 'Cancelled') {
         const isTodayOrRecent = !b.date || b.date === todayStr || b.date === 'Today' || b.date >= todayStr;
         if (isTodayOrRecent) {
           if (b.room) {
-            if (b.room._id) map[String(b.room._id)] = b;
-            if (b.room.roomNumber) map[String(b.room.roomNumber).toLowerCase()] = b;
-            if (b.room.name) map[String(b.room.name).toLowerCase()] = b;
+            if (b.room._id) map[String(b.room._id)] = (map[String(b.room._id)] || 0) + 1;
+            if (b.room.roomNumber) map[String(b.room.roomNumber).toLowerCase()] = (map[String(b.room.roomNumber).toLowerCase()] || 0) + 1;
+            if (b.room.name) map[String(b.room.name).toLowerCase()] = (map[String(b.room.name).toLowerCase()] || 0) + 1;
           }
-          if (b.roomId) map[String(b.roomId)] = b;
+          if (b.roomId) map[String(b.roomId)] = (map[String(b.roomId)] || 0) + 1;
         }
       }
     });
     return map;
   }, [allBookings]);
 
-  // Counts of available vs booked rooms
+  // Counts of available vs booked rooms:
+  // Keep ALL classes in booking and only remove when ALL seats are booked!
   const { availableCount, bookedCount } = useMemo(() => {
-    let booked = 0;
+    let fullRoomsCount = 0;
     rooms.forEach((r) => {
-      const isBooked = !!(
-        activeBookingsMap[String(r._id)] ||
-        activeBookingsMap[String(r.roomNumber || '').toLowerCase()] ||
-        activeBookingsMap[String(r.name || '').toLowerCase()]
+      const bookedSeats = (
+        bookedSeatsMap[String(r._id)] ||
+        bookedSeatsMap[String(r.roomNumber || '').toLowerCase()] ||
+        bookedSeatsMap[String(r.name || '').toLowerCase()] ||
+        0
       );
-      if (isBooked) booked++;
+      const capacity = r.capacity || 60;
+      if (bookedSeats >= capacity) fullRoomsCount++;
     });
     return {
-      availableCount: Math.max(0, rooms.length - booked),
-      bookedCount: booked
+      availableCount: Math.max(0, rooms.length - fullRoomsCount),
+      bookedCount: fullRoomsCount
     };
-  }, [rooms, activeBookingsMap]);
+  }, [rooms, bookedSeatsMap]);
 
   // Memoize filtered rooms for fast search & live status filtering
   const filteredRooms = useMemo(() => {
@@ -112,14 +114,17 @@ export const BookingsScreen = ({ route, navigation }) => {
         (r.building?.code && r.building.code.includes(selectedBuildingFilter));
       if (!matchesFilter) return false;
 
-      const activeBooking = (
-        activeBookingsMap[String(r._id)] ||
-        activeBookingsMap[String(r.roomNumber || '').toLowerCase()] ||
-        activeBookingsMap[String(r.name || '').toLowerCase()]
+      const bookedSeats = (
+        bookedSeatsMap[String(r._id)] ||
+        bookedSeatsMap[String(r.roomNumber || '').toLowerCase()] ||
+        bookedSeatsMap[String(r.name || '').toLowerCase()] ||
+        0
       );
+      const capacity = r.capacity || 60;
+      const isFull = bookedSeats >= capacity;
 
-      if (availabilityFilter === 'available' && activeBooking) return false;
-      if (availabilityFilter === 'booked' && !activeBooking) return false;
+      if (availabilityFilter === 'available' && isFull) return false;
+      if (availabilityFilter === 'booked' && !isFull) return false;
 
       if (!q) return true;
       return (
@@ -129,7 +134,7 @@ export const BookingsScreen = ({ route, navigation }) => {
         (r.building?.name && r.building.name.toLowerCase().includes(q))
       );
     });
-  }, [rooms, selectedBuildingFilter, availabilityFilter, searchQuery, activeBookingsMap]);
+  }, [rooms, selectedBuildingFilter, availabilityFilter, searchQuery, bookedSeatsMap]);
 
   // Callbacks
   const handleOpenBookingModal = useCallback((room) => {
@@ -145,7 +150,7 @@ export const BookingsScreen = ({ route, navigation }) => {
       return;
     }
     setSelectedRoom(room);
-    setPurpose('Classroom Session / Event Reservation');
+    setPurpose('Attending Lecture / Seat Reservation');
     setIsModalOpen(true);
   }, [user, navigation]);
 
@@ -159,17 +164,19 @@ export const BookingsScreen = ({ route, navigation }) => {
 
   const handleConfirmBooking = async () => {
     if (!purpose.trim()) {
-      Alert.alert('Required', 'Please enter booking purpose or event title');
+      Alert.alert('Required', 'Please enter booking purpose or course title');
       return;
     }
     setIsSubmitting(true);
     const newBookingData = {
       room: selectedRoom,
+      bookingType: 'Seat',
       purpose,
       date,
       startTime,
       endTime,
-      durationHours: 2
+      durationHours: 2,
+      user: user || { name: 'Student', email: 'student@campus.edu', department: 'Computer Science', role: 'Student' }
     };
 
     const res = await apiService.createBooking(newBookingData);
@@ -180,33 +187,36 @@ export const BookingsScreen = ({ route, navigation }) => {
       const created = res.data || { 
         ...newBookingData, 
         _id: 'bk_' + Date.now(), 
-        status: 'Pending',
-        user: { name: user?.name || 'Current User', email: user?.email || 'student@campus.edu' }
+        status: 'Pending'
       };
       setMyBookings((prev) => [created, ...prev]);
       setAllBookings((prev) => [created, ...prev]);
       setActiveTab('my_passes');
-      Alert.alert('Booking Confirmed', 'Your digital pass has been generated and logged for administrator tracking!');
+      Alert.alert(
+        '🎟️ Seat Request Submitted',
+        `Your 1-seat reservation request in ${selectedRoom?.name || 'Classroom'} has been submitted. Awaiting administrator approval.`
+      );
     }
   };
 
   // Render items for FlatList
   const renderRoomItem = useCallback(({ item }) => {
-    const activeBooking = (
-      activeBookingsMap[String(item._id)] ||
-      activeBookingsMap[String(item.roomNumber || '').toLowerCase()] ||
-      activeBookingsMap[String(item.name || '').toLowerCase()]
+    const bookedSeats = (
+      bookedSeatsMap[String(item._id)] ||
+      bookedSeatsMap[String(item.roomNumber || '').toLowerCase()] ||
+      bookedSeatsMap[String(item.name || '').toLowerCase()] ||
+      0
     );
 
     return (
       <RoomCardItem
         room={item}
-        activeBooking={activeBooking}
+        bookedSeatsCount={bookedSeats}
         onReserve={handleOpenBookingModal}
         onNavigate={handleNavigateToRoom}
       />
     );
-  }, [activeBookingsMap, handleOpenBookingModal, handleNavigateToRoom]);
+  }, [bookedSeatsMap, handleOpenBookingModal, handleNavigateToRoom]);
 
   const renderPassItem = useCallback(({ item }) => (
     <PassCardItem

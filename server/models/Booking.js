@@ -4,10 +4,10 @@ const bookingSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   asset: { type: mongoose.Schema.Types.ObjectId, ref: 'Asset' },
   room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
-  bookingType: { type: String, enum: ['Asset', 'Facility'], default: 'Facility' },
-  date: { type: String, required: true }, // YYYY-MM-DD
-  startTime: { type: String, required: true }, // HH:MM
-  endTime: { type: String, required: true }, // HH:MM
+  bookingType: { type: String, enum: ['Asset', 'Facility', 'Seat'], default: 'Facility' },
+  date: { type: String, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
   durationHours: { type: Number, default: 1 },
   purpose: { type: String, required: true },
   status: { 
