@@ -8,7 +8,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api"
+        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api",
+        "EAS_SKIP_AUTO_FINGERPRINT": "1"
       }
     },
     "preview": {
@@ -17,12 +18,14 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api"
+        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api",
+        "EAS_SKIP_AUTO_FINGERPRINT": "1"
       }
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api"
+        "EXPO_PUBLIC_API_URL": "https://campus-navigation-app-6nil.onrender.com/api",
+        "EAS_SKIP_AUTO_FINGERPRINT": "1"
       }
     }
   },
