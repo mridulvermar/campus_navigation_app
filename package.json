@@ -11,5 +11,8 @@
     "build": "npm run build:client",
     "dev": "node server/server.js",
     "start": "node server/server.js"
+  },
+  "overrides": {
+    "react-native-worklets": "0.10.1"
   }
 }
