@@ -239,3 +239,26 @@ exports.getMe = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+exports.guestLogin = async (req, res) => {
+  try {
+    const guestUser = {
+      _id: 'guest_' + Date.now(),
+      name: 'Campus Visitor',
+      email: 'guest@campus.edu',
+      role: 'Guest',
+      department: 'Campus Visitor / Explorer',
+      phone: '+91 (555) 000-0000',
+      profilePhoto: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=400'
+    };
+    const token = generateToken(guestUser);
+    return res.json({
+      success: true,
+      token,
+      user: guestUser
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+

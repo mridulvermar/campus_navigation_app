@@ -16,7 +16,9 @@ import {
   Eye,
   EyeOff,
   Navigation,
-  ArrowRight
+  ArrowRight,
+  Compass,
+  Sparkles
 } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
@@ -26,8 +28,9 @@ export const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const { login } = useAuth();
+  const { login, loginAsGuest } = useAuth();
 
   const handleLogin = async () => {
     const trimmedEmail = email.trim();
@@ -41,6 +44,18 @@ export const LoginScreen = ({ navigation }) => {
     setLoading(false);
     if (!res.success) {
       setErrorMsg(res.message || 'Authentication failed. Please check your credentials.');
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    setErrorMsg('');
+    setGuestLoading(true);
+    try {
+      await loginAsGuest();
+    } catch (e) {
+      setErrorMsg('Could not initialize guest session. Please try again.');
+    } finally {
+      setGuestLoading(false);
     }
   };
 
@@ -138,13 +153,41 @@ export const LoginScreen = ({ navigation }) => {
             <TouchableOpacity
               style={styles.submitBtn}
               onPress={handleLogin}
-              disabled={loading}
+              disabled={loading || guestLoading}
               activeOpacity={0.85}
             >
               <Text style={styles.submitText}>
                 {loading ? 'Authenticating...' : 'Sign in to CampusNav'}
               </Text>
               <ArrowRight size={18} color={colors.primaryForeground} />
+            </TouchableOpacity>
+
+            {/* Divider */}
+            <View style={styles.dividerRow}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>OR EXPLORE CAMPUS</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            {/* Guest Login Button */}
+            <TouchableOpacity
+              style={styles.guestBtn}
+              onPress={handleGuestLogin}
+              disabled={loading || guestLoading}
+              activeOpacity={0.85}
+            >
+              <View style={styles.guestIconBox}>
+                <Compass size={18} color="#070B14" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.guestBtnTitle}>
+                  {guestLoading ? 'Entering Guest Mode...' : 'Continue as Guest Explorer'}
+                </Text>
+                <Text style={styles.guestBtnSub}>
+                  Instant access to Map, Events & AI Assistant
+                </Text>
+              </View>
+              <Sparkles size={16} color={colors.primary} />
             </TouchableOpacity>
 
             {/* Register Link */}
@@ -342,6 +385,61 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: colors.primaryForeground,
     fontFamily: 'Outfit'
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 14,
+    gap: 10
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.cardBorder
+  },
+  dividerText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.textMuted,
+    letterSpacing: 0.8,
+    fontFamily: 'Outfit'
+  },
+  guestBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    backgroundColor: colors.cardBgLight,
+    borderWidth: 1.5,
+    borderColor: colors.cardBorder,
+    borderRadius: 14,
+    padding: 12,
+    marginBottom: 6,
+    ...Platform.select({
+      web: {
+        transition: 'all 0.2s ease',
+        cursor: 'pointer'
+      }
+    })
+  },
+  guestIconBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  guestBtnTitle: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: colors.text,
+    fontFamily: 'Outfit'
+  },
+  guestBtnSub: {
+    fontSize: 11,
+    color: colors.textSecondary,
+    fontFamily: 'Manrope',
+    marginTop: 1
   },
   footerRow: {
     flexDirection: 'row',

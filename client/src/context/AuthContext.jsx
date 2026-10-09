@@ -42,6 +42,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginAsGuest = async () => {
+    setLoading(true);
+    try {
+      const res = await apiService.guestLogin();
+      if (res.success && res.user && res.token) {
+        setUser(res.user);
+        setToken(res.token);
+        localStorage.setItem('campus_user', JSON.stringify(res.user));
+        localStorage.setItem('campus_token', res.token);
+        return res;
+      }
+    } catch (e) {} finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -56,7 +72,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, switchRole }}>
+    <AuthContext.Provider value={{ user, token, loading, isAuthenticated: !!token, isGuest: user?.role === 'Guest', login, loginAsGuest, logout, switchRole }}>
       {children}
     </AuthContext.Provider>
   );

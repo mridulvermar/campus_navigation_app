@@ -13,8 +13,19 @@ import {
 } from 'lucide-react-native';
 import { colors } from '../theme/colors';
 import { GlassCard } from '../components/common/GlassCard';
+import { useAuth } from '../context/AuthContext';
 
 export const LandingScreen = ({ navigation }) => {
+  const { loginAsGuest } = useAuth();
+
+  const handleGuestEntry = async () => {
+    try {
+      await loginAsGuest();
+    } catch (e) {
+      navigation.navigate('Login');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -26,12 +37,20 @@ export const LandingScreen = ({ navigation }) => {
             </View>
             <Text style={styles.brandTitle}>CampusNav</Text>
           </View>
-          <TouchableOpacity
-            style={styles.signInBtn}
-            onPress={() => navigation.navigate('Login')}
-          >
-            <Text style={styles.signInText}>Sign In</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TouchableOpacity
+              style={styles.guestNavBtn}
+              onPress={handleGuestEntry}
+            >
+              <Text style={styles.guestNavText}>Guest Mode</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.signInBtn}
+              onPress={() => navigation.navigate('Login')}
+            >
+              <Text style={styles.signInText}>Sign In</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Hero Section */}
@@ -52,19 +71,20 @@ export const LandingScreen = ({ navigation }) => {
           {/* Quick CTA Buttons */}
           <View style={styles.ctaRow}>
             <TouchableOpacity
+              style={styles.guestCta}
+              onPress={handleGuestEntry}
+              activeOpacity={0.85}
+            >
+              <Sparkles size={16} color="#070B14" />
+              <Text style={styles.guestCtaText}>Explore as Guest (No Login)</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
               style={styles.primaryCta}
               onPress={() => navigation.navigate('Login')}
             >
               <Navigation size={16} color="#24201D" />
-              <Text style={styles.primaryCtaText}>Sign In to Explore Map</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.secondaryCta}
-              onPress={() => navigation.navigate('Register')}
-            >
-              <CalendarCheck size={16} color={colors.text} />
-              <Text style={styles.secondaryCtaText}>Create Account</Text>
+              <Text style={styles.primaryCtaText}>Sign In to Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -189,6 +209,20 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontFamily: 'Manrope'
   },
+  guestNavBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    backgroundColor: 'rgba(234, 162, 40, 0.12)',
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  guestNavText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: colors.primaryDark,
+    fontFamily: 'Manrope'
+  },
   heroSection: {
     marginBottom: 32
   },
@@ -232,7 +266,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 12
   },
-  primaryCta: {
+  guestCta: {
     backgroundColor: colors.primary,
     paddingHorizontal: 20,
     paddingVertical: 13,
@@ -244,6 +278,27 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 6,
+  },
+  guestCtaText: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#070B14',
+    fontFamily: 'Sora'
+  },
+  primaryCta: {
+    backgroundColor: colors.cardBg,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
   },
   primaryCtaText: {
     fontSize: 13,

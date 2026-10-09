@@ -28,47 +28,80 @@ export const ProfileScreen = ({ navigation }) => {
         <GlassCard style={styles.profileCard} glow>
           <View style={styles.avatarLarge}>
             <Text style={styles.avatarText}>
-              {user?.name ? user.name[0].toUpperCase() : 'U'}
+              {user?.role === 'Guest' ? 'G' : (user?.name ? user.name[0].toUpperCase() : 'U')}
             </Text>
           </View>
-          <Text style={styles.name}>{user?.name || 'Mridul Verma'}</Text>
-          <Text style={styles.email}>{user?.email || 'admin@campus.edu'}</Text>
+          <Text style={styles.name}>{user?.name || 'Campus Visitor'}</Text>
+          <Text style={styles.email}>{user?.email || 'guest@campus.edu'}</Text>
           <View style={{ marginTop: 8 }}>
-            <Badge variant="primary" size="md">{user?.role || 'Administrator'}</Badge>
+            <Badge variant={user?.role === 'Guest' ? 'secondary' : 'primary'} size="md">
+              {user?.role === 'Guest' ? 'Guest Explorer' : (user?.role || 'Student')}
+            </Badge>
           </View>
         </GlassCard>
+
+        {user?.role === 'Guest' && (
+          <GlassCard style={[styles.infoCard, { borderColor: colors.primary }]}>
+            <Text style={styles.cardHeading}>Guest Exploration Active</Text>
+            <Text style={{ fontSize: 12, color: colors.textSecondary, marginBottom: 12, lineHeight: 18 }}>
+              You have full access to explore the interactive campus map, GIS navigation, events schedule, and AI chatbot.
+            </Text>
+            <TouchableOpacity
+              style={{ backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 10, alignItems: 'center' }}
+              onPress={handleLogout}
+            >
+              <Text style={{ fontSize: 12, fontWeight: '800', color: '#070B14' }}>
+                Sign in with Student / Faculty ID
+              </Text>
+            </TouchableOpacity>
+          </GlassCard>
+        )}
 
         {/* Institutional Details */}
-        <GlassCard style={styles.infoCard}>
-          <Text style={styles.cardHeading}>Academic Affiliation</Text>
-          
-          <View style={styles.infoRow}>
-            <Building size={16} color={colors.primary} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Department</Text>
-              <Text style={styles.infoVal}>{user?.department || 'Computer Science & Engineering'}</Text>
+        {user?.role !== 'Guest' && (
+          <GlassCard style={styles.infoCard}>
+            <Text style={styles.cardHeading}>Academic Affiliation</Text>
+            
+            <View style={styles.infoRow}>
+              <Building size={16} color={colors.primary} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.infoLabel}>Department</Text>
+                <Text style={styles.infoVal}>{user?.department || 'Computer Science & Engineering'}</Text>
+              </View>
             </View>
-          </View>
 
-          <View style={styles.infoRow}>
-            <Shield size={16} color={colors.secondary} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Role Clearance</Text>
-              <Text style={styles.infoVal}>{user?.role || 'Administrator'}</Text>
+            <View style={styles.infoRow}>
+              <Shield size={16} color={colors.secondary} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.infoLabel}>Role Clearance</Text>
+                <Text style={styles.infoVal}>{user?.role || 'Student'}</Text>
+              </View>
             </View>
-          </View>
 
-          <View style={styles.infoRow}>
-            <Phone size={16} color={colors.accent} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Contact Phone</Text>
-              <Text style={styles.infoVal}>{user?.phone || '+91 (555) 019-2834'}</Text>
+            <View style={styles.infoRow}>
+              <Phone size={16} color={colors.accent} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.infoLabel}>Contact Phone</Text>
+                <Text style={styles.infoVal}>{user?.phone || '+91 (555) 019-2834'}</Text>
+              </View>
             </View>
-          </View>
-        </GlassCard>
+          </GlassCard>
+        )}
 
         {/* Profile Quick Links */}
         <View style={styles.quickLinks}>
+          {(user?.role === 'Administrator' || user?.role === 'admin' || (typeof user?.email === 'string' && user.email.includes('admin'))) && (
+            <TouchableOpacity
+              style={[styles.linkBtn, { borderColor: colors.primary, backgroundColor: 'rgba(234, 162, 40, 0.08)' }]}
+              onPress={() => navigation.navigate('Admin')}
+            >
+              <Shield size={18} color={colors.primary} />
+              <Text style={[styles.linkText, { color: colors.primary, fontWeight: '800' }]}>
+                Admin Control Center (Live Facility Tracker)
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity
             style={styles.linkBtn}
             onPress={() => navigation.navigate('Settings')}
@@ -82,7 +115,9 @@ export const ProfileScreen = ({ navigation }) => {
             onPress={handleLogout}
           >
             <LogOut size={18} color={colors.danger} />
-            <Text style={[styles.linkText, { color: colors.danger }]}>Sign Out</Text>
+            <Text style={[styles.linkText, { color: colors.danger }]}>
+              {user?.role === 'Guest' ? 'Exit Guest Mode' : 'Sign Out'}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -3,12 +3,29 @@ const Notification = require('../models/Notification');
 
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find()
+    const { all, date } = req.query;
+    const todayStr = new Date().toISOString().split('T')[0];
+    
+    // By default, admin sees current day's active bookings (1-day history window)
+    let query = {};
+    if (date) {
+      query.date = date;
+    } else if (!all || all === 'false') {
+      const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      query = {
+        $or: [
+          { date: todayStr },
+          { createdAt: { $gte: oneDayAgo } }
+        ]
+      };
+    }
+
+    const bookings = await Booking.find(query)
       .populate('user', 'name email role department')
       .populate('asset', 'assetName category location')
-      .populate('room', 'roomNumber category capacity')
+      .populate({ path: 'room', populate: { path: 'building', select: 'name code category' } })
       .sort({ createdAt: -1 });
-    res.json({ success: true, count: bookings.length, data: bookings });
+    res.json({ success: true, count: bookings.length, data: bookings, filter: date || (all ? 'all' : 'today_1day') });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

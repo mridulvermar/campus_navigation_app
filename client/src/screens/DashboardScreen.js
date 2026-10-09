@@ -1758,7 +1758,7 @@ const styles = StyleSheet.create({
     padding: 20,
     ...Platform.select({
       web: {
-        background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFDF8 60%, #FEF8EC 100%)',
+        backgroundColor: '#FFFFFF',
         boxShadow: '0 4px 20px -4px rgba(234, 162, 40, 0.12), 0 2px 6px -1px rgba(36, 32, 29, 0.04)'
       },
       default: {
@@ -1849,7 +1849,7 @@ const styles = StyleSheet.create({
     padding: 16,
     ...Platform.select({
       web: {
-        background: 'linear-gradient(135deg, #FAF8F5 0%, #FFFFFF 100%)',
+        backgroundColor: '#FAF8F5',
         boxShadow: '0 2px 8px -2px rgba(36, 32, 29, 0.05)'
       }
     })

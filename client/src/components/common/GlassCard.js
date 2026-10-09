@@ -1,8 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { colors } from '../../theme/colors';
 
-export const GlassCard = ({ children, style, glow = false, borderColor }) => {
+export const GlassCard = ({
+  children,
+  style,
+  glow = false,
+  borderColor,
+  blur = false,
+  intensity = 20,
+  tint = 'dark'
+}) => {
   return (
     <View
       style={[
@@ -12,6 +21,13 @@ export const GlassCard = ({ children, style, glow = false, borderColor }) => {
         style
       ]}
     >
+      {blur ? (
+        <BlurView
+          intensity={intensity}
+          tint={tint}
+          style={StyleSheet.absoluteFill}
+        />
+      ) : null}
       {children}
     </View>
   );

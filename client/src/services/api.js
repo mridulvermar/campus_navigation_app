@@ -90,6 +90,29 @@ export const apiService = {
       return { success: false, message: errorMsg };
     }
   },
+  guestLogin: async () => {
+    try {
+      const res = await API.post('/auth/guest');
+      if (res.data?.token && res.data?.user) {
+        await AsyncStorage.setItem('campus_token', res.data.token);
+        await AsyncStorage.setItem('campus_user', JSON.stringify(res.data.user));
+        return { success: true, token: res.data.token, user: res.data.user };
+      }
+    } catch (err) {}
+    // Client fallback guest
+    const guestUser = {
+      _id: 'guest_' + Date.now(),
+      name: 'Campus Visitor',
+      email: 'guest@campus.edu',
+      role: 'Guest',
+      department: 'Campus Visitor / Explorer',
+      phone: '+91 (555) 000-0000'
+    };
+    const guestToken = 'guest_jwt_token_' + Date.now();
+    await AsyncStorage.setItem('campus_token', guestToken);
+    await AsyncStorage.setItem('campus_user', JSON.stringify(guestUser));
+    return { success: true, token: guestToken, user: guestUser };
+  },
 
   getMe: async () => {
     try {
@@ -125,7 +148,7 @@ export const apiService = {
   getAssets: () => safeCall(() => API.get('/assets'), MOCK_ASSETS),
 
   // Bookings API
-  getBookings: () => safeCall(() => API.get('/bookings'), MOCK_BOOKINGS),
+  getBookings: (params = {}) => safeCall(() => API.get('/bookings', { params }), MOCK_BOOKINGS),
   getMyBookings: async () => {
     try {
       const token = await AsyncStorage.getItem('campus_token');

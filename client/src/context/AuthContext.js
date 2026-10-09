@@ -82,6 +82,30 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginAsGuest = async () => {
+    try {
+      const res = await apiService.guestLogin();
+      if (res.success && res.token && res.user) {
+        setToken(res.token);
+        setUser(res.user);
+        return { success: true, user: res.user };
+      }
+    } catch (err) {}
+    const fallbackGuest = {
+      _id: 'guest_' + Date.now(),
+      name: 'Campus Visitor',
+      email: 'guest@campus.edu',
+      role: 'Guest',
+      department: 'Campus Visitor / Explorer'
+    };
+    const fallbackToken = 'guest_jwt_token_' + Date.now();
+    await AsyncStorage.setItem('campus_token', fallbackToken);
+    await AsyncStorage.setItem('campus_user', JSON.stringify(fallbackGuest));
+    setToken(fallbackToken);
+    setUser(fallbackGuest);
+    return { success: true, user: fallbackGuest };
+  };
+
   const logout = async () => {
     await apiService.logout();
     setToken(null);
@@ -95,7 +119,9 @@ export const AuthProvider = ({ children }) => {
         token,
         loading,
         isAuthenticated: !!token,
+        isGuest: user?.role === 'Guest',
         login,
+        loginAsGuest,
         register,
         logout,
         setUser
