@@ -10,6 +10,7 @@
     },
     "android": {
       "package": "com.campusnav.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#070B14"
       },
@@ -19,6 +20,9 @@
         "INTERNET"
       ]
     },
+    "plugins": [
+      "expo-location"
+    ],
     "web": {
       "bundler": "metro"
     },
