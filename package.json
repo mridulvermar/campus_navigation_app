@@ -12,6 +12,10 @@
     "dev": "node server/server.js",
     "start": "node server/server.js"
   },
+  "dependencies": {
+    "react-native-reanimated": "4.5.1",
+    "react-native-worklets": "0.10.1"
+  },
   "overrides": {
     "react-native-worklets": "0.10.1"
   }
