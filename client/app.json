@@ -10,7 +10,7 @@
     },
     "android": {
       "package": "com.campusnav.app",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "backgroundColor": "#070B14"
       },
