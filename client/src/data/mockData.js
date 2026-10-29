@@ -7503,6 +7503,26 @@ export const MOCK_ROOMS = [
     ]
   },
   {
+    "_id": "rm_360_b",
+    "roomNumber": "EEE Smart Classroom (IB rib 5 - Ground Floor)",
+    "building": {
+      "_id": "b_ib-rib-5",
+      "name": "IB rib 5",
+      "code": "IB-RIB-5"
+    },
+    "floor": 1,
+    "capacity": 60,
+    "availability": true,
+    "currentOccupancy": 0,
+    "category": "Classroom",
+    "facilities": [
+      "Smart Board",
+      "Air Conditioning",
+      "Dual Projectors",
+      "WiFi 6"
+    ]
+  },
+  {
     "_id": "rm_361",
     "roomNumber": "WW 107 (IB rib 5 - First Floor)",
     "building": {

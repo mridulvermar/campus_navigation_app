@@ -39,7 +39,7 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 | **IB rib 2** | `IB-RIB-2` | 11 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Labs |
 | **IB rib 3** | `IB-RIB-3` | 9 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Library Rooms |
 | **IB rib 4** | `IB-RIB-4` | 8 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Labs |
-| **IB rib 5** | `IB-RIB-5` | 8 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Seminar Hall |
+| **IB rib 5** | `IB-RIB-5` | 9 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Seminar Hall |
 | **IB rib 6** | `IB-RIB-6` | 7 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Labs, Seminar Hall |
 | **IB rib 7** | `IB-RIB-7` | 7 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom |
 | **IB rib 8** | `IB-RIB-8` | 5 venues | Ground Floor, 1st Floor, 2nd Floor | Classroom, Labs |
@@ -504,7 +504,7 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 
 ---
 
-## 25. IB rib 5 (`IB-RIB-5`) - Directory of 8 Venues
+## 25. IB rib 5 (`IB-RIB-5`) - Directory of 9 Venues
 
 **Location Coordinates:** `11.493400, 77.279100` | **Floor Levels:** 3 Floors
 
@@ -513,6 +513,7 @@ The campus hosts 428 indexed spaces distributed across 40 academic complexes and
 | **Department of Electrical and Electronics Engineering (IB rib 5 - Ground Floor)** | Ground Floor (Floor 0) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **Faculty Hall (IB rib 5 - Ground Floor)** | Ground Floor (Floor 0) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **EEE Seminar Hall (IB rib 5 - Ground Floor)** | Ground Floor (Floor 0) | Seminar Hall | 75 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
+| **EEE Smart Classroom (IB rib 5 - Ground Floor)** | Ground Floor (Floor 0) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **WW 107 (IB rib 5 - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **WW 108 (IB rib 5 - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |
 | **WW 109 (IB rib 5 - First Floor)** | 1st Floor (Floor 1) | Classroom | 60 seats | Smart Board, Air Conditioning, Dual Projectors, WiFi 6 |

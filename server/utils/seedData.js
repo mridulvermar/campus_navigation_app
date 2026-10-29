@@ -4145,6 +4145,16 @@ const seedDatabase = async () => {
         facilities: ["Smart Board","Air Conditioning","Dual Projectors","WiFi 6"]
       },
       {
+        roomNumber: "EEE Smart Classroom (IB rib 5 - Ground Floor)",
+        building: buildings[26]._id,
+        floor: 1,
+        capacity: 60,
+        availability: true,
+        currentOccupancy: 0,
+        category: "Classroom",
+        facilities: ["Smart Board","Air Conditioning","Dual Projectors","WiFi 6"]
+      },
+      {
         roomNumber: "WW 107 (IB rib 5 - First Floor)",
         building: buildings[26]._id,
         floor: 2,

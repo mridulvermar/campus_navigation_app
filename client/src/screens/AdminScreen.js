@@ -144,24 +144,22 @@ export const AdminScreen = ({ navigation }) => {
       <GlassCard style={styles.pendingCard} glow>
         {/* Prominent Action Header */}
         <View style={styles.cardHeader}>
-          <View style={{ flex: 1, marginRight: 8 }}>
-            <View style={styles.badgeRow}>
-              <View style={styles.seatPillBadge}>
-                <Armchair size={12} color={colors.primary} />
-                <Text style={styles.seatPillText}>
-                  {isSeatBooking ? '1-Seat Student Pass' : 'Whole Facility'}
-                </Text>
-              </View>
-              <Text style={styles.pendingRoomName} numberOfLines={1}>{roomName}</Text>
+          <View style={styles.badgeTopRow}>
+            <View style={styles.seatPillBadge}>
+              <Armchair size={12} color={colors.primary} />
+              <Text style={styles.seatPillText}>
+                {isSeatBooking ? '1-Seat Student Pass' : 'Whole Facility'}
+              </Text>
             </View>
-            <Text style={styles.purposeText} numberOfLines={2}>
-              📌 {item.purpose || 'Classroom Lecture / Study Session'}
-            </Text>
+            <View style={styles.needsApprovalTag}>
+              <AlertTriangle size={11} color="#F59E0B" />
+              <Text style={styles.needsApprovalText}>Needs Approval</Text>
+            </View>
           </View>
-          <View style={styles.needsApprovalTag}>
-            <AlertTriangle size={11} color="#F59E0B" />
-            <Text style={styles.needsApprovalText}>Needs Approval</Text>
-          </View>
+          <Text style={styles.pendingRoomName} numberOfLines={2}>{roomName}</Text>
+          <Text style={styles.purposeText} numberOfLines={2}>
+            📌 {item.purpose || 'Classroom Lecture / Study Session'}
+          </Text>
         </View>
 
         {/* Details Box */}
@@ -221,19 +219,17 @@ export const AdminScreen = ({ navigation }) => {
     return (
       <GlassCard style={styles.bookingCard}>
         <View style={styles.cardHeader}>
-          <View style={{ flex: 1, marginRight: 8 }}>
-            <View style={styles.badgeRow}>
-              <View style={styles.seatPillBadgeGreen}>
-                <Armchair size={12} color="#10B981" />
-                <Text style={styles.seatPillTextGreen}>1-Seat Pass</Text>
-              </View>
-              <Text style={styles.roomName} numberOfLines={1}>{roomName}</Text>
+          <View style={styles.badgeTopRow}>
+            <View style={styles.seatPillBadgeGreen}>
+              <Armchair size={12} color="#10B981" />
+              <Text style={styles.seatPillTextGreen}>1-Seat Pass</Text>
             </View>
-            <Text style={styles.purposeText} numberOfLines={2}>
-              📌 {item.purpose || 'Academic Session'}
-            </Text>
+            <Badge variant="success" size="sm">Active Pass</Badge>
           </View>
-          <Badge variant="success" size="sm">Active Pass</Badge>
+          <Text style={styles.roomName} numberOfLines={2}>{roomName}</Text>
+          <Text style={styles.purposeText} numberOfLines={2}>
+            📌 {item.purpose || 'Academic Session'}
+          </Text>
         </View>
 
         <View style={styles.metaBox}>
@@ -505,8 +501,8 @@ export const AdminScreen = ({ navigation }) => {
           onPress={() => setAdminTab('pending')}
           activeOpacity={0.8}
         >
-          <Clock size={15} color={adminTab === 'pending' ? colors.primary : colors.textSecondary} />
-          <Text style={[styles.topTabText, adminTab === 'pending' && styles.topTabTextActive]}>
+          <Clock size={14} color={adminTab === 'pending' ? colors.primary : colors.textSecondary} />
+          <Text style={[styles.topTabText, adminTab === 'pending' && styles.topTabTextActive]} numberOfLines={1}>
             Pending Approvals {pendingBookings.length > 0 && `(${pendingBookings.length})`}
           </Text>
         </TouchableOpacity>
@@ -516,8 +512,8 @@ export const AdminScreen = ({ navigation }) => {
           onPress={() => setAdminTab('live')}
           activeOpacity={0.8}
         >
-          <ShieldCheck size={15} color={adminTab === 'live' ? colors.primary : colors.textSecondary} />
-          <Text style={[styles.topTabText, adminTab === 'live' && styles.topTabTextActive]}>
+          <ShieldCheck size={14} color={adminTab === 'live' ? colors.primary : colors.textSecondary} />
+          <Text style={[styles.topTabText, adminTab === 'live' && styles.topTabTextActive]} numberOfLines={1}>
             Live Active ({liveApprovedBookings.length})
           </Text>
         </TouchableOpacity>
@@ -527,8 +523,8 @@ export const AdminScreen = ({ navigation }) => {
           onPress={() => setAdminTab('class_details')}
           activeOpacity={0.8}
         >
-          <BookOpen size={15} color={adminTab === 'class_details' ? colors.primary : colors.textSecondary} />
-          <Text style={[styles.topTabText, adminTab === 'class_details' && styles.topTabTextActive]}>
+          <BookOpen size={14} color={adminTab === 'class_details' ? colors.primary : colors.textSecondary} />
+          <Text style={[styles.topTabText, adminTab === 'class_details' && styles.topTabTextActive]} numberOfLines={1}>
             Booked Classes ({bookings.length})
           </Text>
         </TouchableOpacity>
@@ -561,20 +557,21 @@ const styles = StyleSheet.create({
   topTabBar: {
     flexDirection: 'row',
     backgroundColor: colors.cardBg,
-    paddingHorizontal: 12,
+    paddingHorizontal: 8,
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: colors.cardBorder,
-    gap: 6
+    gap: 4
   },
   topTabBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 9,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
     borderRadius: 10,
-    gap: 6,
+    gap: 4,
     backgroundColor: colors.cardBgLight,
     borderWidth: 1,
     borderColor: 'transparent'
@@ -589,7 +586,7 @@ const styles = StyleSheet.create({
     elevation: 3
   },
   topTabText: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: '700',
     color: colors.textSecondary
   },
@@ -699,9 +696,12 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   cardHeader: {
+    marginBottom: 6
+  },
+  badgeTopRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: 6
   },
   badgeRow: {
@@ -746,13 +746,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     color: colors.text,
-    fontFamily: 'Sora'
+    fontFamily: 'Sora',
+    marginBottom: 3
   },
   roomName: {
     fontSize: 14,
     fontWeight: '800',
     color: colors.text,
-    fontFamily: 'Sora'
+    fontFamily: 'Sora',
+    marginBottom: 3
   },
   purposeText: {
     fontSize: 12,
@@ -909,7 +911,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '800',
     color: colors.text,
-    fontFamily: 'Sora'
+    fontFamily: 'Sora',
+    flexShrink: 1
   },
   roomCodeBadge: {
     backgroundColor: colors.cardBgLight,
