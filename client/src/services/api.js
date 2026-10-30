@@ -168,7 +168,10 @@ export const apiService = {
       const token = await AsyncStorage.getItem('campus_token');
       if (token && token !== 'mock_jwt_token_2026' && token !== 'demo_token_2026') {
         const res = await API.get('/bookings/my');
-        if (res.data?.data && Array.isArray(res.data.data)) return res.data;
+        if (res.data?.data && Array.isArray(res.data.data)) {
+          await AsyncStorage.setItem('campus_local_bookings', JSON.stringify(res.data.data));
+          return res.data;
+        }
       }
     } catch (err) {}
     try {

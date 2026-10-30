@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, SafeAreaView, Alert, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, SafeAreaView, Alert, Platform, RefreshControl } from 'react-native';
 import { Layers, CalendarCheck, Search, ShieldCheck } from 'lucide-react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { colors } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import { HeaderBar } from '../components/common/HeaderBar';
 import { GlassCard } from '../components/common/GlassCard';
 import { QRModal } from '../components/common/QRModal';
@@ -17,6 +19,7 @@ const BUILDING_FILTERS = ['All Blocks', 'IB Block', 'AS Block', 'ME Block', 'CS 
 
 export const BookingsScreen = ({ route, navigation }) => {
   const { user } = useAuth();
+  const { socket } = useSocket();
   const isAdmin = user?.role === 'Administrator' || user?.role === 'admin' || (typeof user?.email === 'string' && user.email.includes('admin'));
 
   const [rooms, setRooms] = useState(MOCK_ROOMS);
@@ -26,6 +29,7 @@ export const BookingsScreen = ({ route, navigation }) => {
   const [selectedBuildingFilter, setSelectedBuildingFilter] = useState('All Blocks');
   const [availabilityFilter, setAvailabilityFilter] = useState('all'); // 'all', 'available', 'booked'
   const [searchQuery, setSearchQuery] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   
   // Booking Modal State
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -39,30 +43,89 @@ export const BookingsScreen = ({ route, navigation }) => {
   // QR Modal State
   const [viewingQRBooking, setViewingQRBooking] = useState(null);
 
+  const loadData = useCallback(async (isSilent = false) => {
+    if (!isSilent) setRefreshing(true);
+    try {
+      const roomsRes = await apiService.getRooms();
+      if (roomsRes?.data) setRooms(roomsRes.data);
+
+      const allBookingsRes = await apiService.getBookings();
+      if (allBookingsRes?.data) setAllBookings(allBookingsRes.data);
+
+      const myBookingsRes = await apiService.getMyBookings();
+      if (myBookingsRes?.data) setMyBookings(myBookingsRes.data);
+    } catch (e) {
+    } finally {
+      if (!isSilent) setRefreshing(false);
+    }
+  }, []);
+
+  // Reload data whenever screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      loadData(true);
+    }, [loadData])
+  );
+
   useEffect(() => {
-    let isMounted = true;
-    const loadData = async () => {
-      try {
-        const roomsRes = await apiService.getRooms();
-        if (isMounted && roomsRes?.data) setRooms(roomsRes.data);
-
-        // Fetch active bookings to calculate live room availability
-        const allBookingsRes = await apiService.getBookings();
-        if (isMounted && allBookingsRes?.data) setAllBookings(allBookingsRes.data);
-
-        const myBookingsRes = await apiService.getMyBookings();
-        if (isMounted && myBookingsRes?.data) setMyBookings(myBookingsRes.data);
-      } catch (e) {}
-    };
-    loadData();
+    loadData(true);
 
     if (route?.params?.building) {
       setSelectedBuildingFilter(route.params.building);
     }
-    return () => {
-      isMounted = false;
+  }, [route?.params, loadData]);
+
+  // Real-time Socket.IO listener for live admin approvals
+  useEffect(() => {
+    if (!socket) return;
+
+    const onBookingStatusChange = (data) => {
+      loadData(true);
+
+      if (data?.bookingId) {
+        setMyBookings((prev) =>
+          prev.map((b) =>
+            b._id === data.bookingId || b.id === data.bookingId
+              ? { ...b, status: data.status, adminComment: data.adminComment || b.adminComment }
+              : b
+          )
+        );
+        setAllBookings((prev) =>
+          prev.map((b) =>
+            b._id === data.bookingId || b.id === data.bookingId
+              ? { ...b, status: data.status, adminComment: data.adminComment || b.adminComment }
+              : b
+          )
+        );
+      }
+
+      if (data?.status === 'Approved') {
+        Alert.alert(
+          '🎉 Reservation Approved!',
+          'Your classroom reservation request has been approved by the Administrator. Your digital QR access pass is now active!'
+        );
+      } else if (data?.status === 'Rejected') {
+        Alert.alert(
+          '🚫 Reservation Rejected',
+          'Your classroom reservation request was declined by the Administrator.'
+        );
+      }
     };
-  }, [route?.params]);
+
+    socket.on('booking_status_change', onBookingStatusChange);
+    return () => {
+      socket.off('booking_status_change', onBookingStatusChange);
+    };
+  }, [socket, loadData]);
+
+  // Lightweight 4s polling when actively viewing My Passes tab (bulletproof fallback)
+  useEffect(() => {
+    if (activeTab !== 'my_passes') return;
+    const interval = setInterval(() => {
+      loadData(true);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [activeTab, loadData]);
 
   // Real-time map of how many student seats are booked for each room
   const bookedSeatsMap = useMemo(() => {
@@ -309,7 +372,10 @@ export const BookingsScreen = ({ route, navigation }) => {
         <View style={styles.tabSwitcher}>
           <TouchableOpacity
             style={[styles.tabBtn, activeTab === 'browse' && styles.tabBtnActive]}
-            onPress={() => setActiveTab('browse')}
+            onPress={() => {
+              setActiveTab('browse');
+              loadData(true);
+            }}
             activeOpacity={0.8}
           >
             <Layers size={14} color={activeTab === 'browse' ? '#070B14' : colors.textSecondary} />
@@ -320,7 +386,10 @@ export const BookingsScreen = ({ route, navigation }) => {
 
           <TouchableOpacity
             style={[styles.tabBtn, activeTab === 'my_passes' && styles.tabBtnActive]}
-            onPress={() => setActiveTab('my_passes')}
+            onPress={() => {
+              setActiveTab('my_passes');
+              loadData(true);
+            }}
             activeOpacity={0.8}
           >
             <CalendarCheck size={14} color={activeTab === 'my_passes' ? '#070B14' : colors.textSecondary} />
@@ -337,6 +406,14 @@ export const BookingsScreen = ({ route, navigation }) => {
             keyExtractor={roomKeyExtractor}
             ListHeaderComponent={renderBrowseHeader}
             ListEmptyComponent={renderEmptyRooms}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => loadData(false)}
+                tintColor={colors.primary}
+                colors={[colors.primary]}
+              />
+            }
             initialNumToRender={8}
             maxToRenderPerBatch={8}
             windowSize={5}
@@ -351,6 +428,14 @@ export const BookingsScreen = ({ route, navigation }) => {
             renderItem={renderPassItem}
             keyExtractor={passKeyExtractor}
             ListEmptyComponent={renderEmptyPasses}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => loadData(false)}
+                tintColor={colors.primary}
+                colors={[colors.primary]}
+              />
+            }
             initialNumToRender={8}
             maxToRenderPerBatch={8}
             windowSize={5}

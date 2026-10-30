@@ -37,7 +37,23 @@ exports.getAllBookings = async (req, res) => {
 
 exports.getUserBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.user.id })
+    const userId = req.user?.id || req.user?._id;
+    let query = { user: userId };
+
+    if (req.user?.email) {
+      const User = require('../models/User');
+      const userDoc = await User.findOne({ email: req.user.email });
+      if (userDoc) {
+        query = {
+          $or: [
+            { user: userId },
+            { user: userDoc._id }
+          ]
+        };
+      }
+    }
+
+    const bookings = await Booking.find(query)
       .populate('asset', 'assetName category location image')
       .populate({ path: 'room', populate: { path: 'building', select: 'name code category' } })
       .sort({ createdAt: -1 });
